@@ -3,10 +3,10 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors');
 
-const userRoutes = require('./server/routes/users')
-const mushroomRoutes = require('./server/routes/mushrooms')
+const userRoutes = require('./routes/users')
+const projectRoutes = require('./routes/projects')
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 3306
 
 const app = express();
 app.use(bodyParser.json())
@@ -16,7 +16,7 @@ app.get('/home', (req, res ) => {res.send("Backend says Welcome Home!")})
 
 // use the /api prefix to divert requests for data from request for pages
 app.use('/api', userRoutes)
-app.use('/api', mushroomRoutes)
+app.use('/api', projectRoutes)
 
 // ! You MUST create a .env file
 // ! You MUST create an app.yaml file to host on GoogleCloud App Engine

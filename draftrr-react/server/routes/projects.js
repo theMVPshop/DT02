@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
-const mushroomController = require('../controllers/mushrooms.js')
+const projectController = require('../controllers/projects.js')
 // Create, Read, Update, Delete 311-2
 
-router.post('/mushrooms', mushroomController.createMushroom)
-router.get('/mushrooms', mushroomController.listMushrooms)
+router.post('/projects', projectController.createProject)
+router.get('/projects', projectController.listProjects)
 // get one user
 // put(update) user
 // post(delete) user

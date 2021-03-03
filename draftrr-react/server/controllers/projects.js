@@ -4,9 +4,9 @@ const { handleSQLError } = require('../sql/error')
 
 //controllers/mushrooms.js
 
-const createMushroom = (req, res) => {
+const createProject = (req, res) => {
 
-  let sql = "INSERT INTO mushrooms (genus, species, nickname, habitat, sporeColor, userID) VALUES (?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Projects (genus, species, nickname, habitat, sporeColor, userID) VALUES (?, ?, ?, ?, ?, ?);"
 
   sql = mysql.format(sql, [req.body.genus, req.body.species, req.body.nickname, req.body.habitat, req.body.sporeColor, req.body.userID])
   
@@ -14,12 +14,12 @@ const createMushroom = (req, res) => {
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
-    return res.json({ message: "New Mushroom Posted!", newId: results.insertId });
+    return res.json({ message: "New Project Posted!", newId: results.insertId });
   })
 }
 
-const listMushrooms = (req, res) => {
-  pool.query('SELECT * FROM mushrooms', (err, rows) => {
+const listProjects = (req, res) => {
+  pool.query('SELECT * FROM Projects', (err, rows) => {
     if (err) {
       console.log({ 'message': 'Error occurred: ' + err })
       return handleSQLError(res, err)
@@ -28,16 +28,16 @@ const listMushrooms = (req, res) => {
   });
 }
 
-const getMushroom = (req, res) => {}
+const getProject = (req, res) => {}
 
-const updateMushroom = (req, res) => {}
+const updateProject = (req, res) => {}
 
-const deleteMushroom = (req, res) => {}
+const deleteProject = (req, res) => {}
 
 module.exports = { 
-  createMushroom, 
-  listMushrooms, 
-  getMushroom, 
-  updateMushroom, 
-  deleteMushroom 
+  createProject, 
+  listProjects, 
+  getProject, 
+  updateProject, 
+  deleteProject 
 }

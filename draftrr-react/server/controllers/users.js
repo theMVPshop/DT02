@@ -5,9 +5,9 @@ const { handleSQLError } = require('../sql/error')
 // Create, Read, Update, Delete 311-2
 
 const createUser = (req, res) => {
-  let sql = "INSERT INTO users (firstName, lastName, PASSWORD, email) VALUES (?, ?, ?, ?);"
+  let sql = "INSERT INTO Users (Username, Password, Email) VALUES (?, ?, ? );"
   
-  sql = mysql.format(sql, [req.body.firstName, req.body.lastName, req.body.password, req.body.email])
+  sql = mysql.format(sql, [req.body.Username, req.body.Password, req.body.Email])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
@@ -16,7 +16,7 @@ const createUser = (req, res) => {
 }
 
 const listUsers = (req, res) => {
-  pool.query('SELECT * FROM users', (err, rows) => {
+  pool.query('SELECT * FROM Users', (err, rows) => {
     if (err) {
       console.log({ 'message': 'Error occurred: ' + err })
       return handleSQLError(res, err)
