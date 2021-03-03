@@ -15,8 +15,8 @@ app.use(cors())
 app.get('/home', (req, res ) => {res.send("Backend says Welcome Home!")})
 
 // use the /api prefix to divert requests for data from request for pages
-app.use('/api', userRoutes)
-app.use('/api', projectRoutes)
+app.use('/', userRoutes)
+app.use('/', projectRoutes)
 
 // ! You MUST create a .env file
 // ! You MUST create an app.yaml file to host on GoogleCloud App Engine

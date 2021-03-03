@@ -17,6 +17,7 @@ const createUser = (req, res) => {
 
 const listUsers = (req, res) => {
   pool.query('SELECT * FROM Users', (err, rows) => {
+    console.log("querying users!")
     if (err) {
       console.log({ 'message': 'Error occurred: ' + err })
       return handleSQLError(res, err)
