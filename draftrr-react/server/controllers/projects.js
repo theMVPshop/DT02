@@ -2,15 +2,15 @@ const mysql = require('mysql')
 const pool = require('../sql/connection')
 const { handleSQLError } = require('../sql/error')
 
-//controllers/mushrooms.js
+
 
 const createProject = (req, res) => {
 
-  let sql = "INSERT INTO Projects (genus, species, nickname, habitat, sporeColor, userID) VALUES (?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, TextFilePath, Users_ID ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.genus, req.body.species, req.body.nickname, req.body.habitat, req.body.sporeColor, req.body.userID])
+  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textFilePath, req.body.userID])
   
-  console.log("hit create mushroom", sql)
+  console.log("hit create project", sql)
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
