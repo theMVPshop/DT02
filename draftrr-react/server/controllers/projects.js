@@ -28,16 +28,59 @@ const listProjects = (req, res) => {
   });
 }
 
-const getProject = (req, res) => {}
+const getProjectByProjectId = (req, res) => {
+  let sql = "SELECT * FROM Projects WHERE idProjects = ?"
+  
+  sql = mysql.format(sql, [req.params.id])
+  console.log("querying project by project id")
+  pool.query(sql, (err, rows) => {
+    if (err) return handleSQLError(res, err)
+    return res.json(rows);
+  })
+}
 
-const updateProject = (req, res) => {}
+const updateProjectByProjectId = (req, res) => {
+  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, TextFilePath = ?, Users_ID = ? WHERE idProjects = ?;"
+  
+  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textFilePath, req.body.userID, req.params.id])
 
-const deleteProject = (req, res) => {}
+  pool.query(sql, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.status(204).json();
+  })
+
+
+}
+
+const deleteProjectByProjectId = (req, res) => {
+  let sql = "DELETE FROM Projects where idProjects = ?"
+  console.log("deleting project")
+  sql = mysql.format(sql, [req.params.id])
+
+  pool.query(sql, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.json({ message: `Deleted ${results.affectedRows} project(s)` });
+  })
+
+}
+
+const deleteProjectByUsers_ID = (req, res) => {
+  let sql = "DELETE FROM Projects where Users_ID = ?"
+  console.log("deleting projects")
+  sql = mysql.format(sql, [req.params.id])
+
+  pool.query(sql, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.json({ message: `Deleted ${results.affectedRows} project(s)` });
+  })
+
+}
 
 module.exports = { 
   createProject, 
   listProjects, 
-  getProject, 
-  updateProject, 
-  deleteProject 
+  getProjectByProjectId, 
+  updateProjectByProjectId, 
+  deleteProjectByProjectId, 
+  deleteProjectByUsers_ID
 }
