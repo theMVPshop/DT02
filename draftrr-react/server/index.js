@@ -6,13 +6,13 @@ const cors = require('cors');
 const userRoutes = require('./routes/users')
 const projectRoutes = require('./routes/projects')
 
-const port = process.env.PORT || 3306
+const port = process.env.PORT || 4000
 
 const app = express();
 app.use(bodyParser.json())
 app.use(cors())
 
-app.get('/home', (req, res ) => {res.send("Backend says Welcome Home!")})
+app.get('/home', (req, res) => { res.send("Backend says Welcome Home!") })
 
 // use the /api prefix to divert requests for data from request for pages
 app.use('/', userRoutes)
@@ -53,7 +53,7 @@ app.listen(port, () => console.log(`Server is listening on port: ${port}`))
 //       <Router />
 //     </StaticRouter>
 //   )
-  
+
 //   const html = `
 //     <html>
 //       <head></head>

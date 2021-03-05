@@ -1,9 +1,10 @@
 import './App.css';
+import { DummyLogin } from './DummyLogin'
 
 export const App = () => {
   return (
     <div>
-      <h1>Draftrr</h1>
+      <DummyLogin />
     </div>
   );
 }
