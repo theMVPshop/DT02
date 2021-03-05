@@ -1,6 +1,5 @@
 import React from 'react'
-
-const netlifyIdentity = require('netlify-identity-widget')
+import netlifyIdentity from 'netlify-identity-widget'
 
 netlifyIdentity.init();
 
