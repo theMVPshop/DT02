@@ -7,7 +7,9 @@ import "./Header.scss"
 export const Header = () => {
     return (
         <header>
-            <h1>Draftrr</h1>
+            <Link to="/">
+                <h1>Draftrr</h1>
+            </Link>
             <nav>
                 <Link to="/about">About</Link>
                 {/* <Link to="/login">Login</Link> */}
