@@ -1,2 +1,2 @@
-import { Header } from "./App";
-export default Header;
+import { Header } from "./Header.jsx"
+export default Header
