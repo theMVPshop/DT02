@@ -7,8 +7,7 @@ import "./Header.scss"
 
 export const Header = () => {
     return (
-        <header className="pt-2 d-flex justify-content-end"
- >
+        <header className="pt-2 d-flex justify-content-end">
             <Link className="container pl-3" to="/">
                 <h1>Draftrr</h1>
             </Link>
