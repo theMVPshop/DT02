@@ -14,7 +14,6 @@ export const Header = () => {
             <Nav
                 className="d-flex justify-content-end"
                 activeKey="/home"
-                onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
             >
             <Nav.Item className="px-3 mt-2">
                 {/* <Nav.Link href="/home">Active</Nav.Link> */}
@@ -23,8 +22,8 @@ export const Header = () => {
             <Nav.Item className="px-3 mt-2">
                 <Login />
             </Nav.Item>
-            <Nav.Item className="px-3 mt-2">
-                <Link to="/dashboard">Get Started</Link>
+            <Nav.Item className="px-3 mt-1">
+                <Link className="btn btn-primary rounded-6" to="/dashboard">Get Started</Link>
             </Nav.Item>
             </Nav>
             <nav>

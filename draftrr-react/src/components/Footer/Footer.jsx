@@ -6,7 +6,9 @@ export const Footer = () => {
     return (
         <footer className="flex">
             <div>© {new Date().getFullYear()} Draftrr</div>
-            <FaGithub style={{fontSize: "2em"}} />
+            <a href="https://github.com" target="_blank">
+                <FaGithub style={{fontSize: "2em"}} />
+            </a>
         </footer>
     )
 }
