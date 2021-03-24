@@ -6,9 +6,9 @@ const { handleSQLError } = require('../sql/error')
 
 const createUser = (req, res) => {
 
-  let sql = "INSERT INTO Users (Username, Email, Password, Theme, UserTimeframe, UserMaxCharacters, UserFont) VALUES (?, ?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Users (Username, Email, Password, Theme, UserTimeframe, UserMaxCharacters, UserFont, NewUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont])
+  sql = mysql.format(sql, [req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont, req.body.newUser])
 
   console.log("hit create user", sql)
 

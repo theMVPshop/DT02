@@ -2,14 +2,12 @@ const mysql = require('mysql')
 const pool = require('../sql/connection')
 const { handleSQLError } = require('../sql/error')
 
-
-
 const createProject = (req, res) => {
 
-  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, TextFilePath, Users_ID ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, Text_ID, Users_ID ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textFilePath, req.body.userID])
-  
+  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID])
+
   console.log("hit create project", sql)
 
   pool.query(sql, (err, results) => {
@@ -30,7 +28,7 @@ const listProjects = (req, res) => {
 
 const getProjectByProjectId = (req, res) => {
   let sql = "SELECT * FROM Projects WHERE idProjects = ?"
-  
+
   sql = mysql.format(sql, [req.params.id])
   console.log("querying project by project id")
   pool.query(sql, (err, rows) => {
@@ -40,9 +38,9 @@ const getProjectByProjectId = (req, res) => {
 }
 
 const updateProjectByProjectId = (req, res) => {
-  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, TextFilePath = ?, Users_ID = ? WHERE idProjects = ?;"
-  
-  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textFilePath, req.body.userID, req.params.id])
+  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Users_ID = ? WHERE idProjects = ?;"
+
+  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
@@ -76,11 +74,11 @@ const deleteProjectByUsers_ID = (req, res) => {
 
 }
 
-module.exports = { 
-  createProject, 
-  listProjects, 
-  getProjectByProjectId, 
-  updateProjectByProjectId, 
-  deleteProjectByProjectId, 
+module.exports = {
+  createProject,
+  listProjects,
+  getProjectByProjectId,
+  updateProjectByProjectId,
+  deleteProjectByProjectId,
   deleteProjectByUsers_ID
 }
