@@ -6,12 +6,6 @@ module.exports = app => {
     // Create a new Tutorial
     router.post("/create", projects.create);
 
-    // Retrieve all Tutorials
-    router.get("/", projects.findAll);
-
-    // Retrieve all published Tutorials
-    router.get("/published", projects.findAllPublished);
-
     // Retrieve a single Tutorial with id
     router.get("/:id", projects.findOne);
 
@@ -24,5 +18,5 @@ module.exports = app => {
     // Create a new Tutorial
     router.delete("/", projects.deleteAll);
 
-    app.use('/api/draftrr', router);
+    app.use('/text', router);
 };
