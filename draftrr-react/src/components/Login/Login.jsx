@@ -14,6 +14,8 @@ export const Login = () => {
     }
 
     return (
-        <button onClick={handleClick}>Login</button>
+        <a href="javascript:;">
+            <div onClick={handleClick}>Login</div>
+        </a>
     )
 }
