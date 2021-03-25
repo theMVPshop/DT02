@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     const handleGetProjects = () => {
 
-        axios.get(`http://localhost:4000/projects/user/${uid}`).then( res => setProjects({res}))
+        axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => setProjects({res}))
 
           
         console.log(projects)
