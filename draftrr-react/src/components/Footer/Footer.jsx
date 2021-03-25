@@ -4,10 +4,10 @@ import "./Footer.scss"
 
 export const Footer = () => {
     return (
-        <footer className="flex">
+        <footer className="d-flex justify-content-between align-items-center">
             <div>© {new Date().getFullYear()} Draftrr</div>
-            <a href="https://github.com" target="_blank">
-                <FaGithub style={{fontSize: "2em"}} />
+            <a href="https://github.com" target="_blank" className="text-dark">
+                <FaGithub style={{fontSize: "2.8em"}} />
             </a>
         </footer>
     )

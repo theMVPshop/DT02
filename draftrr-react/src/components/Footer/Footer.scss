@@ -1,17 +1,17 @@
 footer {
-    position: absolute;
+    position: sticky;
     width: 100%;
     bottom: 0;
     left: 0;
     background: #4F686F;
-    padding: 2em;
+    padding: 1.5em;
     color: white;
     display: flex;
     flex-direction: row;
 }
 
-.flex {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+// .flex {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+// }
