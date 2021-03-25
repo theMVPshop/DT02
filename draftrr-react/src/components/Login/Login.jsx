@@ -6,8 +6,9 @@ export const Login = () => {
 
     const handleClick = () => {
         netlifyIdentity.open()
+        
         netlifyIdentity.on("login", user => {
-            console.log(user)
+            console.log('user', user)
             console.log("email: ", user.email)
             console.log("name: ", user.user_metadata.full_name)
         })

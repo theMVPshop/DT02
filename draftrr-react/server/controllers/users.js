@@ -30,15 +30,18 @@ const listUsers = (req, res) => {
 }
 
 const getUserByID = (req, res) => {
-
-  let sql = "SELECT * FROM Users WHERE ID = ?"
-
+  console.log('response', res)
+  let sql = "SELECT * FROM Users WHERE Username = ?"
+  console.log("querying user by id", req.params.id)
   sql = mysql.format(sql, [req.params.id])
-  console.log("querying user by id")
+  console.log('sql', sql)
+  console.log("querying user by id", req.params.id)
   pool.query(sql, (err, rows) => {
-    if (err) return handleSQLError(res, err)
+    if (err) return handleSQLError(res, err) 
+    console.log(res)
     return res.json(rows);
-  })
+  } 
+  )
 }
 
 const updateUserByID = (req, res) => {

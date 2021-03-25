@@ -37,6 +37,17 @@ const getProjectByProjectId = (req, res) => {
   })
 }
 
+const getProjectByUserID = (req, res) => {
+  let sql = "SELECT * FROM Projects WHERE Users_ID = ?"
+
+  sql = mysql.format(sql, [req.params.uid])
+  console.log("querying project by user id")
+  pool.query(sql, (err, rows) => {
+    if (err) return handleSQLError(res, err)
+    return res.json(rows);
+  })
+}
+
 const updateProjectByProjectId = (req, res) => {
   let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Users_ID = ? WHERE idProjects = ?;"
 
@@ -78,6 +89,7 @@ module.exports = {
   createProject,
   listProjects,
   getProjectByProjectId,
+  getProjectByUserID,
   updateProjectByProjectId,
   deleteProjectByProjectId,
   deleteProjectByUsers_ID
