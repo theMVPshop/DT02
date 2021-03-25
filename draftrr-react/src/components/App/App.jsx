@@ -4,18 +4,18 @@ import { Router } from "../../Router.jsx"
 import Header from "../Header"
 import Footer from "../Footer"
 
-
-// import Login from "../Login"
-
 import "./App.scss"
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <Header />
-      <Router />
-      <Footer />
-      {/* <Login /> */}
+        <div className="Site">
+          <Header />
+          <div className="Site-content">
+            <Router />
+          </div>
+          <Footer />
+        </div>
     </BrowserRouter>
   )
 }
