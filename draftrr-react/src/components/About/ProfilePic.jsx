@@ -1,6 +1,6 @@
 export const ProfilePic = ({name, avatar, github, linkedin}) => {
     return (
-        <div className="d-flex flex-column align-items-center">
+        <div className="d-flex flex-column align-items-center pt-5 px-3">
             <h3>{name}</h3>
             <div className="circle"></div>
             <a href={`https://github.com/${github}`} target="_blank">GitHub</a>

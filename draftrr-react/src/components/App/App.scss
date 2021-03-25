@@ -1,5 +1,5 @@
 .body-container {
-  margin-top: 10em;
+  margin-top: 2em;
 }
 
 .App {
@@ -39,4 +39,14 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Site {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+.Site-content {
+  flex: 1;
 }
