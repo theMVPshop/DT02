@@ -16,17 +16,17 @@ const createProject = (req, res) => {
   })
 }
 
-const listProjects = (req, res) => {
-  pool.query('SELECT * FROM Projects', (err, rows) => {
-    if (err) {
-      console.log({ 'message': 'Error occurred: ' + err })
-      return handleSQLError(res, err)
-    }
-    res.json(rows)
-  });
-}
+// const listProjects = (req, res) => {
+//   pool.query('SELECT * FROM Projects', (err, rows) => {
+//     if (err) {
+//       console.log({ 'message': 'Error occurred: ' + err })
+//       return handleSQLError(res, err)
+//     }
+//     res.json(rows)
+//   });
+// }
 
-const getProjectByProjectId = (req, res) => {
+const getProjectByProjectID = (req, res) => {
   let sql = "SELECT * FROM Projects WHERE idProjects = ?"
 
   sql = mysql.format(sql, [req.params.id])
@@ -37,7 +37,18 @@ const getProjectByProjectId = (req, res) => {
   })
 }
 
-const updateProjectByProjectId = (req, res) => {
+const getProjectByUserID = (req, res) => {
+  let sql = "SELECT * FROM Projects WHERE Users_ID = ?"
+
+  sql = mysql.format(sql, [req.params.uid])
+  console.log("querying project by user id")
+  pool.query(sql, (err, rows) => {
+    if (err) return handleSQLError(res, err)
+    return res.json(rows);
+  })
+}
+
+const updateProjectByProjectID = (req, res) => {
   let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Users_ID = ? WHERE idProjects = ?;"
 
   sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.params.id])
@@ -50,7 +61,7 @@ const updateProjectByProjectId = (req, res) => {
 
 }
 
-const deleteProjectByProjectId = (req, res) => {
+const deleteProjectByProjectID = (req, res) => {
   let sql = "DELETE FROM Projects where idProjects = ?"
   console.log("deleting project")
   sql = mysql.format(sql, [req.params.id])
@@ -76,9 +87,10 @@ const deleteProjectByUsers_ID = (req, res) => {
 
 module.exports = {
   createProject,
-  listProjects,
-  getProjectByProjectId,
-  updateProjectByProjectId,
-  deleteProjectByProjectId,
+  // listProjects,
+  getProjectByProjectID,
+  getProjectByUserID,
+  updateProjectByProjectID,
+  deleteProjectByProjectID,
   deleteProjectByUsers_ID
 }
