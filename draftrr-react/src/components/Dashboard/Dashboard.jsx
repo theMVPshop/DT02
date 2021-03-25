@@ -8,11 +8,13 @@ export const Dashboard = () => {
     const [textFiles, setTextFiles] = useState()
     const [textFilePath, setTextFilePath] = useState()
 
-    const uid = 1
+    const uid = "poopoo"
+    const id = 4
+    const email = "d.schombergii@gmail.com"
 
     const handleGetUser = () => {
 
-        axios.get(`http://localhost:4000/users/${uid}`).then( res => setUser({data : res}))
+        axios.get(`http://localhost:4000/users/email/${email}`).then( res => setUser({data : res}))
 
           
         console.log(user)
