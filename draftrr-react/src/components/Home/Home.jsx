@@ -3,7 +3,7 @@ import HomeImage from '../../img/HomeImage'
 
 export const Home = () => {
     return (
-        <div className="container body-container">
+        <div className="container  body-container">
             <div className="row">
                 <div className="col-lg-6">
                     <h1 >Large text</h1>
