@@ -15,11 +15,11 @@ export const Home = () => {
                         You have one job... finish the draft.
                     </p>
                     <p>
-                        Stop listening to spellcheck. Just write.<br>
-                        Stop looking up synonyms. Just write.<br>
-                        Stop researching. Just write.<br>
-                        Stop reviewing yesterday's work. Just write.<br>
-                        Stop getting in your own way.  Just write.<br>
+                        Stop listening to spellcheck. Just write.<br />
+                        Stop looking up synonyms. Just write.<br />
+                        Stop researching. Just write.<br />
+                        Stop reviewing yesterday's work. Just write.<br />
+                        Stop getting in your own way.  Just write.<br />
                     </p>
                 </div>
                 <div className="col-lg-6">
