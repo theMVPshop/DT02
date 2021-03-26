@@ -1,4 +1,5 @@
-import {useState} from 'react'
+import {useState, useContext, useEffect} from 'react'
+import {DraftrrContext} from '../../context/DraftrrContext'
 import netlifyIdentity from "netlify-identity-widget"
 import axios from 'axios'
 
@@ -6,16 +7,29 @@ netlifyIdentity.init()
 
 export const Login = () => {
 
-    const [userID, setUserID] = useState()
+    const [isAlreadyUser, setIsAlreadyUser] = useState()
+    const {currentUser, setCurrentUser} = useContext(DraftrrContext)
 
-    const getUserByID = (id) => {
-        axios.get(`http://localhost:4000/users/${id}`).then( res => setUserID({data : res}))
+    useEffect(() => {
+        getUserByID()
+        console.log('useEffect', currentUser)
+
+
+    }, [currentUser] )
+
+    const getUserByID = (user) => {
+        console.log("function is running", currentUser)
+        axios.get(`http://localhost:4000/users/${currentUser.id}`).then( res => currentUser.id !== res.data.id ? createUser(currentUser) : null)
         
         // axios.post(`http://localhost:4000/users/`).then( res => setUserID({data : res}))
         
-        console.log('user ID', userID)
+        
+    }
 
-
+    const createUser = (user) => {
+        console.log('current user', currentUser)
+        axios.post(`http://localhost:4000/users/`, user)
+        .then( res => console.log('user created', res))
     }
 
 
@@ -23,9 +37,19 @@ export const Login = () => {
     const handleClick = () => {
         netlifyIdentity.open()
         
-        netlifyIdentity.on("login", user => {
-            console.log('user', user.id)
-            getUserByID(user.id)
+         netlifyIdentity.on("login", user => {
+            const payload = {
+                            id: user.id,
+                            name: user.user_metadata.full_name,
+                            email: user.email,
+                            theme: 'light',
+                            timeFrame: 0,
+                            maxCharacters: 0,
+                            font: '',
+                            newUser: true}
+            
+            setCurrentUser(payload)
+            console.log('after setting current user', currentUser)
             
         })
     }

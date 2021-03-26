@@ -3,16 +3,7 @@ import React, { useState, createContext, useEffect } from 'react'
 export const DraftrrContext = createContext()
 
 export function DraftrrProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState({
-        id: '',
-        name: '',
-        email: '',
-        theme: 'light',
-        timeFrame: 0,
-        maxCharacters: 0,
-        font: '',
-        newUser: true,
-    })
+    const [currentUser, setCurrentUser] = useState({})
 
     const [project, setProject] = useState({
         title: '',
