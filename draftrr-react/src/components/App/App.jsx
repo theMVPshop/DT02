@@ -6,16 +6,20 @@ import Footer from "../Footer"
 
 import "./App.scss"
 
+import { DraftrrProvider } from '../../context/DraftrrContext'
+
 export const App = () => {
   return (
-    <BrowserRouter>
-        <div className="Site">
-          <Header />
-          <div className="Site-content">
-            <Router />
+    <DraftrrProvider>
+      <BrowserRouter>
+          <div className="Site">
+            <Header />
+            <div className="Site-content">
+              <Router />
+            </div>
+            <Footer />
           </div>
-          <Footer />
-        </div>
-    </BrowserRouter>
+      </BrowserRouter>
+    </DraftrrProvider>
   )
 }

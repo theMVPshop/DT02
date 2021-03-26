@@ -8,11 +8,7 @@ const createUser = (req, res) => {
 
   let sql = "INSERT INTO Users (ID, Username, Email, Password, Theme, UserTimeframe, UserMaxCharacters, UserFont, NewUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
-<<<<<<< HEAD
   sql = mysql.format(sql, [req.body.id, req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont, req.body.newUser])
-=======
-  sql = mysql.format(sql, [req.body.ID, req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont, req.body.newUser])
->>>>>>> b28b2c935360d697ac5f1d5ec484bdb226fa9836
 
   console.log("hit create user", sql)
 
@@ -56,10 +52,10 @@ const getUserByEmail = (req, res) => {
   console.log('sql', sql)
   console.log("querying user by id", req.params.email)
   pool.query(sql, (err, rows) => {
-    if (err) return handleSQLError(res, err) 
+    if (err) return handleSQLError(res, err)
     console.log(res)
     return res.json(rows);
-  } 
+  }
   )
 }
 
