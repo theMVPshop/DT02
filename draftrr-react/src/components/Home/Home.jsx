@@ -10,8 +10,17 @@ export const Home = () => {
         <div className="mt-5 pt-5 body-container">
             <div className="row d-flex align-items-center">
                 <div className="col-lg-6 pl-5">
-                    <h1 className="text-primary">Large text</h1>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis laboriosam beatae sit dolores est quisquam dolorem temporibus doloribus? Voluptas nisi aliquam exercitationem a doloribus alias enim! Alias numquam corrupti eaque!</p>
+                    <h1 className="text-primary">Stop it!</h1>
+                    <p>
+                        You have one job... finish the draft.
+                    </p>
+                    <p>
+                        Stop listening to spellcheck. Just write.<br>
+                        Stop looking up synonyms. Just write.<br>
+                        Stop researching. Just write.<br>
+                        Stop reviewing yesterday's work. Just write.<br>
+                        Stop getting in your own way.  Just write.<br>
+                    </p>
                 </div>
                 <div className="col-lg-6">
                     <HomeImage width="500" />
