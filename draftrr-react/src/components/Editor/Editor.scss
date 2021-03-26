@@ -1,0 +1,32 @@
+.editor-container{
+    button {
+        border: none;
+        padding: 0.5em 2em;
+        border-radius: 0.3em;
+    }
+    input[type=text] {
+        border-radius: 0.3em;
+        border: solid #444 2px;
+        width: 150%;
+        text-align: center;
+        &:focus {
+            outline: none;
+        }
+    }
+}
+
+#mainTextBox {
+    font-size: 1.25em;
+    width: 100%;
+    margin: auto;
+    resize: vertical;
+    border: solid #555 2px;
+    // float: left;
+    margin-top: 1em;
+    padding: 10px;
+    min-height: 200px;
+    border-radius: 0.3em;
+    &:focus {
+        outline: none;
+    }
+}
