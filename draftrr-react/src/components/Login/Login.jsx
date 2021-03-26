@@ -10,8 +10,8 @@ export const Login = () => {
 
     const getUserByID = (id) => {
         axios.get(`http://localhost:4000/users/${id}`).then( res => setUserID({data : res}))
-
-        axios.post(`http://localhost:4000/users/`).then( res => setUserID({data : res}))
+        
+        // axios.post(`http://localhost:4000/users/`).then( res => setUserID({data : res}))
         
         console.log('user ID', userID)
 
