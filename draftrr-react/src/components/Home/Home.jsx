@@ -7,9 +7,9 @@ import "./Home.scss"
 
 export const Home = () => {
     return (
-        <div className="mt-2 pt-5 container body-container">
+        <div className="mt-5 pt-5 body-container">
             <div className="row d-flex align-items-center">
-                <div className="col-lg-6">
+                <div className="col-lg-6 pl-5">
                     <h1 className="text-primary">Large text</h1>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Corporis laboriosam beatae sit dolores est quisquam dolorem temporibus doloribus? Voluptas nisi aliquam exercitationem a doloribus alias enim! Alias numquam corrupti eaque!</p>
                 </div>
@@ -26,10 +26,13 @@ export const Home = () => {
                     </h2>
                 </div>
             </div>
-            <div className="row my-5 d-flex flex-wrap">
-                <Card />
-                <Card />
-                <Card />
+            <div className="home-bottom-content">
+                <h1 className="text-center mt-5 pt-5">What is Draftrr?</h1>
+                <div className="row my-5 d-flex flex-wrap justify-content-center">
+                    <Card />
+                    <Card />
+                    <Card />
+                </div>
             </div>
         </div>
     )
