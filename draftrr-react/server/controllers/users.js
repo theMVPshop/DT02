@@ -52,10 +52,10 @@ const getUserByEmail = (req, res) => {
   console.log('sql', sql)
   console.log("querying user by id", req.params.email)
   pool.query(sql, (err, rows) => {
-    if (err) return handleSQLError(res, err) 
+    if (err) return handleSQLError(res, err)
     console.log(res)
     return res.json(rows);
-  } 
+  }
   )
 }
 
