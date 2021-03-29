@@ -2,3 +2,18 @@
     background: #888;
     width: 100%;
 }
+
+.pathSparkle {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+}
+.diamondSt {
+    animation-name: diamondStroke;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+}
+@keyframes diamondStroke {
+    0%   { stroke-dashoffset: 1000; }
+    50%   { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 1000; }
+}
