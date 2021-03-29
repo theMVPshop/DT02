@@ -55,8 +55,8 @@ export const Dashboard = () => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log('submit project', newProject)
-        createTextFile()
+        console.log('current user', currentUser)
+        createTextFile(currentUser)
 
         // createProject(newProject)
     }

@@ -6,7 +6,7 @@ const createProject = (req, res) => {
 
   let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, Text_ID, Users_ID ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID])
+  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID])
 
   console.log("hit create project", sql)
 
@@ -51,7 +51,7 @@ const getProjectByUserID = (req, res) => {
 const updateProjectByProjectID = (req, res) => {
   let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Users_ID = ? WHERE idProjects = ?;"
 
-  sql = mysql.format(sql, [req.body.title, req.body.projectTimeframe, req.body.projectMaxCharacters, req.body.projectFont, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.params.id])
+  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)

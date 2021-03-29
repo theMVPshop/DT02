@@ -25,39 +25,33 @@ export function DraftrrProvider({ children }) {
     const createProject = (payload) => {
         
         
-        axios.post(`http://localhost:4000/projects`, payload).then(res => {console.log(res)})
-        console.log('payload', payload)
-        
-}
-
-useEffect(() => {
-    
-    console.log('useEffect', newProject)
+        axios.post(`http://localhost:4000/projects`, payload).then(res => {console.log('project created!', res)})
+    }
 
 
-}, [newProject] )
-
-
-    const createTextFile = () => {
+    const createTextFile = (user) => {
         
         const payload = {text: ''}
-        axios.post(`http://localhost:4000/text/create`, payload).then(res => {
-
-                                                                            
-                                                                            setNewProject(textID => ({
-                                                                            ...textID, 
-                                                                            [textID]: res.data.id
-                                                                            })); console.log('new project', newProject)
-                                                                        
-                                                                        })
+        axios.post(`http://localhost:4000/text/create`, payload)
+                    .then(res => {
+                        const newState = newProject
+                        newState.textID = res.data.id
+                        console.log('user id', user.id)
+                        newState.userID = user.id
+                        setNewProject(newState)
+                        console.log('new project', newProject)
+                    }).then(res => {
+                        createProject(newProject)
+                    })
         
 
     }
 
-    // const newState = [...newProject]
-    //                                                                         newProject.textID = res.data.id
-    //                                                                         setNewProject(newState)
-    //                                                                         console.log('new project', newProject)
+                      
+                                                                            // setNewProject(textID => ({
+                                                                            // ...textID, 
+                                                                            // [textID]: res.data.id
+                                                                            // })); console.log('new project', newProject)
 
     const value = {
         currentUser,
