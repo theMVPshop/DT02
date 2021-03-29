@@ -290,7 +290,7 @@ const HomeImage = ({width}) => {
                             <rect x="171.354" y="190.228" fill="#5A95B2" width="10.744" height="2.856"/>
                         </g>
                         <g>
-                            <rect class="diamondSt pathSparkle" x="142.122" y="216.234" fill="#5A95B2" width="2.856" height="10.742"/>
+                            <rect x="142.122" y="216.234" fill="#5A95B2" width="2.856" height="10.742"/>
                         </g>
                         <g>
                             
@@ -305,7 +305,7 @@ const HomeImage = ({width}) => {
                                 c-0.563,0.001-1.092,0.221-1.49,0.619C30.044,218.045,29.825,218.574,29.825,219.138L29.825,219.138z"/>
                         </g>
                     </g>
-                    <g>
+                    <g class="diamondSt pathSparkle" >
                         <g>
                             <rect x="209.211" y="86.304" fill="#5A95B2" width="2.856" height="9.567"/>
                         </g>
@@ -319,7 +319,7 @@ const HomeImage = ({width}) => {
                             <rect x="196.18" y="99.047" fill="#5A95B2" width="9.513" height="2.857"/>
                         </g>
                     </g>
-                    <g>
+                    <g class="diamondSt pathSparkle" >
                         <g>
                             <rect x="13.032" y="267.922" fill="#5A95B2" width="2.855" height="9.568"/>
                         </g>
@@ -333,7 +333,7 @@ const HomeImage = ({width}) => {
                             <rect y="280.665" fill="#5A95B2" width="9.512" height="2.858"/>
                         </g>
                     </g>
-                    <g>
+                    <g class="diamondSt pathSparkle" >
                         <g>
                             <rect x="543.486" y="106.64" fill="#5A95B2" width="2.854" height="9.567"/>
                         </g>
@@ -347,7 +347,7 @@ const HomeImage = ({width}) => {
                             <rect x="530.453" y="119.38" fill="#5A95B2" width="9.514" height="2.858"/>
                         </g>
                     </g>
-                    <g>
+                    <g class="diamondSt pathSparkle" >
                         <g>
                             
                                 <rect x="502.959" y="67.528" transform="matrix(-0.9993 -0.0384 0.0384 -0.9993 1015.5522 157.4272)" fill="#5A95B2" width="12.66" height="2.858"/>
