@@ -4,10 +4,10 @@ const Draftrr = db.draftrr;
 // Create and Save a new Project
 exports.create = (req, res) => {
     // Validate request
-    if (!req.body.text) {
-        res.status(400).send({ message: "Content can not be empty!" });
-        return;
-    }
+    // if (!req.body.text) {
+    //     res.status(400).send({ message: "Content can not be empty!" });
+    //     return;
+    // }
 
     // Create a Project
     const project = new Draftrr({
