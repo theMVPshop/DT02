@@ -81,17 +81,17 @@ export const Dashboard = () => {
             <div>
                 <form onSubmit={handleSubmit} style={{display: 'flex', flexDirection: 'column', width: '200px', justifyContent: 'center', height: '500px'}}>
                 <div style={{display: 'flex', justifyContent: 'center', marginBottom: '10px'}}>Form</div>
-                    <lable for='title'>Title: </lable>
+                    <label htmlFor='title'>Title: </label>
                     <input onChange={handleChange} type='text' name='title'/>
-                    <lable for='timeFrame'>Timeframe: </lable>
+                    <label htmlFor='timeFrame'>Timeframe: </label>
                     <input onChange={handleChange} type='number' name='timeFrame'/>
-                    <lable for='maxCharacters'>Max Characters: </lable>
+                    <label htmlFor='maxCharacters'>Max Characters: </label>
                     <input onChange={handleChange} type='number' name='maxCharacters'/>
-                    <lable  for='font'>Font: </lable>
+                    <label  htmlFor='font'>Font: </label>
                     <input onChange={handleChange} type='text' name='font'/>
-                    <lable for='trusteeName'>Trustee Name: </lable>
+                    <label htmlFor='trusteeName'>Trustee Name: </label>
                     <input onChange={handleChange} type='text' name='trusteeName'/>
-                    <lable for='trusteeEmail'>Trustee Email: </lable>
+                    <label htmlFor='trusteeEmail'>Trustee Email: </label>
                     <input onChange={handleChange} type='email' name='trusteeEmail'/>
                     <button type='submit'>Submit</button>
                 </form>
