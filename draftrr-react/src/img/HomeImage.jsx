@@ -5,27 +5,6 @@ const HomeImage = ({width}) => {
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
                     width={width} viewBox="0 0 568.941 364.768" enable-background="new 0 0 568.941 364.768"
                 >
-        <style>
-        .pathSparkle {
-            fill: #E5E4E3;
-            stroke: #CC2954;
-            stroke-width: 10px;
-            stroke-linejoin: round;
-            stroke-linecap: round;
-            stroke-dasharray: 1000;
-            stroke-dashoffset: 1000;
-        }
-        .diamondSt {
-            animation-name: diamondStroke;
-            animation-duration: 4s;
-            animation-iteration-count: infinite;
-        }
-        @keyframes diamondStroke {
-            0%   { stroke-dashoffset: 1000; }
-            50%   { stroke-dashoffset: 0; }
-            100% { stroke-dashoffset: 1000; }
-        }
-    </style>
                 <g>
                     <g>
                         <g opacity="0.6">
