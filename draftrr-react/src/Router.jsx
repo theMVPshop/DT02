@@ -5,7 +5,7 @@ import Dashboard from "./components/Dashboard"
 import {Dashboard2} from "./components/Dashboard/Dashboard2.jsx"
 import Editor from "./components/Editor"
 import Settings from "./components/Settings"
-import Form from "./components/Editor/Form"
+import {Form} from "./components/Editor/Form"
 
 export const Router = () => {
     return (
