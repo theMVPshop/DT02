@@ -3,32 +3,87 @@ import { useState, useEffect, useRef } from "react"
 import "./Editor.scss"
 
 export const Editor = () => {
-    const [value, setValue] = useState("")
+    const [value, setValue] = useState([])
+    const [locked, setLocked] = useState("")
     const [letters, setLetters ] = useState([])
     const [charLimit, setCharLimit] = useState(3)
+    // number of seconds before the text
+    const [ time, setTime ] = useState(5)
     
-    useEffect(()=> {
-        let newValue
-        if (value.length > 0) {
-        newValue = value.split('')
-        setLetters(newValue)
-        }
-    }, [value])
+    // useEffect(()=> {
+    //     let newValue
+    //     if (value.length > 0) {
+    //     newValue = value.split('')
+    //     setLetters(newValue)
+    //     }
+    // }, [value])
     
-    useEffect(()=> {
-        if (letters.length > charLimit) {
-        const newLetters = letters
-        newLetters.shift()
-        setLetters(newLetters)
-        setValue(newLetters.join(""))
-        }
-    }, [letters])
+    // useEffect(()=> {
+    //     if (letters.length > charLimit) {
+    //     const newLetters = letters
+    //     newLetters.shift()
+    //     setLetters(newLetters)
+    //     setValue(newLetters.join(""))
+    //     }
+    // }, [letters])
 
     const inputRef = useRef(null)
 
     useEffect(() => {
         inputRef.current.focus()
     }, [inputRef])
+
+    
+    let current = [...value]
+
+    const handleKeyDown = (event) => {
+        console.log(current)
+
+        let keycode = event.charCode || event.keyCode;
+        
+        // stop certain keys from being pressed.
+        if (keycode  > 36 && keycode < 41 || keycode == 46) { //Enter key's keycode
+            return false
+        }
+        
+        // 'backspace key deletes last char'
+        if (keycode == 8) {
+            current.pop()
+            setValue(current)
+            // update()
+            // return false
+        } else if (keycode !== 16) { // add typed key to array
+            current.push([event.key, Date.now()])
+            setValue(current)
+            // update()
+            // return false
+        }
+        if ( event.which == 13 ) {
+            event.preventDefault()
+        }
+
+
+        // const newValue = value
+        // const input = e.key
+        // const updateValue = newValue.concat(input)
+        // setValue(updateValue)
+    }
+
+    useEffect(() => {
+        const newValue = [...value]
+        newValue.forEach((item, index) => {
+            if (item[1] < Date.now() - (time * 1000)) {
+                // $('#mainTextBox span').append(item[0]);
+                const newLocked = locked
+                const updateLocked = newLocked.concat(item[0])
+                setLocked(updateLocked)
+    
+            } 
+            })
+    }, [value])
+
+
+    
 
     return (
         <div className="body-container editor-container p-5">
@@ -43,12 +98,15 @@ export const Editor = () => {
                     <button>Submit</button>
                 </div>
             </div>
-            <div name="mainTextBox" id="mainTextBox" dangerouslySetInnerHTML={value.value} onChange={(e)=>setValue(e.target.value)} ref={inputRef} contentEditable="true">
-                {/* <span id="locked"></span> */}
+            <div name="mainTextBox" id="mainTextBox" onKeyDown={handleKeyDown}  ref={inputRef} contentEditable="true">
+                <span>{locked}</span>
+                {/* {value} */}
             </div>
             <textarea value={value} onChange={(e)=>setValue(e.target.value)}>
                 <span></span>
             </textarea>
+            <div>{value}</div>
+            {/* <button onClick={()=>console.log(current)}>current</button> */}
         </div>
     )
 }
