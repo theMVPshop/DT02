@@ -1,25 +1,25 @@
-import React, { useState, createContext, useEffect } from 'react'
-import axios from 'axios'
+import React, { useState, createContext, useEffect } from "react"
+import axios from "axios"
 
 export const DraftrrContext = createContext()
 
 export function DraftrrProvider({ children }) {
-    const [currentUser, setCurrentUser] = useState({})
-    const [currentProject, setCurrentProject] = useState({})
-    const [currentTextFile, setCurrentTextFile] = useState({})
+    const [ currentUser, setCurrentUser ] = useState({})
+    const [ currentProject, setCurrentProject ] = useState({})
+    const [ currentTextFile, setCurrentTextFile ] = useState({})
 
-    const [userProjects, setUserProjects] = useState([])
+    const [ userProjects, setUserProjects ] = useState([])
     // const [userTextFiles, setUserTextFiles] = useState([])
-    const [newProject, setNewProject] = useState({
-                    title: '',
-                    timeFrame: 0,
-                    maxCharacters: 0,
-                    font: '',
-                    trusteeName: '',
-                    trusteeEmail: '',
-                    textID: '',
-                    userID: ''
-})
+    const [ newProject, setNewProject ] = useState({
+        title: '',
+        timeFrame: 20,
+        maxCharacters: 500,
+        font: '',
+        trusteeName: '',
+        trusteeEmail: '',
+        textID: '',
+        userID: ''
+    })
 
 
     const createProject = (payload) => {
@@ -47,11 +47,10 @@ export function DraftrrProvider({ children }) {
 
     }
 
-                      
-                                                                            // setNewProject(textID => ({
-                                                                            // ...textID, 
-                                                                            // [textID]: res.data.id
-                                                                            // })); console.log('new project', newProject)
+    // setNewProject(textID => ({
+    // ...textID, 
+    // [textID]: res.data.id
+    // })); console.log('new project', newProject)
 
     const value = {
         currentUser,
