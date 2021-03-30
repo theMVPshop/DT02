@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard"
 import {Dashboard2} from "./components/Dashboard/Dashboard2.jsx"
 import Editor from "./components/Editor"
 import Settings from "./components/Settings"
+import Form from "./components/Editor/Form"
 
 export const Router = () => {
     return (
@@ -15,6 +16,7 @@ export const Router = () => {
             <Route path="/dashboard2" component={Dashboard2} />
             <Route path="/editor" component={Editor} />
             <Route path="/settings" component={Settings} />
+            <Route path="/form" component={Form} />
         </Switch>
     )
 }

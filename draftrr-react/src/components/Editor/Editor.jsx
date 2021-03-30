@@ -10,12 +10,14 @@ export const Editor = () => {
 
 
     const [ value, setValue ] = useState([])
-    const [ editable, setEditable ] = useState("")
-    const [ locked, setLocked ] = useState("")
+    const [ editable, setEditable ] = useState([])
+    const [ locked, setLocked ] = useState([])
+    const [ time, setTime ] = useState(5)
+
+
     const [ letters, setLetters ] = useState([])
     const [ charLimit, setCharLimit ] = useState(3)
     // number of seconds before the text
-    const [ time, setTime ] = useState(5)
 
 
     const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
@@ -38,42 +40,27 @@ export const Editor = () => {
     //     }
     // }, [letters])
 
-    const inputRef = useRef(null)
+    // const inputRef = useRef(null)
+
+    // useEffect(() => {
+    //     if(!newDraft){
+    //         inputRef.current.focus()
+    //     }
+    // }, [inputRef, newDraft])
 
     useEffect(() => {
-        if(!newDraft){
-            inputRef.current.focus()
-        }
-    }, [inputRef, newDraft])
+        window.addEventListener("keydown", handleKeyDown)
+    }, [editable])
 
-    useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown);
-    })
+    let current = [...editable]
 
-    let current = [...value]
-
-    const handleKeyDown = (event) => {
+    const handleKeyDown = (e) => {
         // console.log(current)
 
-        let keycode = event.charCode || event.keyCode;
+        const keycode = e.charCode || e.keyCode
         
         // stop certain keys from being pressed.
-        if (keycode  > 36 && keycode < 41 || 
-            keycode == 46 ||
-            keycode == 91 || 
-            keycode == 17 || 
-            keycode == 18 || 
-            // keycode == 38 || 
-            // keycode == 37 || 
-            // keycode == 39 || 
-            // keycode == 40 || 
-            keycode == 93 || 
-            keycode == 27 || 
-            keycode == 9 || 
-            keycode == 20 || 
-            keycode == 13
-            
-            ) { 
+        if (keycode  > 36 && keycode < 41 ) { 
             //Enter key's keycode
             return false
         }
@@ -81,41 +68,70 @@ export const Editor = () => {
         // 'backspace key deletes last char'
         if (keycode == 8) {
             current.pop()
-            setValue(current)
+            // setValue(current)
+            setEditable(current)
             // update()
-            return false
-        } else if (keycode !== 16 ) { 
+            // return false
+        } else if (
+            keycode !== 16 && 
+            keycode !== 91 &&
+            keycode !== 46 && 
+            keycode !== 17 && 
+            keycode !== 18 && 
+            keycode !== 38 && 
+            keycode !== 37 && 
+            keycode !== 39 && 
+            keycode !== 40 && 
+            keycode !== 93 &&
+            keycode !== 27 &&
+            keycode !== 9 &&
+            keycode !== 20 &&
+            keycode !== 13
+            ) { 
             // add typed key to array
-            current.push([event.key, Date.now()])
-            setValue(current)
+            current.push([e.key, Date.now()])
+            // setValue(current)
+            setEditable(current)
             // update()
-            return false
+            // return false
         }
-        if ( event.which == 13 ) {
-            event.preventDefault()
+        if ( e.which == 13 ) {
+            e.preventDefault()
         }
     }
 
     useEffect(() => {
-        const newValue = [...value]
-        console.log("newvalue: ", newValue)
-        newValue.forEach((item, index) => {
+        // console.log("newvalue: ", newValue)
+        // let newChar
+        editable.forEach((item, index) => {
+            console.log(editable)
             if (item[1] < Date.now() - (time * 1000)) {
-                // $('#mainTextBox span').append(item[0]);
-                const newLocked = locked
-                const updateLocked = newLocked.concat(item[0])
-                console.log("locked: ",updateLocked)
+                
+                const newEditable = [...editable]
+                const newLocked = [...locked]
+                const removed = newEditable.splice(index, 1)
+                console.log("newEditable", newEditable)
+                newLocked.push(removed)
+                setLocked(newLocked)
 
-                setLocked(updateLocked)
+                // console.log("locked")
+                // $('#mainTextBox span').append(item[0]);
+                // const newLocked = locked
+                // const updateLocked = newLocked.concat(item[0])
+                // console.log("locked: ", item[0])
+
+                // setLocked(updateLocked)
     
             } else {
                 // const newEditable = editable
-                const updateEditable = editable.concat(item[0])
-                console.log("editable: ", updateEditable)
-                setEditable(updateEditable)
+                console.log("editable", editable)
+                const letter = item[0]
+                // const newString = `${editable}${newChar}`
+                // console.log("editable: ", letter)
+                // setEditable(updateEditable)
             }
         })
-    }, [value])
+    }, [editable])
 
 
     
@@ -137,17 +153,18 @@ export const Editor = () => {
                             <button className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
-                    <div id="mainTextBox" onKeyDown={handleKeyDown} ref={inputRef}>
-                        <span>{locked}</span>
-                        <span>{editable}</span>
+                    <div id="mainTextBox">
+                        {/* <span>{locked}</span> */}
+                        {/* <span>{editable}</span> */}
+                        {/* <span className="flashing">|</span> */}
                         {/* {value} */}
                     </div>
 
 
 
-                    <textarea value={value} onChange={(e)=>setValue(e.target.value)}>
+                    {/* <textarea value={value} onChange={(e)=>setValue(e.target.value)}>
                         <span></span>
-                    </textarea>
+                    </textarea> */}
                     <div>{value}</div>
                     {/* <button onClick={()=>console.log(current)}>current</button> */}
                 </>
