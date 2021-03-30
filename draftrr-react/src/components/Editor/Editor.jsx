@@ -52,7 +52,7 @@ export const Editor = () => {
             setValue(current)
             // update()
             // return false
-        } else if (keycode !== 16) { // add typed key to array
+        } else if (keycode !== 16 && keycode !== 91 && keycode !== 17 && keycode !== 18 && keycode !== 38 && keycode !== 37 && keycode !== 39 && keycode !== 40 && keycode !== 93 && keycode !== 27 && keycode !== 9 && keycode !== 20 && keycode !== 13) { // add typed key to array
             current.push([event.key, Date.now()])
             setValue(current)
             // update()
@@ -61,12 +61,6 @@ export const Editor = () => {
         if ( event.which == 13 ) {
             event.preventDefault()
         }
-
-
-        // const newValue = value
-        // const input = e.key
-        // const updateValue = newValue.concat(input)
-        // setValue(updateValue)
     }
 
     useEffect(() => {
@@ -95,7 +89,7 @@ export const Editor = () => {
                 </div>
                 <div>
                     <button className="mr-2">Save For Later</button>
-                    <button>Submit</button>
+                    <button className="btn btn-primary rounded-6">Submit</button>
                 </div>
             </div>
             <div name="mainTextBox" id="mainTextBox" onKeyDown={handleKeyDown}  ref={inputRef} contentEditable="true">

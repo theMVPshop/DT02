@@ -6,9 +6,6 @@ import {Dashboard2} from "./components/Dashboard/Dashboard2.jsx"
 import Editor from "./components/Editor"
 import Settings from "./components/Settings"
 
-import { Logo } from "./img/Logo"
-
-
 export const Router = () => {
     return (
         <Switch>
@@ -18,7 +15,6 @@ export const Router = () => {
             <Route path="/dashboard2" component={Dashboard2} />
             <Route path="/editor" component={Editor} />
             <Route path="/settings" component={Settings} />
-            <Route path="/logo" component={Logo} />
         </Switch>
     )
 }

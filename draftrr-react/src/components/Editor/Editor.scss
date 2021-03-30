@@ -6,11 +6,12 @@
     }
     input[type=text] {
         border-radius: 0.3em;
-        border: solid #444 2px;
+        border: solid #999 2px;
         width: 150%;
         text-align: center;
         &:focus {
             outline: none;
+            border: solid #333 2px;
         }
     }
 }
@@ -20,7 +21,7 @@
     width: 100%;
     margin: auto;
     resize: vertical;
-    border: solid #555 2px;
+    border: solid #999 2px;
     // float: left;
     margin-top: 1em;
     padding: 10px;
@@ -28,6 +29,7 @@
     border-radius: 0.3em;
     &:focus {
         outline: none;
+        border: solid #333 2px;
     }
     span {
         color: red;

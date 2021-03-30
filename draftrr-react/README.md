@@ -20,57 +20,66 @@ The email is assigned to someone other than you. Only they can ‘unlock’ your
 
 Formatting and spell checking can be done in the rewrite, but you can’t get to the Final Draft until you finish the first.
 
-<!-- Icons for site -->
+# Icons for site
 
-<!-- import codes -->
+## import codes
 
-import { FaPlusCircle } from "react-icons/fa";
-import { FaUserCog } from "react-icons/fa";
-import { FaCog } from "react-icons/fa";
-import { FaPlay } from "react-icons/fa";
-import { FaFileDownload } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { FaSave } from "react-icons/fa";
-import { FaStopwatch } from "react-icons/fa";
-import { FaEyeSlash } from "react-icons/fa";
-import { FaRedo } from "react-icons/fa";
-import { ImFontSize } from "react-icons/im";
-import { CgDarkMode } from "react-icons/cg";
+* import { FaPlusCircle } from "react-icons/fa";
+* import { FaUserCog } from "react-icons/fa";
+* import { FaCog } from "react-icons/fa";
+* import { FaPlay } from "react-icons/fa";
+* import { FaFileDownload } from "react-icons/fa";
+* import { FaUser } from "react-icons/fa";
+* import { FaSave } from "react-icons/fa";
+* import { FaStopwatch } from "react-icons/fa";
+* import { FaEyeSlash } from "react-icons/fa";
+* import { FaRedo } from "react-icons/fa";
+* import { ImFontSize } from "react-icons/im";
+* import { CgDarkMode } from "react-icons/cg";
 
-<!-- icon codes -->
+## icon codes
 
-<!-- Dark Mode -->
+### Dark Mode
 <CgDarkMode />
 
-<!-- FontSize -->
+### FontSize
 <ImFontSize />
 
-<!-- New -->
+### New
 <FaPlusCircle />
 
-<!-- User Settings -->
+### User Settings
 <FaUserCog />
 
-<!-- Site Settings -->
+### Site Settings
 <FaCog />
 
-<!-- Resume -->
+### Resume
 <FaPlay />
 
-<!-- Download -->
+### Download
 <FaFileDownload />
 
-<!-- Generic User Avatar -->
+### Generic User Avatar
 <FaUser />
 
-<!-- Save -->
+### Save
 <FaSave />
 
-<!-- Timer -->
+### Timer
 <FaStopwatch />
 
-<!-- Timer -->
+### Timer
 <FaEyeSlash />
 
-<!-- Timer -->
+### Timer
 <FaRedo />
+
+## github repo 
+https://github.com/theMVPshop/DT02/tree/main/draftrr-react
+
+## figma design
+https://www.figma.com/file/fIUAuEDdo2WwLtqDuSCp6F/Draftrr-prototype?node-id=0%3A1
+
+## codepen demo
+https://codepen.io/keithakritselis/pen/dyOmoro
