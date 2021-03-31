@@ -33,7 +33,7 @@ export const Home = () => {
                     <HomeImage width="500" />
                 </div>
             </section>
-            <section className="home-bottom-content my-5 py-5">
+            <section className="home-bottom-content my-5 py-5 homeHeader">
                 <h1 className="text-center font-weight-bold mt-4">What is Draftrr?</h1>
                 <p className="text-center">Draftrr is a writing application that encourages finishing the first draft. It has a minimal interface and no formatting ability.</p>
                 <div className="row my-5 d-flex flex-wrap justify-content-center">

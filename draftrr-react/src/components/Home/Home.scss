@@ -1,47 +1,62 @@
 ul {
-    list-style-type: none;
-    padding-left: 0;
-    li {
-        font-size: 1.1em;
-    }
+  list-style-type: none;
+  padding-left: 0;
+  li {
+    font-size: 1.1em;
+  }
 }
 
 .home-bottom-content {
-    background: #888;
-    width: 100%;
+  background: radial-gradient(
+      73.86% 182.78% at 0% 0%,
+      #58a7b2 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #5895b2;
+  width: 100%;
+}
+
+.homeHeader {
+  color: #f2f4f2;
 }
 
 .pathSparkle {
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
 }
 
 .diamondSt {
-    animation-name: diamondStroke;
-    animation-duration: 4s;
-    animation-iteration-count: infinite;
+  animation-name: diamondStroke;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
 }
 
 .diamondSt2 {
-    animation-name: diamondStroke;
-    animation-duration: 3s;
-    animation-iteration-count: infinite;
+  animation-name: diamondStroke;
+  animation-duration: 3s;
+  animation-iteration-count: infinite;
 }
 
 .diamondSt3 {
-    animation-name: diamondStroke;
-    animation-duration: 3.5s;
-    animation-iteration-count: infinite;
+  animation-name: diamondStroke;
+  animation-duration: 3.5s;
+  animation-iteration-count: infinite;
 }
 
 .diamondSt4 {
-    animation-name: diamondStroke;
-    animation-duration: 5s;
-    animation-iteration-count: infinite;
+  animation-name: diamondStroke;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
 }
 
 @keyframes diamondStroke {
-    0%   { opacity: 1; }
-    50%  { opacity: 0; }
-    100% { opacity: 1; }
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
