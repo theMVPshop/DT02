@@ -22,37 +22,14 @@ export const Editor = () => {
 
     const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
 
-    
-    // useEffect(()=> {
-    //     let newValue
-    //     if (value.length > 0) {
-    //     newValue = value.split('')
-    //     setLetters(newValue)
-    //     }
-    // }, [value])
-    
-    // useEffect(()=> {
-    //     if (letters.length > charLimit) {
-    //     const newLetters = letters
-    //     newLetters.shift()
-    //     setLetters(newLetters)
-    //     setValue(newLetters.join(""))
-    //     }
-    // }, [letters])
-
-    // const inputRef = useRef(null)
-
-    // useEffect(() => {
-    //     if(!newDraft){
-    //         inputRef.current.focus()
-    //     }
-    // }, [inputRef, newDraft])
+    // window.addEventListener("keydown", handleKeyDown)
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown)
-    }, [editable])
+        handleTimeframe()
+    }, [])
 
-    let current = [...editable]
+    let current = editable
 
     const handleKeyDown = (e) => {
         // console.log(current)
@@ -88,50 +65,85 @@ export const Editor = () => {
             keycode !== 20 &&
             keycode !== 13
             ) { 
-            // add typed key to array
-            current.push([e.key, Date.now()])
+            const keyValue = {
+                            id: e.key + Date.now() + Math.floor(Math.random() * 1000),
+                            key: e.key,
+                            timestamp: Date.now()
+            }
+            current.push(keyValue)
+            // console.log('current', current)
             // setValue(current)
             setEditable(current)
+            
             // update()
             // return false
         }
         if ( e.which == 13 ) {
             e.preventDefault()
         }
+        console.log('editable', editable)
     }
 
-    useEffect(() => {
-        // console.log("newvalue: ", newValue)
-        // let newChar
-        editable.forEach((item, index) => {
-            console.log(editable)
-            if (item[1] < Date.now() - (time * 1000)) {
+    // useEffect(() => {
+    //     // console.log("newvalue: ", newValue)
+    //     // let newChar
+    //     const newEditable = [...editable]
+    //     const newLocked = [...locked]
+
+    //     newEditable.forEach((item, index) => {
+    //         console.log(editable)
+    //         if (item[1] < Date.now() - (time * 1000)) {
                 
-                const newEditable = [...editable]
-                const newLocked = [...locked]
-                const removed = newEditable.splice(index, 1)
-                console.log("newEditable", newEditable)
-                newLocked.push(removed)
-                setLocked(newLocked)
+                
+    //             const removed = newEditable.splice(index, 1)
+    //             newLocked.push(removed)
+    //             console.log('removed')
 
-                // console.log("locked")
-                // $('#mainTextBox span').append(item[0]);
-                // const newLocked = locked
-                // const updateLocked = newLocked.concat(item[0])
-                // console.log("locked: ", item[0])
-
-                // setLocked(updateLocked)
+                
     
-            } else {
-                // const newEditable = editable
-                console.log("editable", editable)
-                const letter = item[0]
-                // const newString = `${editable}${newChar}`
-                // console.log("editable: ", letter)
-                // setEditable(updateEditable)
-            }
-        })
-    }, [editable])
+    //         } else {
+    //             // const newEditable = editable
+    //             console.log("editable", editable)
+    //             const letter = item[0]
+    //         }
+    //         setEditable(newEditable)
+    //         setLocked(newLocked)
+    //     })
+    // }, [])
+    const handleTimeframe = () => {
+        setInterval(function(){ 
+            let newEditable = editable
+            let newLocked = locked
+            
+            console.log('TICKING editable', editable)
+            newEditable.forEach((item, index) => {
+                // newEditable = editable
+                // newLocked = locked
+                if (item.timestamp < Date.now() - (time * 1000)) {
+                    
+                    
+                    let removed = newEditable.splice(index, 1)
+                    newLocked.push(removed)
+                    // newEditable.splice(index, 1)
+                    console.log('removed', newEditable)
+                    setEditable(newEditable)
+                    setLocked(newLocked)
+                    console.log('locked', locked)
+                    
+                    
+                } 
+                
+                
+            })
+    
+    
+    
+    
+        }, 500);
+
+    }
+
+    
 
 
     
