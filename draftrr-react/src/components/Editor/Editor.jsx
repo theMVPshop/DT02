@@ -5,22 +5,24 @@ import { Form } from "./Form"
 
 import "./Editor.scss"
 
+let interval
+
 export const Editor = () => {
     const [ newDraft, setNewDraft ] = useState(false)
-
-
-    const [ value, setValue ] = useState([])
+    const [ document, setDocument ] = useState([])
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ time, setTime ] = useState(5)
 
-
     const [ letters, setLetters ] = useState([])
     const [ charLimit, setCharLimit ] = useState(3)
+
     // number of seconds before the text
 
-
     const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
+
+    // let interval
+    let current = editable
 
     // window.addEventListener("keydown", handleKeyDown)
 
@@ -29,11 +31,17 @@ export const Editor = () => {
         handleTimeframe()
     }, [])
 
+    useEffect(() => {
+        setDocument([...locked])
+    }, [locked])
+
+    
+
     // useEffect(() => {
     //     console.log('editable is being updated', editable)
     // }, [editable])
 
-    let current = editable
+
 
     const handleKeyDown = (e) => {
         // console.log(current)
@@ -47,10 +55,11 @@ export const Editor = () => {
         }
         
         // 'backspace key deletes last char'
-        if (keycode == 8) {
+        if (keycode === 8) {
             current.pop()
+            // doc.pop()
             // setValue(current)
-            setEditable(current)
+            setEditable([...current])
             // update()
             // return false
         } else if (
@@ -70,14 +79,14 @@ export const Editor = () => {
             keycode !== 13
             ) { 
             const keyValue = {
-                            id: e.key + Date.now() + Math.floor(Math.random() * 1000),
-                            key: e.key,
-                            timestamp: Date.now()
+                // id: e.key + Date.now() + Math.floor(Math.random() * 1000),
+                key: e.key,
+                timestamp: Date.now()
             }
             current.push(keyValue)
-            console.log('current', current)
+            // console.log('current', current)
             // setValue(current)
-            setEditable(current)
+            setEditable([...current])
             
             // update()
             // return false
@@ -85,43 +94,43 @@ export const Editor = () => {
         if ( e.which == 13 ) {
             e.preventDefault()
         }
-        console.log('editable', editable)
+        // console.log('editable', editable)
     }
 
     
-    const handleTimeframe = () => {
-        setInterval(function(){ 
-            let newEditable = editable
-            let newLocked = locked
-            
-            
-            console.log('TICKING editable', editable)
-            newEditable.forEach((item, index) => {
-                // newEditable = editable
-                // newLocked = locked
-                console.log('item', item)
-                if (item.timestamp < Date.now() - (time * 1000)) {
-                    
-                    
-                    let removed = newEditable.splice(index, 1)
-                    newLocked.push(removed)
-                    // newEditable.splice(index, 1)
-                    console.log('removed', newEditable)
-                    setEditable([...newEditable])
-                    setLocked([...newLocked])
-                    console.log('locked', locked)
-                    
-                    
-                } 
-                
-                
-            })
+
+
+    const handleTimeframe = () => {    
+        interval = setInterval(checkTimeStamps, 100)
+    }
     
-        }, 500);
+    const checkTimeStamps = () => {
+        
+
+        let newEditable = editable
+        let newLocked = locked
+        newEditable.forEach((item, index) => {
+            if (item.timestamp < Date.now() - (time * 1000)) {
+                let removed = newEditable.splice(index, 1)
+                newLocked.push(removed[0])
+                setEditable([...newEditable])
+                setLocked([...newLocked])
+            } 
+        })
+        
 
     }
 
-    
+    const combineDoc = () => {
+        clearInterval(interval)
+        console.log(interval)
+        const final = [...locked, ...editable]
+        
+        const mappedChars = final.map((char) => {
+            return char.key
+        })
+        setDocument(mappedChars.join(""))
+    }
 
 
     
@@ -133,7 +142,7 @@ export const Editor = () => {
                 : 
                 <>
                     <div className="d-flex justify-content-between align-items-end">
-                        <button>Draft Settings</button>
+                        <button onClick={combineDoc}>Draft Settings</button>
                         <div className="d-flex flex-column align-items-center">
                             <label htmlFor="draftTitle">Draft Title</label>
                             <input value={newProject.title} id="draftTitle" type="text"/>
@@ -144,27 +153,25 @@ export const Editor = () => {
                         </div>
                     </div>
                     <div id="mainTextBox">
-                        {/* <span>{locked}</span> */}
-                        {/* <span>{editable}</span> */}
-                        {/* <span className="flashing">|</span> */}
-                        {/* {value} */}
+                    
+                    
+                    
+                        <span>
+                            {locked[0] && locked.map((item) => {
+                            return <>{item.key}</>})}
+                        </span>
+                        <span>
+                            {editable[0] && editable.map((item) => {
+                            return <>{item.key}</>})}
+                        </span>
+                        
+                        <span className="flashing">|</span>
                     </div>
 
 
 
-                    {/* <textarea value={value} onChange={(e)=>setValue(e.target.value)}>
-                        <span></span>
-                    </textarea> */}'
-                    <ul>
-                        <p>editable</p>
-                        {editable[0] && editable.map((item) => {
-                        console.log('mapping editable')
-                        return <li>{item.key}</li>})}
-                    {/* <button onClick={()=>console.log(current)}>current</button> */}
-
-
-
-                    </ul>
+                    
+                    
                     
                 </>
             }
