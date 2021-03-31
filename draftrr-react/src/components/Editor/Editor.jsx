@@ -29,6 +29,10 @@ export const Editor = () => {
         handleTimeframe()
     }, [])
 
+    // useEffect(() => {
+    //     console.log('editable is being updated', editable)
+    // }, [editable])
+
     let current = editable
 
     const handleKeyDown = (e) => {
@@ -71,7 +75,7 @@ export const Editor = () => {
                             timestamp: Date.now()
             }
             current.push(keyValue)
-            // console.log('current', current)
+            console.log('current', current)
             // setValue(current)
             setEditable(current)
             
@@ -84,41 +88,18 @@ export const Editor = () => {
         console.log('editable', editable)
     }
 
-    // useEffect(() => {
-    //     // console.log("newvalue: ", newValue)
-    //     // let newChar
-    //     const newEditable = [...editable]
-    //     const newLocked = [...locked]
-
-    //     newEditable.forEach((item, index) => {
-    //         console.log(editable)
-    //         if (item[1] < Date.now() - (time * 1000)) {
-                
-                
-    //             const removed = newEditable.splice(index, 1)
-    //             newLocked.push(removed)
-    //             console.log('removed')
-
-                
     
-    //         } else {
-    //             // const newEditable = editable
-    //             console.log("editable", editable)
-    //             const letter = item[0]
-    //         }
-    //         setEditable(newEditable)
-    //         setLocked(newLocked)
-    //     })
-    // }, [])
     const handleTimeframe = () => {
         setInterval(function(){ 
             let newEditable = editable
             let newLocked = locked
             
+            
             console.log('TICKING editable', editable)
             newEditable.forEach((item, index) => {
                 // newEditable = editable
                 // newLocked = locked
+                console.log('item', item)
                 if (item.timestamp < Date.now() - (time * 1000)) {
                     
                     
@@ -126,8 +107,8 @@ export const Editor = () => {
                     newLocked.push(removed)
                     // newEditable.splice(index, 1)
                     console.log('removed', newEditable)
-                    setEditable(newEditable)
-                    setLocked(newLocked)
+                    setEditable([...newEditable])
+                    setLocked([...newLocked])
                     console.log('locked', locked)
                     
                     
@@ -135,9 +116,6 @@ export const Editor = () => {
                 
                 
             })
-    
-    
-    
     
         }, 500);
 
@@ -176,9 +154,18 @@ export const Editor = () => {
 
                     {/* <textarea value={value} onChange={(e)=>setValue(e.target.value)}>
                         <span></span>
-                    </textarea> */}
-                    <div>{editable}</div>
+                    </textarea> */}'
+                    <ul>
+                        <p>editable</p>
+                        {editable[0] && editable.map((item) => {
+                        console.log('mapping editable')
+                        return <li>{item.key}</li>})}
                     {/* <button onClick={()=>console.log(current)}>current</button> */}
+
+
+
+                    </ul>
+                    
                 </>
             }
         </div>
