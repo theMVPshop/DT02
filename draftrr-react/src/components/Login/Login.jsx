@@ -4,7 +4,7 @@ import {DraftrrContext} from '../../context/DraftrrContext'
 
 import axios from 'axios'
 
-export const LogIn = () => {
+export const Login = () => {
     // const {handleLogin} = useContext(DraftrrContext)
     const {login, credentials, handleCredentials, setLoginOpen} = useContext(DraftrrContext)
     const [error, setError] = useState('')
