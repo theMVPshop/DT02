@@ -21,7 +21,7 @@ export function DraftrrProvider({ children }) {
         title: '',
         timeFrame: 20,
         maxCharacters: 500,
-        font: '',
+        font: 'helvetica',
         trusteeName: '',
         trusteeEmail: '',
         textID: '',
@@ -150,6 +150,12 @@ export function DraftrrProvider({ children }) {
         newProject,
         setNewProject,
         createTextFile,
+        newDraft,
+        setNewDraft,
+        loading,
+        setLoading,
+        projects,
+        setProjects,
         document,
         setDocument
     }
