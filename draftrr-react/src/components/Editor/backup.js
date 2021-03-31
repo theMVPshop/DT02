@@ -26,8 +26,12 @@ export const Editor = () => {
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown)
+<<<<<<< HEAD
         handleTimeframe()
     }, [])
+=======
+    })
+>>>>>>> 86b97be5dbb708e4bc300ae4902e0e9a1f9e973e
 
     let current = editable
 
@@ -84,6 +88,7 @@ export const Editor = () => {
         console.log('editable', editable)
     }
 
+<<<<<<< HEAD
     // useEffect(() => {
     //     // console.log("newvalue: ", newValue)
     //     // let newChar
@@ -144,6 +149,99 @@ export const Editor = () => {
     }
 
     
+=======
+    // useEffect(()=> {
+        setInterval(()=> {
+            updateLocked()
+            console.log(editable)
+        }, 1000)
+    // }, [editable])
+
+    const updateLocked = () => {
+        const newEditable = editable
+        const newLocked = locked
+        // const newEditable = editable
+        // console.log(Date.now() - (time * 1000))
+        // console.log(Date.now())
+        if(editable[0]) {
+            // const firstItem = newEditable[0][1]
+            console.log(Date.now() - (time * 1000))
+            if (editable[0][1] < Date.now() - (time * 1000)) {
+                newLocked.push(newEditable[0])
+                newEditable.shift()
+                setEditable(newEditable)
+                setLocked(newLocked)
+            }
+        }
+        
+    }
+    
+    // setTimeout(()=> {
+    //     const newLocked = locked
+    //     // let removed
+    //     const newEditable = [...editable]
+    //     newEditable.forEach((item, index) => {
+    //         if (item[1] < Date.now() - (time * 1000)) {
+                
+    //             const removed = newEditable.splice(index, 1, item)
+    //             console.log(removed)
+    //             console.log("newEditable", newEditable)
+    //             newLocked.push(removed)
+                
+    //         }}) 
+    //         setEditable(newEditable)
+    //         setLocked(newLocked)
+            
+    //     }, 1000)
+    
+
+    // useEffect(() => {
+    //     // console.log("newvalue: ", newValue)
+    //     // let newChar
+    //     const newLocked = locked
+    //     // let removed
+    //     const newEditable = [...editable]
+        
+        
+    //     newEditable.forEach((item, index) => {
+    //         // console.log(editable)
+            
+            
+    //         if (item[1] < Date.now() - (time * 1000)) {
+                
+    //             // const newEditable = [...editable]
+    //             const removed = newEditable.splice(index, 1, item)
+    //             console.log(removed)
+    //             // newEditable.splice(index, 1)
+    //             console.log("newEditable", newEditable)
+    //             newLocked.push(removed)
+    //             // setLocked(newLocked)
+    //             // setEditable(newEditable)
+
+    //             // console.log("locked")
+    //             // $('#mainTextBox span').append(item[0]);
+    //             // const newLocked = locked
+    //             // const updateLocked = newLocked.concat(item[0])
+    //             // console.log("locked: ", item[0])
+
+    //             // setLocked(updateLocked)
+    
+    //         } 
+    //         else {
+    //             // const newEditable = [...editable]
+    //             // const newEditable = editable
+    //             // console.log("editable", editable)
+    //             // const letter = item[0]
+    //             // const newString = `${editable}${newChar}`
+    //             // console.log("editable: ", letter)
+    //             // setEditable(updateEditable)
+    //         }
+    //         setLocked(newLocked)
+    //         setEditable(newEditable)
+    //         // newLocked.push(removed)
+    //     })
+    // })
+>>>>>>> 86b97be5dbb708e4bc300ae4902e0e9a1f9e973e
 
 
     
