@@ -11,15 +11,15 @@ import { DraftrrProvider } from '../../context/DraftrrContext'
 export const App = () => {
   return (
     <DraftrrProvider>
-      <BrowserRouter>
-          <div className="Site">
-            <Header />
-            <div className="Site-content">
-              <Router />
+        <BrowserRouter>
+            <div className="Site">
+              <Header />
+              <div className="Site-content">
+                <Router />
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-      </BrowserRouter>
+        </BrowserRouter>
     </DraftrrProvider>
   )
 }

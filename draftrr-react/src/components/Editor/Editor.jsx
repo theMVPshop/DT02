@@ -6,9 +6,6 @@ import { Form } from "./Form"
 import "./Editor.scss"
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(false)
-
-
     const [ value, setValue ] = useState([])
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
@@ -20,7 +17,7 @@ export const Editor = () => {
     // number of seconds before the text
 
 
-    const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
+    const { createProject, createTextFile, currentUser, newProject, setNewProject, newDraft, setNewDraft } = useContext(DraftrrContext)
 
     
     // useEffect(()=> {

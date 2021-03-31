@@ -3,8 +3,8 @@ import { DraftrrContext } from "../../context/DraftrrContext"
 
 import * as FormStyles from "./Form.module.scss"
 
-export const Form = ({ setNewDraft }) => {
-    const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
+export const Form = () => {
+    const { createProject, createTextFile, currentUser, newProject, setNewProject, setNewDraft } = useContext(DraftrrContext)
     
     const handleChange = (event) => {
         setNewProject(previousValues => ({
@@ -17,9 +17,8 @@ export const Form = ({ setNewDraft }) => {
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log("current user: ", currentUser)
-        createTextFile(currentUser)
+        createTextFile()
         setNewDraft(false)
-        // createProject(newProject)
     }
 
     return (
@@ -32,8 +31,8 @@ export const Form = ({ setNewDraft }) => {
             <input value={newProject.timeFrame} onChange={handleChange} type="number" name="timeFrame" required/>
             <label htmlFor="maxCharacters">Maximum Visible Characters:</label>
             <input value={newProject.maxCharacters} onChange={handleChange} type="number" name="maxCharacters" required/>
-            {/* <label  htmlFor="font">Font:</label>
-            <input onChange={handleChange} type="text" name="font"/> */}
+            <label  htmlFor="font">Font:</label>
+            <input onChange={handleChange} type="text" name="font"/>
             <h3 className="text-center mt-3">Trustee</h3>
             <label htmlFor="trusteeName">Name:</label>
             <input value={newProject.trusteeName} onChange={handleChange} type="text" name="trusteeName" required/>
