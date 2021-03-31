@@ -79,6 +79,7 @@ export const Editor = () => {
 
     const checkMaxCharacters = () => {
         let newState = locked.concat(editable).reverse()
+        // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
         let newArray = []
 
             newState.forEach((item, index) => {
