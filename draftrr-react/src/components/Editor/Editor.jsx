@@ -9,7 +9,6 @@ let interval
 
 export const Editor = () => {
     const [ newDraft, setNewDraft ] = useState(false)
-    const [ document, setDocument ] = useState([])
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ time, setTime ] = useState(5)
@@ -17,14 +16,9 @@ export const Editor = () => {
     const [ letters, setLetters ] = useState([])
     const [ charLimit, setCharLimit ] = useState(3)
 
-    // number of seconds before the text
+    const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
 
-    const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
-
-    // let interval
     let current = editable
-
-    // window.addEventListener("keydown", handleKeyDown)
 
     useEffect(() => {
         window.addEventListener("keydown", handleKeyDown)
@@ -35,33 +29,14 @@ export const Editor = () => {
         setDocument([...locked])
     }, [locked])
 
-    
-
-    // useEffect(() => {
-    //     console.log('editable is being updated', editable)
-    // }, [editable])
-
-
-
     const handleKeyDown = (e) => {
-        // console.log(current)
-
         const keycode = e.charCode || e.keyCode
-        
-        // stop certain keys from being pressed.
         if (keycode  > 36 && keycode < 41 ) { 
-            //Enter key's keycode
             return false
         }
-        
-        // 'backspace key deletes last char'
         if (keycode === 8) {
             current.pop()
-            // doc.pop()
-            // setValue(current)
             setEditable([...current])
-            // update()
-            // return false
         } else if (
             keycode !== 16 && 
             keycode !== 91 &&
@@ -79,34 +54,20 @@ export const Editor = () => {
             keycode !== 13
             ) { 
             const keyValue = {
-                // id: e.key + Date.now() + Math.floor(Math.random() * 1000),
                 key: e.key,
                 timestamp: Date.now()
             }
             current.push(keyValue)
-            // console.log('current', current)
-            // setValue(current)
             setEditable([...current])
-            
-            // update()
-            // return false
         }
         if ( e.which == 13 ) {
             e.preventDefault()
         }
-        // console.log('editable', editable)
     }
 
-    
-
-
-    const handleTimeframe = () => {    
-        interval = setInterval(checkTimeStamps, 100)
-    }
+    const handleTimeframe = () => interval = setInterval(checkTimeStamps, 100)
     
     const checkTimeStamps = () => {
-        
-
         let newEditable = editable
         let newLocked = locked
         newEditable.forEach((item, index) => {
@@ -117,8 +78,6 @@ export const Editor = () => {
                 setLocked([...newLocked])
             } 
         })
-        
-
     }
 
     const combineDoc = () => {
@@ -132,9 +91,6 @@ export const Editor = () => {
         setDocument(mappedChars.join(""))
     }
 
-
-    
-
     return (
         <div className="body-container editor-container p-5">
             {newDraft ?
@@ -142,20 +98,17 @@ export const Editor = () => {
                 : 
                 <>
                     <div className="d-flex justify-content-between align-items-end">
-                        <button onClick={combineDoc}>Draft Settings</button>
+                        <button>Draft Settings</button>
                         <div className="d-flex flex-column align-items-center">
                             <label htmlFor="draftTitle">Draft Title</label>
                             <input value={newProject.title} id="draftTitle" type="text"/>
                         </div>
                         <div>
-                            <button className="mr-2">Save For Later</button>
-                            <button className="btn btn-primary rounded-6">Submit</button>
+                            <button onClick={combineDoc} className="mr-2">Save For Later</button>
+                            <button onClick={combineDoc} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
                     <div id="mainTextBox">
-                    
-                    
-                    
                         <span>
                             {locked[0] && locked.map((item) => {
                             return <>{item.key}</>})}
@@ -164,15 +117,8 @@ export const Editor = () => {
                             {editable[0] && editable.map((item) => {
                             return <>{item.key}</>})}
                         </span>
-                        
                         <span className="flashing">|</span>
                     </div>
-
-
-
-                    
-                    
-                    
                 </>
             }
         </div>

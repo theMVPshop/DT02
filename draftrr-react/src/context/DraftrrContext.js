@@ -7,6 +7,7 @@ export function DraftrrProvider({ children }) {
     const [ currentUser, setCurrentUser ] = useState({})
     const [ currentProject, setCurrentProject ] = useState({})
     const [ currentTextFile, setCurrentTextFile ] = useState({})
+    const [ document, setDocument ] = useState([])
 
     const [ userProjects, setUserProjects ] = useState([])
     // const [userTextFiles, setUserTextFiles] = useState([])
@@ -62,7 +63,9 @@ export function DraftrrProvider({ children }) {
         createProject,
         newProject,
         setNewProject,
-        createTextFile
+        createTextFile,
+        document,
+        setDocument
     }
 
     return (
