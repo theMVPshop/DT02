@@ -28,7 +28,7 @@ export const Editor = () => {
 
     useEffect(() => {
         initialize()
-    }, [])
+    }, [newDraft])
 
     //initial functions for when the session begins
     const initialize = () => { 
@@ -102,7 +102,7 @@ export const Editor = () => {
 
             newState.forEach((item, index) => {
                 
-                if(index < maxCharacters) {
+                if(index < newProject.maxCharacters) {
                     newArray.push(item)
                 }
     
