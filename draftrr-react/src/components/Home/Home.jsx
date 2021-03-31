@@ -1,7 +1,7 @@
 import ReactTypingEffect from 'react-typing-effect';
 
 import { Card } from "./Card.jsx"
-import HomeImage from "../../img/HomeImage"
+import { HomeImage } from "../../img/HomeImage"
 
 import "./Home.scss"
 

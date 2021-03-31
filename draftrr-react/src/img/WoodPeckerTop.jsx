@@ -1,9 +1,7 @@
-import React from 'react'
-
-const WoodPeckerTop = ({width}) => {
+export const WoodPeckerTop = ({width}) => {
     return (
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
-                width={width} viewBox="0 0 301.387 245.938" enable-background="new 0 0 301.387 245.938"
+                width={width} viewBox="0 0 301.387 245.938" enableBackground="new 0 0 301.387 245.938"
                 >
             <g>
                 <path fill="none" d="M41.867,13.07c0.006-0.001,0.012-0.002,0.018-0.003c-1.18-0.028-2.396-0.032-3.69,0.014
@@ -51,5 +49,3 @@ const WoodPeckerTop = ({width}) => {
             </svg>
     )
 }
-
-export default WoodPeckerTop

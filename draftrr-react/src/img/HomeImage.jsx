@@ -1,9 +1,7 @@
-import React from 'react'
-
-const HomeImage = ({width}) => {
+export const HomeImage = ({width}) => {
     return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 568.941 364.768" enable-background="new 0 0 568.941 364.768"
+                    width={width} viewBox="0 0 568.941 364.768" enableBackground="new 0 0 568.941 364.768"
                 >
                 <g>
                     <g>
@@ -305,7 +303,7 @@ const HomeImage = ({width}) => {
                                 c-0.563,0.001-1.092,0.221-1.49,0.619C30.044,218.045,29.825,218.574,29.825,219.138L29.825,219.138z"/>
                         </g>
                     </g>
-                    <g class="diamondSt pathSparkle" >
+                    <g className="diamondSt pathSparkle" >
                         <g>
                             <rect x="209.211" y="86.304" fill="#5A95B2" width="2.856" height="9.567"/>
                         </g>
@@ -319,7 +317,7 @@ const HomeImage = ({width}) => {
                             <rect x="196.18" y="99.047" fill="#5A95B2" width="9.513" height="2.857"/>
                         </g>
                     </g>
-                    <g class="diamondSt2 pathSparkle" >
+                    <g className="diamondSt2 pathSparkle" >
                         <g>
                             <rect x="13.032" y="267.922" fill="#5A95B2" width="2.855" height="9.568"/>
                         </g>
@@ -333,7 +331,7 @@ const HomeImage = ({width}) => {
                             <rect y="280.665" fill="#5A95B2" width="9.512" height="2.858"/>
                         </g>
                     </g>
-                    <g class="diamondSt3 pathSparkle" >
+                    <g className="diamondSt3 pathSparkle" >
                         <g>
                             <rect x="543.486" y="106.64" fill="#5A95B2" width="2.854" height="9.567"/>
                         </g>
@@ -347,7 +345,7 @@ const HomeImage = ({width}) => {
                             <rect x="530.453" y="119.38" fill="#5A95B2" width="9.514" height="2.858"/>
                         </g>
                     </g>
-                    <g class="diamondSt4 pathSparkle" >
+                    <g className="diamondSt4 pathSparkle" >
                         <g>
                             
                                 <rect x="502.959" y="67.528" transform="matrix(-0.9993 -0.0384 0.0384 -0.9993 1015.5522 157.4272)" fill="#5A95B2" width="12.66" height="2.858"/>
@@ -496,27 +494,27 @@ const HomeImage = ({width}) => {
                             h4.156V325.236z"/>
                     </g>
                     <g>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="519.003,215.919 519.761,216.885 519.761,216.539 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="519.003,215.919 519.761,216.885 519.761,216.539 
                             568.941,216.539 568.941,215.919 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="568.941,213.987 568.941,206.995 512.011,206.995 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="568.941,213.987 568.941,206.995 512.011,206.995 
                             517.63,214.167 517.63,213.987 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="568.941,218.469 521.001,218.469 527.64,226.947 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="568.941,218.469 521.001,218.469 527.64,226.947 
                             568.941,226.947 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="549.455,254.796 549.939,255.416 568.941,255.416 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="549.455,254.796 549.939,255.416 568.941,255.416 
                             568.941,254.796 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="539.304,241.837 539.789,242.457 568.941,242.457 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="539.304,241.837 539.789,242.457 568.941,242.457 
                             568.941,241.837 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="568.941,244.389 541.3,244.389 547.943,252.866 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="568.941,244.389 541.3,244.389 547.943,252.866 
                             568.941,252.866 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="568.941,257.349 551.453,257.349 558.089,265.824 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="568.941,257.349 551.453,257.349 558.089,265.824 
                             568.941,265.824 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="529.154,228.879 529.638,229.499 568.941,229.499 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="529.154,228.879 529.638,229.499 568.941,229.499 
                             568.941,228.879 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="568.941,270.308 561.601,270.308 568.24,278.784 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="568.941,270.308 561.601,270.308 568.24,278.784 
                             568.941,278.784 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="559.603,267.756 560.089,268.375 568.941,268.375 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="559.603,267.756 560.089,268.375 568.941,268.375 
                             568.941,267.756 		"/>
-                        <polygon opacity="0.3" fill="#5A95B2" enable-background="new    " points="568.941,231.429 531.152,231.429 537.792,239.906 
+                        <polygon opacity="0.3" fill="#5A95B2" enableBackground="new    " points="568.941,231.429 531.152,231.429 537.792,239.906 
                             568.941,239.906 		"/>
                         <path fill="#5A95B2" d="M557.585,327.146c-0.037,0.646-0.086,1.292-0.146,1.932h11.502v-1.932H557.585z"/>
                         <path fill="#5A95B2" d="M505.384,200.152v78.833c0.643-0.089,1.281-0.17,1.932-0.232v-76.668h61.625v-1.933H505.384z"/>

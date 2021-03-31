@@ -1,10 +1,8 @@
-import React from 'react'
-
-const Avatar = ({devName, width}) => {
-    if (devName === 'nick') {
+export const Avatar = ({ devName, width }) => {
+    if (devName === "nick") {
         return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 222 222" enable-background="new 0 0 222 222">
+                    width={width} viewBox="0 0 222 222" enableBackground="new 0 0 222 222">
                 <g>
                     <path fill="#F2F4F2" d="M73.34,156.616c-9.065-6.305-18.523-35.076-18.523-35.076c-5.134-0.172-7.882-11.43-11.43-23.647
                         s6.306-16.553,6.306-16.553s-3.941-59.118,60.694-59.118c64.635,0,59.907,59.512,59.907,59.512
@@ -112,10 +110,10 @@ const Avatar = ({devName, width}) => {
                 </g>
             </svg>
         )
-    } else if (devName === 'lane') {
+    } else if (devName === "lane") {
         return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 222 221.999" enable-background="new 0 0 222 221.999">
+                    width={width} viewBox="0 0 222 221.999" enableBackground="new 0 0 222 221.999">
                 <g>
                     <path fill="#F2F4F2" d="M157.152,26.25c0.018,2.501-0.93,4.924-1.064,7.431c-0.119,2.219-1.049,2.832-2.426,4.456
                         c0.904,1.299,2.424,2.12,3.514,3.272c1.115,1.18,1.99,2.625,2.859,3.988c2.027,3.179,4.395,6.582,5.918,10.001
@@ -215,10 +213,10 @@ const Avatar = ({devName, width}) => {
                 </g>
             </svg>
         )
-    } else if (devName === 'darryl') {
+    } else if (devName === "darryl") {
         return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 222 221.999" enable-background="new 0 0 222 221.999">
+                    width={width} viewBox="0 0 222 221.999" enableBackground="new 0 0 222 221.999">
                 <g>
                     <path fill="#F2F4F2" d="M47.602,178.476c8.245-2.464,16.862-4.92,25.341-6.296c1.264-1.993,1.478-4.312,0.656-6.48
                         c-0.707-1.863-0.926-2.9,0.026-4.758c-4.195-3.154-8.342-6.176-11.19-10.701c-1.31-2.082-2.453-5.003-3.06-7.42
@@ -354,10 +352,10 @@ const Avatar = ({devName, width}) => {
                 </g>
             </svg>
         )
-    } else if (devName === 'chris') {
+    } else if (devName === "chris") {
         return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 222 222" enable-background="new 0 0 222 222">
+                    width={width} viewBox="0 0 222 222" enableBackground="new 0 0 222 222">
                 <g>
                     <path fill="#F2F4F2" d="M53.572,173.865c6.077-1.638,12.596-3.824,18.897-4.273c1.24-0.088,2.471-0.096,3.712-0.133
                         c0.406-2.843,0.531-5.899-0.105-8.7c-0.637-2.803-0.207-5.797-1.188-8.569c-0.839-2.374-3.219-4.439-4.624-6.575
@@ -453,7 +451,7 @@ const Avatar = ({devName, width}) => {
                         c-0.191,0.126-0.35,0.252-0.5,0.37c-0.352,0.28-0.447,0.355-0.887,0.355c-0.439,0-0.534-0.075-0.886-0.355
                         c-0.148-0.118-0.308-0.244-0.497-0.37c-1.021-0.68-3.003-1.721-4.836-1.082C103.643,125.039,102.871,125.31,101.876,123.145z"/>
                     
-                        <line fill="none" stroke="#000000" stroke-width="0" stroke-linecap="round" stroke-linejoin="round" x1="118.189" y1="20.69" x2="118.189" y2="20.69"/>
+                        <line fill="none" stroke="#000000" strokeWidth="0" strokeLinecap="round" strokeLinejoin="round" x1="118.189" y1="20.69" x2="118.189" y2="20.69"/>
                     <path d="M77.777,24.84c6.816-3.947,23.399-6.729,30.813-5.924c6.931,0.752,9.541,1.751,9.599,1.774l0.004,0.001l0.371-0.928
                         l0.377-0.927c-0.072-0.028-1.217-0.479-3.957-1.009c-1.531-0.296-3.553-0.615-6.178-0.9c-7.104-0.767-24.275,1.691-32.03,6.182
                         c-7.377,4.271-10.072,8.027-10.184,8.185l1.633,1.154c0.008-0.011,0.265-0.364,0.824-0.966
@@ -482,10 +480,10 @@ const Avatar = ({devName, width}) => {
                 </g>
             </svg>
         )
-    } else if (devName === 'keith') {
+    } else if (devName === "keith") {
         return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 221.999 221.999" enable-background="new 0 0 221.999 221.999">
+                    width={width} viewBox="0 0 221.999 221.999" enableBackground="new 0 0 221.999 221.999">
                 <g>
                     <path fill="#F2F4F2" d="M194.358,173.12c3.805-5.094,7.15-10.548,9.984-16.298c1.02-2.166,1.979-4.36,2.861-6.585
                         c3.166-7.975,5.428-16.289,6.781-24.751c0.664-4.736,1.014-9.57,1.014-14.486c0-57.346-46.654-104-104-104C53.654,7,7,53.654,7,111
@@ -569,5 +567,3 @@ const Avatar = ({devName, width}) => {
         )
     }
 }
-
-export default Avatar
