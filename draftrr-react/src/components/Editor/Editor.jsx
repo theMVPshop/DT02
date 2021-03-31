@@ -24,7 +24,7 @@ export const Editor = () => {
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
-    const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
+    const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, updateTextFile} = useContext(DraftrrContext)
 
     useEffect(() => {
         initialize()
@@ -110,11 +110,6 @@ export const Editor = () => {
         newArray.reverse()
         setVisible([...newArray])
 
-
-        console.log('newArray', newArray)
-        
-        
-        
     }
 
     
@@ -138,6 +133,8 @@ export const Editor = () => {
             return char.key
         })
         setDocument(mappedChars.join(""))
+        updateTextFile(document)
+        console.log('document', document)
     }
 
     //handle update draft settings form

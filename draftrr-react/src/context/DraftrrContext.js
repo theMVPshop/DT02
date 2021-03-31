@@ -128,6 +128,15 @@ export function DraftrrProvider({ children }) {
             })
     }
 
+    const updateTextFile = (payload) => {
+        axios.put(`http://localhost:4000/text/${newProject.textID}`, payload)
+            .then(res => {
+                console.log('response', res)
+            })
+    }
+
+    
+
     const value = {
         currentUser,
         credentials,
@@ -157,7 +166,8 @@ export function DraftrrProvider({ children }) {
         projects,
         setProjects,
         document,
-        setDocument
+        setDocument,
+        updateTextFile
     }
 
     return (
