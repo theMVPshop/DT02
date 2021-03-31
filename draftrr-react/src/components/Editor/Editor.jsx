@@ -117,7 +117,6 @@ export const Editor = () => {
             ...previousValues, 
             [event.target.name]: event.target.value
         }))
-        console.log("new project", newProject)
     }
 
     return (

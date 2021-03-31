@@ -15,7 +15,6 @@ export const NewDraftForm = ({ setNewDraft }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        console.log("current user: ", currentUser)
         createTextFile(currentUser)
         setNewDraft(false)
         // createProject(newProject)
