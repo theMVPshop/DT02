@@ -18,19 +18,25 @@ export const Editor = () => {
 
     const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
 
-    let current = editable
-
     useEffect(() => {
-        window.addEventListener("keydown", handleKeyDown)
-        handleTimeframe()
+        initialize()
     }, [])
 
-    useEffect(() => {
-        setDocument([...locked])
-    }, [locked])
+
+    const initialize = () => {  window.addEventListener("keydown", handleKeyDown); interval = setInterval(checkTimeStamps, 100)} //initial functions for when the session begins
+
+    const handleSave = () => {combineDoc()} //save progress and keep working
+
+    const handleSaveAndExit = () => {clearInterval(interval); handleSave()} // clear interval, save document and exit session
+
+    const handleSubmit = () => {handleSaveAndExit()} //clear interval, save document and upload to DB
+
+    const autoSave = () => {} //possible interval for autosaving progress, still thinking on this one
 
     const handleKeyDown = (e) => {
         const keycode = e.charCode || e.keyCode
+        let current = editable
+
         if (keycode  > 36 && keycode < 41 ) { 
             return false
         }
@@ -65,7 +71,7 @@ export const Editor = () => {
         }
     }
 
-    const handleTimeframe = () => interval = setInterval(checkTimeStamps, 100)
+    
     
     const checkTimeStamps = () => {
         let newEditable = editable
@@ -81,8 +87,6 @@ export const Editor = () => {
     }
 
     const combineDoc = () => {
-        clearInterval(interval)
-        console.log(interval)
         const final = [...locked, ...editable]
         
         const mappedChars = final.map((char) => {
@@ -90,6 +94,9 @@ export const Editor = () => {
         })
         setDocument(mappedChars.join(""))
     }
+
+    
+
 
     return (
         <div className="body-container editor-container p-5">
@@ -104,8 +111,9 @@ export const Editor = () => {
                             <input value={newProject.title} id="draftTitle" type="text"/>
                         </div>
                         <div>
-                            <button onClick={combineDoc} className="mr-2">Save For Later</button>
-                            <button onClick={combineDoc} className="btn btn-primary rounded-6">Submit</button>
+                            <button onClick={handleSave} className="mr-2">Save Progress</button>
+                            <button onClick={handleSaveAndExit} className="mr-2">Save For Later</button>
+                            <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
                     <div id="mainTextBox">
