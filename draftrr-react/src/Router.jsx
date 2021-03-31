@@ -2,10 +2,10 @@ import { Switch, Route } from "react-router"
 import Home from "./components/Home"
 import About from "./components/About"
 import Dashboard from "./components/Dashboard"
-import {Dashboard2} from "./components/Dashboard/Dashboard2.jsx"
+import { Dashboard2 } from "./components/Dashboard/Dashboard2.jsx"
 import Editor from "./components/Editor"
 import Settings from "./components/Settings"
-import {Form} from "./components/Editor/Form"
+import { NewDraftForm } from "./components/Editor/NewDraftForm"
 
 export const Router = () => {
     return (
@@ -16,7 +16,7 @@ export const Router = () => {
             <Route path="/dashboard2" component={Dashboard2} />
             <Route path="/editor" component={Editor} />
             <Route path="/settings" component={Settings} />
-            <Route path="/form" component={Form} />
+            <Route path="/form" component={NewDraftForm} />
         </Switch>
     )
 }
