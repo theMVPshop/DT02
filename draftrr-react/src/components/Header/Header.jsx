@@ -1,7 +1,6 @@
 import React, {useContext} from 'react'
 import { Link, useHistory } from "react-router-dom"
 
-import Login from "../Login"
 import { Logo } from "../../img/Logo"
 import { DraftrrLogo } from "../../img/DraftrrLogo.jsx";
 
@@ -39,11 +38,15 @@ export const Header = () => {
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-3">
                     {currentUser ?
-                    <Link onClick={handleLogout}>Log Out</Link>
-                : <Link onClick={handleLoginOpen}>Log In</Link>}
+                        <Link to="/" onClick={handleLogout}>Log Out</Link> :
+                        <Link to="/" onClick={handleLoginOpen}>Log In</Link>
+                    }
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-2">
-                    <Link className="btn btn-primary rounded-6" to="/dashboard">Get Started</Link>
+                    {currentUser ?
+                    <Link className="btn btn-primary rounded-6" to="/dashboard">Get Started</Link> :
+                    <Link to="/" className="btn btn-primary rounded-6" onClick={handleLoginOpen}>Get Started</Link>
+                    }
                 </Nav.Item>
             </Nav>
             <LoginModal />
