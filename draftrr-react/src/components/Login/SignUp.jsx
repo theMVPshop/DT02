@@ -1,12 +1,14 @@
 import {useState, useContext, useEffect} from 'react'
+import { useHistory } from "react-router-dom"
 import {DraftrrContext} from '../../context/DraftrrContext'
 
 import axios from 'axios'
 
 export const SignUp = () => {
-    const { signup, updateProfile, credentials, handleCredentials, setLoginOpen, setNewUser } = useContext(DraftrrContext)
+    const { signup, updateProfile, credentials, handleCredentials, setLoginOpen, setNewUser} = useContext(DraftrrContext)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -14,7 +16,7 @@ export const SignUp = () => {
 
         if (credentials.password !==
             credentials.passwordConfirm) {
-            return setError('Passwords do not match')
+            return setError('Passwords do not match.')
         }
 
         try {
@@ -24,11 +26,12 @@ export const SignUp = () => {
                 .then(() => {
                     updateProfile(credentials.username)
                 })
+            history.push('/dashboard')
+            setLoginOpen(false)
         } catch {
             setError('Failed to create an account')
             setLoading(false)
         }
-        setLoginOpen(false)
     }
 
     return (
@@ -56,6 +59,11 @@ export const SignUp = () => {
                 </div>
 
                 <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+                {error !== '' && 
+                <div>
+                    <br/>
+                    <span style={{color: "red"}}>{`${error} `}</span>
+                </div>}
             </form>
     </div>
     )
