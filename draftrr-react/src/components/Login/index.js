@@ -1,2 +1,2 @@
-import { LogIn } from "./LogIn.jsx"
-export default LogIn
+import { Login } from "./LogIn.jsx"
+export default Login

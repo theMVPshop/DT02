@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { DraftrrContext } from '../../context/DraftrrContext'
-import {LogIn} from './LogIn'
+import {Login} from './Login'
 import {SignUp} from './SignUp'
 
 export const LoginModal = () => {
@@ -26,7 +26,7 @@ export const LoginModal = () => {
       </Modal.Header>
         <Modal.Body>
           {isLogin 
-            ? <LogIn />
+            ? <Login />
             : <SignUp /> }
         </Modal.Body>
       {isLogin 
