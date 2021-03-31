@@ -4,7 +4,7 @@ import { DraftrrContext } from "../../context/DraftrrContext"
 import * as FormStyles from "./Form.module.scss"
 
 export const NewDraftForm = ({ setNewDraft }) => {
-    const { createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
+    const { createProject, createTextFile, currentUser, newProject, setNewProject } = useContext(DraftrrContext)
     
     const handleChange = (event) => {
         setNewProject(previousValues => ({
@@ -15,9 +15,9 @@ export const NewDraftForm = ({ setNewDraft }) => {
 
     const handleSubmit = (event) => {
         event.preventDefault()
-        createTextFile(currentUser)
+        console.log("current user: ", currentUser)
+        createTextFile()
         setNewDraft(false)
-        // createProject(newProject)
     }
 
     return (
@@ -30,6 +30,7 @@ export const NewDraftForm = ({ setNewDraft }) => {
             <input value={newProject.timeFrame} onChange={handleChange} type="number" id="timeFrame" name="timeFrame" required/>
             <label htmlFor="maxCharacters">Maximum Visible Characters:</label>
             <input value={newProject.maxCharacters} onChange={handleChange} type="number" id="maxCharacters" name="maxCharacters" required/>
+
             <h3 className="text-center mt-3">Trustee</h3>
             <label htmlFor="trusteeName">Name:</label>
             <input value={newProject.trusteeName} onChange={handleChange} type="text" id="trusteeName" name="trusteeName" required/>

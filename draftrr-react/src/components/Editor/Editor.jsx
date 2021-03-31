@@ -14,12 +14,13 @@ export const Editor = () => {
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ time, setTime ] = useState(5)
+    const [maxCharacters, setMaxCharacters] = useState(30)
+    const [visible, setVisible] = useState([])
 
     const [ letters, setLetters ] = useState([])
     const [ charLimit, setCharLimit ] = useState(3)
 
     const [show, setShow] = useState(false)
-
     const handleClose = () => setShow(false)
     const handleShow = () => setShow(true)
 
@@ -27,7 +28,7 @@ export const Editor = () => {
 
     useEffect(() => {
         initialize()
-    }, [])
+    }, [newDraft])
 
     //initial functions for when the session begins
     const initialize = () => { 
@@ -62,6 +63,7 @@ export const Editor = () => {
         if (keycode === 8) {
             current.pop()
             setEditable([...current])
+            checkMaxCharacters()
         } else if (
             keycode !== 16 && 
             keycode !== 91 &&
@@ -80,22 +82,49 @@ export const Editor = () => {
             ) { 
             const keyValue = {
                 key: e.key,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                isLocked: false,
             }
             current.push(keyValue)
             setEditable([...current])
+            
+            checkMaxCharacters()
         }
         if ( e.which == 13 ) {
             e.preventDefault()
         }
     }
 
+    const checkMaxCharacters = () => {
+        let newState = locked.concat(editable).reverse()
+        // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
+        let newArray = []
+
+            newState.forEach((item, index) => {
+                
+                if(index < newProject.maxCharacters) {
+                    newArray.push(item)
+                }
+    
+            })
+        newArray.reverse()
+        setVisible([...newArray])
+
+
+        console.log('newArray', newArray)
+        
+        
+        
+    }
+
+    
     const checkTimeStamps = () => {
         let newEditable = editable
         let newLocked = locked
         newEditable.forEach((item, index) => {
             if (item.timestamp < Date.now() - (newProject.timeFrame * 1000)) {
                 let removed = newEditable.splice(index, 1)
+                removed[0].isLocked = true
                 newLocked.push(removed[0])
                 setEditable([...newEditable])
                 setLocked([...newLocked])
@@ -161,14 +190,24 @@ export const Editor = () => {
                             <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
+                    
+
                     <div id="mainTextBox">
                         <span>
-                            {locked[0] && locked.map(item => <>{item.key}</>)}
+                            
                         </span>
-                        <span>
-                            {editable[0] && editable.map(item => <>{item.key}</>)}
-                        </span>
-                        <span className="flashing">|</span>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            <span style={{display: 'flex'}}>
+                                {visible && visible.map((item, index) => {
+                                    
+                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key}</div>
+                                    
+                                })}
+                            </span>
+                            <span className="flashing">|</span>
+
+                        </div>
+                        
                     </div>
                 </>
             }

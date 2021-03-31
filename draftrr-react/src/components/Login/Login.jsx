@@ -1,62 +1,55 @@
 import {useState, useContext, useEffect} from 'react'
+import { useHistory } from "react-router-dom"
 import {DraftrrContext} from '../../context/DraftrrContext'
-import netlifyIdentity from "netlify-identity-widget"
+
 import axios from 'axios'
 
-netlifyIdentity.init()
+export const LogIn = () => {
+    // const {handleLogin} = useContext(DraftrrContext)
+    const {login, credentials, handleCredentials, setLoginOpen} = useContext(DraftrrContext)
+    const [error, setError] = useState('')
+    const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
-export const Login = () => {
+    async function handleSubmit(e) {
+        e.preventDefault()
 
-    const [isAlreadyUser, setIsAlreadyUser] = useState()
-    const {currentUser, setCurrentUser} = useContext(DraftrrContext)
-
-    useEffect(() => {
-        getUserByID()
-        console.log('useEffect', currentUser)
-
-
-    }, [currentUser] )
-
-    const getUserByID = (user) => {
-        console.log("function is running", currentUser)
-        axios.get(`http://localhost:4000/users/${currentUser.id}`).then( res => currentUser.id !== res.data.id ? createUser(currentUser) : null)
-        
-        // axios.post(`http://localhost:4000/users/`).then( res => setUserID({data : res}))
-        
-        
-    }
-
-    const createUser = (user) => {
-        console.log('current user', currentUser)
-        axios.post(`http://localhost:4000/users/`, user)
-        .then( res => console.log('user created', res))
-    }
-
-
-
-    const handleClick = () => {
-        netlifyIdentity.open()
-        
-         netlifyIdentity.on("login", user => {
-            const payload = {
-                            id: user.id,
-                            name: user.user_metadata.full_name,
-                            email: user.email,
-                            theme: 'light',
-                            timeFrame: 0,
-                            maxCharacters: 0,
-                            font: '',
-                            newUser: true}
-            
-            setCurrentUser(payload)
-            console.log('after setting current user', currentUser)
-            
-        })
+        try {
+            setError('')
+            setLoading(true)
+            await login(credentials.email, credentials.password)
+            history.push('/dashboard')
+            setLoginOpen(false)
+        } catch {
+            setError('Failed to log in.')
+            setLoading(false)
+        }
     }
 
     return (
-        <a href="javascript:;">
-            <div onClick={handleClick}>Login</div>
-        </a>
+        <div>
+            <form onSubmit={handleSubmit}>
+            <h3>Log In</h3>
+            <div className="form-group">
+                <label>Email address</label>
+                <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} />
+            </div>
+
+            <div className="form-group">
+                <label>Password</label>
+                <input type="password" className="form-control" placeholder="Enter password" name="password" onChange={handleCredentials} />
+            </div>
+
+            <button type="submit" className="btn btn-primary btn-block">Log In</button>
+            {error !== '' && 
+                <div>
+                    <br/>
+                    <span style={{color: "red"}}>{`${error} `}</span>
+                </div>}
+            <p className="forgot-password text-right">
+                Forgot <a href="#">password?</a>
+            </p>
+        </form>    
+    </div>
     )
 }
