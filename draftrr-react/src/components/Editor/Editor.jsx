@@ -12,6 +12,8 @@ export const Editor = () => {
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ time, setTime ] = useState(5)
+    const [maxCharacters, setMaxCharacters] = useState(20)
+    const [visible, setVisible] = useState([])
 
     const [ letters, setLetters ] = useState([])
     const [ charLimit, setCharLimit ] = useState(3)
@@ -61,17 +63,40 @@ export const Editor = () => {
             ) { 
             const keyValue = {
                 key: e.key,
-                timestamp: Date.now()
+                timestamp: Date.now(),
+                isLocked: false,
             }
             current.push(keyValue)
             setEditable([...current])
+            
+            checkMaxCharacters()
         }
         if ( e.which == 13 ) {
             e.preventDefault()
         }
     }
 
+    const checkMaxCharacters = () => {
+        let newState = locked.concat(editable).reverse()
+        let newArray = []
+
+            newState.forEach((item, index) => {
+                
+                if(index < maxCharacters) {
+                    newArray.push(item)
+                }
     
+            })
+        newArray.reverse()
+        setVisible([...newArray])
+
+
+        console.log('newArray', newArray)
+        
+        
+        
+    }
+
     
     const checkTimeStamps = () => {
         let newEditable = editable
@@ -79,6 +104,7 @@ export const Editor = () => {
         newEditable.forEach((item, index) => {
             if (item.timestamp < Date.now() - (time * 1000)) {
                 let removed = newEditable.splice(index, 1)
+                removed[0].isLocked = true
                 newLocked.push(removed[0])
                 setEditable([...newEditable])
                 setLocked([...newLocked])
@@ -118,14 +144,32 @@ export const Editor = () => {
                     </div>
                     <div id="mainTextBox">
                         <span>
-                            {locked[0] && locked.map((item) => {
+                            {locked && locked.map((item) => {
                             return <>{item.key}</>})}
                         </span>
                         <span>
-                            {editable[0] && editable.map((item) => {
+                            {editable && editable.map((item) => {
                             return <>{item.key}</>})}
                         </span>
                         <span className="flashing">|</span>
+                    </div>
+
+                    <div id="mainTextBox">
+                        <span>
+                            
+                        </span>
+                        <div style={{display: 'flex', alignItems: 'center'}}>
+                            <span style={{display: 'flex'}}>
+                                {visible && visible.map((item, index) => {
+                                    
+                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key}</div>
+                                    
+                                })}
+                            </span>
+                            <span className="flashing">|</span>
+
+                        </div>
+                        
                     </div>
                 </>
             }
