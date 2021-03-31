@@ -12,7 +12,7 @@ export const Editor = () => {
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ time, setTime ] = useState(5)
-    const [maxCharacters, setMaxCharacters] = useState(20)
+    const [maxCharacters, setMaxCharacters] = useState(30)
     const [visible, setVisible] = useState([])
 
     const [ letters, setLetters ] = useState([])
@@ -45,6 +45,7 @@ export const Editor = () => {
         if (keycode === 8) {
             current.pop()
             setEditable([...current])
+            checkMaxCharacters()
         } else if (
             keycode !== 16 && 
             keycode !== 91 &&
@@ -142,7 +143,7 @@ export const Editor = () => {
                             <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
-                    <div id="mainTextBox">
+                    {/* <div id="mainTextBox">
                         <span>
                             {locked && locked.map((item) => {
                             return <>{item.key}</>})}
@@ -152,7 +153,7 @@ export const Editor = () => {
                             return <>{item.key}</>})}
                         </span>
                         <span className="flashing">|</span>
-                    </div>
+                    </div> */}
 
                     <div id="mainTextBox">
                         <span>
