@@ -3,7 +3,7 @@ import { Link, useHistory } from "react-router-dom"
 
 import Login from "../Login"
 import { Logo } from "../../img/Logo"
-import DraftrrLogo from "../../img/DraftrrLogo.jsx";
+import { DraftrrLogo } from "../../img/DraftrrLogo.jsx";
 
 import { Nav } from "react-bootstrap"
 import {LoginModal} from '../Login/LoginModal'

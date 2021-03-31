@@ -1,9 +1,7 @@
-import React from 'react'
-
-const WoodpeckerSide = ({width}) => {
+export const WoodpeckerSide = ({width}) => {
     return (
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"  x="0px" y="0px"
-                width={width} viewBox="0 0 116.201 247.395" enable-background="new 0 0 116.201 247.395"
+                width={width} viewBox="0 0 116.201 247.395" enableBackground="new 0 0 116.201 247.395"
                 >
             <g>
                 <path fill="none" d="M96.302,79.888c-0.05-8.165-0.938-2.928-3.923,2.48C89.396,87.78,82.05,98.081,82.05,98.081l-0.729,10.426
@@ -58,5 +56,3 @@ const WoodpeckerSide = ({width}) => {
         </svg>
     )
 }
-
-export default WoodpeckerSide

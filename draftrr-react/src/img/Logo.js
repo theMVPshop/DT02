@@ -1,8 +1,7 @@
 export const Logo = ({width}) => {
     return (
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                width={width} viewBox="0.773 0 96.467 85.521" enable-background="new 0.773 0 96.467 85.521"
-               >
+                width={width} viewBox="0.773 0 96.467 85.521" enableBackground="new 0.773 0 96.467 85.521">
             <g>
                 <path fill="none" d="M35.094,75.436c-0.745-0.191-1.483-0.4-2.208-0.641C33.612,75.034,34.349,75.244,35.094,75.436z"/>
                 <path fill="none" d="M49.818,75.944c-0.295,0.055-0.592,0.102-0.89,0.147C49.226,76.046,49.523,75.999,49.818,75.944z"/>
