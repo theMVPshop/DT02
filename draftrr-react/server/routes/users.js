@@ -8,6 +8,7 @@ const projectController = require('../controllers/projects.js')
 router.post('/users', usersController.createUser)
 router.get('/users', usersController.listUsers)
 router.get('/users/:id', usersController.getUserByID)
+router.get('/users/email/:email', usersController.getUserByEmail)
 router.delete('/users/:id', usersController.deleteUserByID)
 router.put('users/:id', usersController.updateUserByID)
 // get one user

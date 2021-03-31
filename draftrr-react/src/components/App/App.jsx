@@ -4,18 +4,22 @@ import { Router } from "../../Router.jsx"
 import Header from "../Header"
 import Footer from "../Footer"
 
-
-// import Login from "../Login"
-
 import "./App.scss"
+
+import { DraftrrProvider } from '../../context/DraftrrContext'
 
 export const App = () => {
   return (
-    <BrowserRouter>
-      <Header />
-      <Router />
-      <Footer />
-      {/* <Login /> */}
-    </BrowserRouter>
+    <DraftrrProvider>
+        <BrowserRouter>
+            <div className="Site">
+              <Header />
+              <div className="Site-content">
+                <Router />
+              </div>
+              <Footer />
+            </div>
+        </BrowserRouter>
+    </DraftrrProvider>
   )
 }

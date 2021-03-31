@@ -1,0 +1,29 @@
+// change the theme
+$theme-colors: (
+  "primary": #5895B2,
+  "secondary": #F65100,
+//   "success": turquoise,
+//   "danger": #ff4136
+);
+
+// * {
+//   font-family: monospace;
+// }
+
+.text-primary {
+  font-weight: 800;
+}
+
+// Primary
+// Secondary
+// Success
+// Danger
+// Warning
+// Info
+// Light
+// Dark
+// Muted
+// White
+
+// Import Bootstrap and its default variables
+@import '~bootstrap/scss/bootstrap.scss';

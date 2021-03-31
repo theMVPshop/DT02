@@ -1,16 +1,14 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import { DraftrrContext } from "../../context/DraftrrContext"
 
-import Modal from "react-bootstrap/Modal"
-
-import { NewDraftForm } from "./NewDraftForm"
+import { Form } from "./Form"
 
 import "./Editor.scss"
 
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(true)
+    const [ newDraft, setNewDraft ] = useState(false)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ time, setTime ] = useState(5)
@@ -20,38 +18,22 @@ export const Editor = () => {
     const [ letters, setLetters ] = useState([])
     const [ charLimit, setCharLimit ] = useState(3)
 
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
-
     const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
 
     useEffect(() => {
         initialize()
-    }, [newDraft])
+    }, [])
 
-    //initial functions for when the session begins
-    const initialize = () => { 
-        if(!newDraft) {
-            window.addEventListener("keydown", handleKeyDown) 
-            interval = setInterval(checkTimeStamps, 100)
-        }
-    } 
-    
-    //save progress and keep working
-    const handleSave = () => {combineDoc()} 
-    
-    // clear interval, save document and exit session
-    const handleSaveAndExit = () => {
-        clearInterval(interval); 
-        handleSave()
-    } 
-    
-    //clear interval, save document and upload to DB
-    const handleSubmit = () => {handleSaveAndExit()} 
-    
-    //possible interval for autosaving progress, still thinking on this one
-    const autoSave = () => {} 
+
+    const initialize = () => {  window.addEventListener("keydown", handleKeyDown); interval = setInterval(checkTimeStamps, 100)} //initial functions for when the session begins
+
+    const handleSave = () => {combineDoc()} //save progress and keep working
+
+    const handleSaveAndExit = () => {clearInterval(interval); handleSave()} // clear interval, save document and exit session
+
+    const handleSubmit = () => {handleSaveAndExit()} //clear interval, save document and upload to DB
+
+    const autoSave = () => {} //possible interval for autosaving progress, still thinking on this one
 
     const handleKeyDown = (e) => {
         const keycode = e.charCode || e.keyCode
@@ -102,7 +84,7 @@ export const Editor = () => {
 
             newState.forEach((item, index) => {
                 
-                if(index < newProject.maxCharacters) {
+                if(index < maxCharacters) {
                     newArray.push(item)
                 }
     
@@ -122,7 +104,7 @@ export const Editor = () => {
         let newEditable = editable
         let newLocked = locked
         newEditable.forEach((item, index) => {
-            if (item.timestamp < Date.now() - (newProject.timeFrame * 1000)) {
+            if (item.timestamp < Date.now() - (time * 1000)) {
                 let removed = newEditable.splice(index, 1)
                 removed[0].isLocked = true
                 newLocked.push(removed[0])
@@ -134,55 +116,27 @@ export const Editor = () => {
 
     const combineDoc = () => {
         const final = [...locked, ...editable]
+        
         const mappedChars = final.map((char) => {
             return char.key
         })
         setDocument(mappedChars.join(""))
     }
 
-    //handle update draft settings form
-    const handleUpdate = (event) => {
-        setNewProject(previousValues => ({
-            ...previousValues, 
-            [event.target.name]: event.target.value
-        }))
-    }
+    
+
 
     return (
         <div className="body-container editor-container p-5">
             {newDraft ?
-                <NewDraftForm setNewDraft={setNewDraft}  />
+                <Form setNewDraft={setNewDraft} />
                 : 
                 <>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <button onClick={handleShow}>Draft Settings</button>
-                        <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Draft Settings</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body className="d-flex flex-column">
-                                <label htmlFor="updateTitle">Title:</label>
-                                <input value={newProject.title} onChange={handleUpdate} type="text" id="updateTitle" autoFocus required/>
-                                <label htmlFor="updateTimeFrame">Seconds Editable:</label>
-                                <input value={newProject.timeFrame} onChange={handleUpdate} type="number" id="updateTimeFrame" required/>
-                                <label htmlFor="updateMaxCharacters">Maximum Visible Characters:</label>
-                                <input value={newProject.maxCharacters} onChange={handleUpdate} type="number" id="updateMaxCharacters" required/>
-                                <label htmlFor="updateTrusteeName">Name:</label>
-                                <input value={newProject.trusteeName} onChange={handleUpdate} type="text" id="updateTrusteeName" required/>
-                                <label htmlFor="updateTrusteeEmail">Email:</label>
-                                <input value={newProject.trusteeEmail} onChange={handleUpdate} type="email" id="updateTrusteeEmail" required/>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <div className="btn btn-secondary" onClick={handleClose}>
-                                    Close
-                                </div>
-                                <div className="btn btn-primary" onClick={handleClose}>
-                                    Save Changes
-                                </div>
-                            </Modal.Footer>
-                        </Modal>               
+                    <div className="d-flex justify-content-between align-items-end">
+                        <button>Draft Settings</button>
                         <div className="d-flex flex-column align-items-center">
-                            <div className="font-weight-bold">{newProject.title}</div>
+                            <label htmlFor="draftTitle">Draft Title</label>
+                            <input value={newProject.title} id="draftTitle" type="text"/>
                         </div>
                         <div>
                             <button onClick={handleSave} className="mr-2">Save Progress</button>
@@ -190,7 +144,17 @@ export const Editor = () => {
                             <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
-                    
+                    {/* <div id="mainTextBox">
+                        <span>
+                            {locked && locked.map((item) => {
+                            return <>{item.key}</>})}
+                        </span>
+                        <span>
+                            {editable && editable.map((item) => {
+                            return <>{item.key}</>})}
+                        </span>
+                        <span className="flashing">|</span>
+                    </div> */}
 
                     <div id="mainTextBox">
                         <span>

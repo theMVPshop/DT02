@@ -6,9 +6,9 @@ const { handleSQLError } = require('../sql/error')
 
 const createUser = (req, res) => {
 
-  let sql = "INSERT INTO Users (Username, Email, Password, Theme, UserTimeframe, UserMaxCharacters, UserFont) VALUES (?, ?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Users (ID, Username, Email, Theme, UserTimeframe, UserMaxCharacters, UserFont, NewUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont])
+  sql = mysql.format(sql, [req.body.id, req.body.name, req.body.email, req.body.theme, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.newUser])
 
   console.log("hit create user", sql)
 
@@ -30,15 +30,33 @@ const listUsers = (req, res) => {
 }
 
 const getUserByID = (req, res) => {
-
+  console.log('response', res)
   let sql = "SELECT * FROM Users WHERE ID = ?"
-
+  console.log("querying user by id", req.params.id)
   sql = mysql.format(sql, [req.params.id])
-  console.log("querying user by id")
+  console.log('sql', sql)
+  console.log("querying user by id", req.params.id)
   pool.query(sql, (err, rows) => {
     if (err) return handleSQLError(res, err)
+    console.log(res)
     return res.json(rows);
-  })
+  }
+  )
+}
+
+const getUserByEmail = (req, res) => {
+  console.log('response', res)
+  let sql = "SELECT * FROM Users WHERE Email = ?"
+  console.log("querying user by id", req.params.email)
+  sql = mysql.format(sql, [req.params.email])
+  console.log('sql', sql)
+  console.log("querying user by id", req.params.email)
+  pool.query(sql, (err, rows) => {
+    if (err) return handleSQLError(res, err)
+    console.log(res)
+    return res.json(rows);
+  }
+  )
 }
 
 const updateUserByID = (req, res) => {
@@ -80,6 +98,7 @@ module.exports = {
   getUserByID,
   updateUserByID,
   deleteUserByID,
+  getUserByEmail,
 
 }
 
