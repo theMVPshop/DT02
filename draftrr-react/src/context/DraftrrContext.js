@@ -10,7 +10,7 @@ export function DraftrrProvider({ children }) {
     const [newUser, setNewUser] = useState(false)
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
-    const [document, setDocument] = useState([])
+    const [document, setDocument] = useState({text: ''})
     const [credentials, setCredentials] = useState({
         email: '',
         username: '',
@@ -102,36 +102,47 @@ export function DraftrrProvider({ children }) {
         axios.post(`http://localhost:4000/projects`, payload).then(res => { console.log('project created!', res) })
     }
 
+    useEffect(() => {
+        return newProject
+    }, [newProject])
+
+
     const createTextFile = () => {
         const payload = { text: '' }
+        
         axios.post(`http://localhost:4000/text/create`, payload)
             .then(res => {
-                console.log(currentUser)
-                const newState = newProject
+                
+                let newState = newProject
                 newState.textID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.userID = currentUser.uid
-                setNewProject(newState)
+                
                 console.log('new project', newProject)
+                
+                
             }).then(res => {
+                
                 createProject(newProject)
-                setNewProject({
-                    title: '',
-                    timeFrame: 20,
-                    maxCharacters: 500,
-                    font: '',
-                    trusteeName: '',
-                    trusteeEmail: '',
-                    textID: '',
-                    userID: ''
-                })
+                
+                // setNewProject({
+                //     title: '',
+                //     timeFrame: 20,
+                //     maxCharacters: 500,
+                //     font: '',
+                //     trusteeName: '',
+                //     trusteeEmail: '',
+                //     textID: '',
+                //     userID: ''
+                // })
             })
     }
 
     const updateTextFile = (payload) => {
+        console.log('text', newProject)
         axios.put(`http://localhost:4000/text/${newProject.textID}`, payload)
             .then(res => {
-                console.log('response', res)
+                console.log('response', res.config.data)
             })
     }
 

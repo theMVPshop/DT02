@@ -130,10 +130,13 @@ export const Editor = () => {
     const combineDoc = () => {
         const final = [...locked, ...editable]
         const mappedChars = final.map((char) => char.key)
-        setDocument(mappedChars.join(""))
-        updateTextFile(document)
+        setDocument({text: mappedChars.join("")})
         console.log('document', document)
     }
+
+    useEffect(() => {
+        updateTextFile(document)
+    }, [document])
 
     //handle update draft settings form
     const handleUpdate = (event) => {
