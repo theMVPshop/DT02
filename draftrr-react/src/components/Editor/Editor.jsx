@@ -88,14 +88,29 @@ export const Editor = () => {
     }
 
     const checkMaxCharacters = () => {
-        let newState = [...locked, ...editable]
+        let newState = locked.concat(editable).reverse()
+        // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
+        let newArray = []
 
-        newState.forEach((item, index) => {
-            if (newState.length >= newProject.maxCharacters) {
-                newState.shift()
-            }
-        })
-        setVisible([...newState])
+            newState.forEach((item, index) => {
+                
+                if(index < newProject.maxCharacters) {
+                    newArray.push(item)
+                }
+    
+            })
+        newArray.reverse()
+        setVisible([...newArray])
+
+        
+        // let newState = [...locked, ...editable]
+
+        // newState.forEach((item, index) => {
+        //     if (newState.length >= newProject.maxCharacters) {
+        //         newState.shift()
+        //     }
+        // })
+        // setVisible([...newState])
     }
     
     const checkTimeStamps = () => {
@@ -173,7 +188,28 @@ export const Editor = () => {
                         </div>
                     </div>
                     <div id="mainTextBox">
-                        <div className="d-flex flex-wrap align-items-center">
+                        {/* <div className="d-flex flex-wrap align-items-center">
+                            <span className="d-flex">
+                                {visible && visible.map((item, index) => (
+                                    <span style={item.isLocked ? {color: "red"} : null}>{item.key === " "  ? <>&nbsp;</> : item.key}</span>
+                                ))}
+                            </span>
+                            <span className="flashing ">|</span>
+                        </div> */}
+                        {/* <span>
+                            
+                            </span> */}
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <span style={{display: 'flex'}}>
+                                    {visible && visible.map((item, index) => {
+                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key}</div>
+                                    })}
+                                </span>
+                                <span className="flashing">|</span>
+                            </div>
+                            
+                            
+                        {/* <div className="d-flex flex-wrap align-items-center">
                             <span>
                                 {visible && visible.map((item, index) => <>{item.isLocked && item.key === " " ? <>&nbsp;</> : item.isLocked && item.key }</>)}
                             </span>
@@ -181,7 +217,7 @@ export const Editor = () => {
                                 {visible && visible.map((item, index) => <>{!item.isLocked && item.key === " " ? <>&nbsp;</> : !item.isLocked && item.key }</>)}
                             </span>
                             <span>|</span>
-                        </div>
+                        </div> */}
                     </div>
                 </>
             }

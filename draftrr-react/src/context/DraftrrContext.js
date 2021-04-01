@@ -20,7 +20,7 @@ export function DraftrrProvider({ children }) {
     const [newProject, setNewProject] = useState({
         title: '',
         timeFrame: 20,
-        maxCharacters: 50,
+        maxCharacters: 500,
         font: 'helvetica',
         trusteeName: '',
         trusteeEmail: '',
