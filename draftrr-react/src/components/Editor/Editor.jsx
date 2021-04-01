@@ -158,16 +158,16 @@ export const Editor = () => {
                                 <Modal.Title>Draft Settings</Modal.Title>
                             </Modal.Header>
                             <Modal.Body className="d-flex flex-column">
-                                <label htmlFor="updateTitle">Title:</label>
-                                <input value={newProject.title} onChange={handleUpdate} type="text" id="updateTitle" autoFocus required/>
-                                <label htmlFor="updateTimeFrame">Seconds Editable:</label>
-                                <input value={newProject.timeFrame} onChange={handleUpdate} type="number" id="updateTimeFrame" required/>
-                                <label htmlFor="updateMaxCharacters">Maximum Visible Characters:</label>
-                                <input value={newProject.maxCharacters} onChange={handleUpdate} type="number" id="updateMaxCharacters" required/>
-                                <label htmlFor="updateTrusteeName">Name:</label>
-                                <input value={newProject.trusteeName} onChange={handleUpdate} type="text" id="updateTrusteeName" required/>
-                                <label htmlFor="updateTrusteeEmail">Email:</label>
-                                <input value={newProject.trusteeEmail} onChange={handleUpdate} type="email" id="updateTrusteeEmail" required/>
+                                <label htmlFor="title">Title:</label>
+                                <input value={newProject.title} onChange={handleUpdate} type="text" name="title" autoFocus required/>
+                                <label htmlFor="timeFrame">Seconds Editable:</label>
+                                <input value={newProject.timeFrame} onChange={handleUpdate} type="number" name="timeFrame" required/>
+                                <label htmlFor="maxCharacters">Maximum Visible Characters:</label>
+                                <input value={newProject.maxCharacters} onChange={handleUpdate} type="number" name="maxCharacters" required/>
+                                <label htmlFor="trusteeName">Name:</label>
+                                <input value={newProject.trusteeName} onChange={handleUpdate} type="text" name="trusteeName" required/>
+                                <label htmlFor="trusteeEmail">Email:</label>
+                                <input value={newProject.trusteeEmail} onChange={handleUpdate} type="email" name="trusteeEmail" required/>
                             </Modal.Body>
                             <Modal.Footer>
                                 <div className="btn btn-secondary" onClick={handleCloseModal}>
