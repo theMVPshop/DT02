@@ -6,10 +6,14 @@ a:active {
   color: inherit;
 }
 
-a:hover {
-  font-weight: 600;
-  color: inherit;
+.about-link {
+  color: white;
+  &:hover {
+    font-weight: 600;
+    color: inherit;
+  }
 }
+
 
 .teamHeading {
   font-size: 3em;
