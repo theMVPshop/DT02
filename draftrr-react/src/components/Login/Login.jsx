@@ -32,7 +32,7 @@ export const Login = () => {
             <h3>Log In</h3>
             <div className="form-group">
                 <label>Email address</label>
-                <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} />
+                <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} autoFocus/>
             </div>
 
             <div className="form-group">
