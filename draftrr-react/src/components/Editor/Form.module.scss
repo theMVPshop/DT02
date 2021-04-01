@@ -4,8 +4,8 @@ form {
     }
     input {
         width: 3.3em;
-    &[type=text], &[type=email] {
-        width: 14em;
+    &[type=text], &[type=email] &[type=password] {
+        width: 100%;
     }
     }
 }
