@@ -9,7 +9,7 @@ export const Home = () => {
     return (
         <div className="mt-2 pt-4 body-container">
             <div className="home-upper-content">
-                <section className="d-flex justify-content-around align-items-center pb-5">
+                <section className="d-flex flex-wrap justify-content-around align-items-center pb-5">
                     <div className="mx-5">
                         <h1 className="text-primary">Stop!</h1>
                         <p className="h4">You have one job: <strong>finish the draft.</strong></p>
