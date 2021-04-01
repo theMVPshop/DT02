@@ -44,7 +44,7 @@ export const Header = () => {
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-2">
                     {currentUser ?
-                    <Link className="btn btn-primary rounded-6" to="/dashboard">Get Started</Link> :
+                    <Link className="btn btn-primary rounded-6" to="/dashboard">Dashboard</Link> :
                     <Link to="/" className="btn btn-primary rounded-6" onClick={handleLoginOpen}>Get Started</Link>
                     }
                 </Nav.Item>

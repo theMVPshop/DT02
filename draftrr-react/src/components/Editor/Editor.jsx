@@ -10,7 +10,7 @@ import "./Editor.scss"
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(false)
+    const [ newDraft, setNewDraft ] = useState(true)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ visible, setVisible ] = useState([])
@@ -29,6 +29,13 @@ export const Editor = () => {
             interval = setInterval(checkTimeStamps, 50)
         }
     } 
+
+    useEffect(() => {
+        effect
+        return () => {
+            cleanup
+        }
+    }, [input])
     
     //save progress and keep working
     const handleSave = () => {combineDoc()} 
