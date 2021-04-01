@@ -10,7 +10,7 @@ import "./Editor.scss"
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(false)
+    const [ newDraft, setNewDraft ] = useState(true)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ visible, setVisible ] = useState([])
