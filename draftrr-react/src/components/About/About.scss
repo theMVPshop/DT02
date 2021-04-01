@@ -1,11 +1,40 @@
-.circle {
-    background: #333;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    margin: 1em;
+a,
+// a:hover,
+a:focus,
+a:active {
+  text-decoration: none;
+  color: inherit;
 }
 
-// .profile-pics {
-//     display: flex;
+.about-link {
+  color: white;
+  &:hover {
+    font-weight: 600;
+    color: inherit;
+  }
+}
+
+
+.teamHeading {
+  font-size: 3em;
+  font-weight: 800;
+  padding: 70px 0 20px;
+}
+
+.teamSection {
+  width: 100%;
+  background: radial-gradient(
+      73.86% 182.78% at 0% 0%,
+      #58a7b2 0%,
+      rgba(255, 255, 255, 0) 100%
+    ),
+    #5895b2;
+  padding-bottom: 50px;
+}
+
+// .woodpeckerOnFooter {
+//   position: relative;
+//   bottom: 0;
+
+//   left: 90%;
 // }

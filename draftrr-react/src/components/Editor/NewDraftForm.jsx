@@ -4,7 +4,7 @@ import { DraftrrContext } from "../../context/DraftrrContext"
 import * as FormStyles from "./Form.module.scss"
 
 export const NewDraftForm = ({ setNewDraft }) => {
-    const { createProject, createTextFile, currentUser, newProject, setNewProject } = useContext(DraftrrContext)
+    const { createTextFile, currentUser, newProject, setNewProject } = useContext(DraftrrContext)
     
     const handleChange = (event) => {
         setNewProject(previousValues => ({

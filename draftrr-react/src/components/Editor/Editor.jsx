@@ -10,19 +10,11 @@ import "./Editor.scss"
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(true)
+    const [ newDraft, setNewDraft ] = useState(false)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
-    const [ time, setTime ] = useState(5)
-    const [maxCharacters, setMaxCharacters] = useState(30)
-    const [visible, setVisible] = useState([])
-
-    const [ letters, setLetters ] = useState([])
-    const [ charLimit, setCharLimit ] = useState(3)
-
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    const [ visible, setVisible ] = useState([])
+    const [ showModal, setShowModal ] = useState(false)
 
     const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, updateTextFile} = useContext(DraftrrContext)
 
@@ -34,7 +26,7 @@ export const Editor = () => {
     const initialize = () => { 
         if(!newDraft) {
             window.addEventListener("keydown", handleKeyDown) 
-            interval = setInterval(checkTimeStamps, 100)
+            interval = setInterval(checkTimeStamps, 50)
         }
     } 
     
@@ -77,14 +69,14 @@ export const Editor = () => {
             keycode !== 93 &&
             keycode !== 27 &&
             keycode !== 9 &&
-            keycode !== 20 &&
-            keycode !== 13
+            keycode !== 20
             ) { 
             const keyValue = {
                 key: e.key,
                 timestamp: Date.now(),
                 isLocked: false,
             }
+            console.log('keyvalue', keyValue)
             current.push(keyValue)
             setEditable([...current])
             
@@ -110,8 +102,16 @@ export const Editor = () => {
         newArray.reverse()
         setVisible([...newArray])
 
-    }
+        
+        // let newState = [...locked, ...editable]
 
+        // newState.forEach((item, index) => {
+        //     if (newState.length >= newProject.maxCharacters) {
+        //         newState.shift()
+        //     }
+        // })
+        // setVisible([...newState])
+    }
     
     const checkTimeStamps = () => {
         let newEditable = editable
@@ -129,9 +129,7 @@ export const Editor = () => {
 
     const combineDoc = () => {
         const final = [...locked, ...editable]
-        const mappedChars = final.map((char) => {
-            return char.key
-        })
+        const mappedChars = final.map((char) => char.key)
         setDocument(mappedChars.join(""))
         updateTextFile(document)
         console.log('document', document)
@@ -145,6 +143,10 @@ export const Editor = () => {
         }))
     }
 
+    //hide/show modal
+    const handleCloseModal = () => setShowModal(false)
+    const handleShowModal = () => setShowModal(true)
+
     return (
         <div className="body-container editor-container p-5">
             {newDraft ?
@@ -152,8 +154,8 @@ export const Editor = () => {
                 : 
                 <>
                     <div className="d-flex justify-content-between align-items-center">
-                        <button onClick={handleShow}>Draft Settings</button>
-                        <Modal show={show} onHide={handleClose}>
+                        <button onClick={handleShowModal}>Draft Settings</button>
+                        <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
                             </Modal.Header>
@@ -170,10 +172,10 @@ export const Editor = () => {
                                 <input value={newProject.trusteeEmail} onChange={handleUpdate} type="email" id="updateTrusteeEmail" required/>
                             </Modal.Body>
                             <Modal.Footer>
-                                <div className="btn btn-secondary" onClick={handleClose}>
+                                <div className="btn btn-secondary" onClick={handleCloseModal}>
                                     Close
                                 </div>
-                                <div className="btn btn-primary" onClick={handleClose}>
+                                <div className="btn btn-primary" onClick={handleCloseModal}>
                                     Save Changes
                                 </div>
                             </Modal.Footer>
@@ -187,24 +189,15 @@ export const Editor = () => {
                             <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
-                    
-
                     <div id="mainTextBox">
-                        <span>
-                            
-                        </span>
-                        <div style={{display: 'flex', alignItems: 'center'}}>
-                            <span style={{display: 'flex'}}>
-                                {visible && visible.map((item, index) => {
-                                    
-                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key}</div>
-                                    
-                                })}
-                            </span>
-                            <span className="flashing">|</span>
-
-                        </div>
-                        
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <span style={{display: 'flex'}}>
+                                    {visible && visible.map((item, index) => {
+                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? `\n` : item.key}</div>
+                                    })}
+                                </span>
+                                <span className="flashing">|</span>
+                            </div>
                     </div>
                 </>
             }

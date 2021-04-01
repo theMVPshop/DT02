@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { DraftrrContext } from '../../context/DraftrrContext'
-import {LogIn} from './LogIn'
+import {Login} from './Login'
 import {SignUp} from './SignUp'
 
 export const LoginModal = () => {
@@ -20,13 +20,13 @@ export const LoginModal = () => {
   return (
     <Modal show={loginOpen}>
       <Modal.Header>
-        <button type="button" class="close" aria-label="Close" onClick={handleClose}>
+        <button type="button" className="close" aria-label="Close" onClick={handleClose}>
             <span aria-hidden="true">&times;</span>
         </button>
       </Modal.Header>
         <Modal.Body>
           {isLogin 
-            ? <LogIn />
+            ? <Login />
             : <SignUp /> }
         </Modal.Body>
       {isLogin 
