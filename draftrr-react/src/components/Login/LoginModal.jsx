@@ -20,7 +20,7 @@ export const LoginModal = () => {
   return (
     <Modal show={loginOpen}>
       <Modal.Header>
-        <button type="button" class="close" aria-label="Close" onClick={handleClose}>
+        <button type="button" className="close" aria-label="Close" onClick={handleClose}>
             <span aria-hidden="true">&times;</span>
         </button>
       </Modal.Header>
