@@ -10,19 +10,11 @@ import "./Editor.scss"
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(true)
+    const [ newDraft, setNewDraft ] = useState(false)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
-    const [ time, setTime ] = useState(5)
-    const [maxCharacters, setMaxCharacters] = useState(30)
     const [visible, setVisible] = useState([])
-
-    const [ letters, setLetters ] = useState([])
-    const [ charLimit, setCharLimit ] = useState(3)
-
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false)
-    const handleShow = () => setShow(true)
+    const [showModal, setShowModal] = useState(false)
 
     const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
 
@@ -99,24 +91,15 @@ export const Editor = () => {
         let newState = locked.concat(editable).reverse()
         // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
         let newArray = []
-
-            newState.forEach((item, index) => {
-                
-                if(index < newProject.maxCharacters) {
-                    newArray.push(item)
-                }
-    
-            })
+        newState.forEach((item, index) => {
+            if(index < newProject.maxCharacters) {
+                newArray.push(item)
+            }
+        })
         newArray.reverse()
         setVisible([...newArray])
-
-
-        console.log('newArray', newArray)
-        
-        
-        
+        // console.log('newArray', newArray)
     }
-
     
     const checkTimeStamps = () => {
         let newEditable = editable
@@ -148,6 +131,10 @@ export const Editor = () => {
         }))
     }
 
+    //hide/show modal
+    const handleCloseModal = () => setShowModal(false)
+    const handleShowModal = () => setShowModal(true)
+
     return (
         <div className="body-container editor-container p-5">
             {newDraft ?
@@ -155,8 +142,8 @@ export const Editor = () => {
                 : 
                 <>
                     <div className="d-flex justify-content-between align-items-center">
-                        <button onClick={handleShow}>Draft Settings</button>
-                        <Modal show={show} onHide={handleClose}>
+                        <button onClick={handleShowModal}>Draft Settings</button>
+                        <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
                             </Modal.Header>
@@ -173,10 +160,10 @@ export const Editor = () => {
                                 <input value={newProject.trusteeEmail} onChange={handleUpdate} type="email" id="updateTrusteeEmail" required/>
                             </Modal.Body>
                             <Modal.Footer>
-                                <div className="btn btn-secondary" onClick={handleClose}>
+                                <div className="btn btn-secondary" onClick={handleCloseModal}>
                                     Close
                                 </div>
-                                <div className="btn btn-primary" onClick={handleClose}>
+                                <div className="btn btn-primary" onClick={handleCloseModal}>
                                     Save Changes
                                 </div>
                             </Modal.Footer>
@@ -190,24 +177,14 @@ export const Editor = () => {
                             <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
-                    
-
                     <div id="mainTextBox">
                         <span>
-                            
+                            {visible && visible.map((item, index) => <>{item.isLocked && item.key}</>)}
                         </span>
-                        <div style={{display: 'flex', alignItems: 'center'}}>
-                            <span style={{display: 'flex'}}>
-                                {visible && visible.map((item, index) => {
-                                    
-                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key}</div>
-                                    
-                                })}
-                            </span>
-                            <span className="flashing">|</span>
-
-                        </div>
-                        
+                        <span>
+                            {visible && visible.map((item, index) => <>{!item.isLocked && item.key}</>)}
+                        </span>
+                        <span>|</span>
                     </div>
                 </>
             }
