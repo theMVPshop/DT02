@@ -76,7 +76,7 @@ export const Editor = () => {
                 timestamp: Date.now(),
                 isLocked: false,
             }
-            console.log('keyvalue', keyValue)
+            
             current.push(keyValue)
             setEditable([...current])
             
