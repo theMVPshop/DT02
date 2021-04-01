@@ -201,10 +201,12 @@ export const Editor = () => {
                         </span>
                         <span className="flashing">|</span> */}
                         <span>
-                            {visible && visible.map((item, index) => <>{item.isLocked && item.key}</>)}
+                            {visible && visible.map((item, index) => <>{item.isLocked && item.key === " " ? <>&nbsp;</> : item.isLocked && item.key }</>)}
                         </span>
                         <span>
-                            {visible && visible.map((item, index) => <>{!item.isLocked && item.key}</>)}
+                            {visible && visible.map((item, index) => <>{!item.isLocked && item.key === " " ? <>&nbsp;</> : !item.isLocked && item.key }</>)}
+
+                            {/* {visible && visible.map((item, index) => <>{!item.isLocked && item.key}</>)} */}
                         </span>
                         <span>|</span>
                     </div>
