@@ -29,13 +29,6 @@ export const Editor = () => {
             interval = setInterval(checkTimeStamps, 50)
         }
     } 
-
-    useEffect(() => {
-        effect
-        return () => {
-            cleanup
-        }
-    }, [input])
     
     //save progress and keep working
     const handleSave = () => {combineDoc()} 
