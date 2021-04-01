@@ -38,33 +38,33 @@ export const SignUp = () => {
         <div>  
             <form onSubmit={handleSubmit}>
             <h3>Sign Up</h3>
-                <div className="form-group">
-                    <label>Username</label>
-                    <input type="text" className="form-control" placeholder="Username" name="username" onChange={handleCredentials} />
-                </div>
+            <div className="form-group">
+                <label>Username</label>
+                <input type="text" className="form-control" placeholder="Username" name="username" onChange={handleCredentials} />
+            </div>
 
-                <div className="form-group">
-                    <label>Email</label>
-                    <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} />
-                </div>
+            <div className="form-group">
+                <label>Email</label>
+                <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} />
+            </div>
 
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" name="password" onChange={handleCredentials} />
-                </div>
+            <div className="form-group">
+                <label>Password</label>
+                <input type="password" className="form-control" placeholder="Enter password" name="password" onChange={handleCredentials} />
+            </div>
 
-                <div className="form-group">
-                    <label>Confirm Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" name="passwordConfirm" onChange={handleCredentials} />
-                </div>
+            <div className="form-group">
+                <label>Confirm Password</label>
+                <input type="password" className="form-control" placeholder="Enter password" name="passwordConfirm" onChange={handleCredentials} />
+            </div>
 
-                <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
-                {error !== '' && 
-                <div>
-                    <br/>
-                    <span style={{color: "red"}}>{`${error} `}</span>
-                </div>}
-            </form>
+            <button type="submit" className="btn btn-primary btn-block">Sign Up</button>
+            {error !== '' && 
+            <div>
+                <br/>
+                <span style={{color: "red"}}>{`${error} `}</span>
+            </div>}
+        </form>
     </div>
     )
 }

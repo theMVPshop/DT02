@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { Link, useHistory } from "react-router-dom"
 
 import { Logo } from "../../img/Logo"
@@ -11,11 +11,42 @@ import { DraftrrContext } from '../../context/DraftrrContext'
 import "./Header.scss"
 
 export const Header = () => {
-    const {loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
+    const [signUpBtn, setSignUpBtn] = useState()
+    const [loginBtn, setLoginBtn] = useState()
+    const {setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
     const history = useHistory()
 
     const handleLoginOpen = () => {
+        // setSignUpBtn(false)
+        if (!signUpBtn) {
+            setIsLogin(true)
+        }
         loginOpen ? setLoginOpen(false) : setLoginOpen(true)
+    }
+
+    useEffect(() => {
+        if (signUpBtn) {
+            setIsLogin(false)
+        } 
+    }, [signUpBtn])
+
+    useEffect(() => {
+        if (loginBtn) {
+            setIsLogin(true)
+        }
+    }, [loginBtn])
+
+    useEffect(() => {
+        if (!loginOpen) {
+            setSignUpBtn()
+            setLoginBtn()
+        }
+    }, [loginOpen])
+
+    const handleSignupOpen = () => {
+        setSignUpBtn(true)
+        // setIsLogin(false)
+        handleLoginOpen()
     }
 
     const handleLogout = () => {
@@ -45,7 +76,7 @@ export const Header = () => {
                 <Nav.Item className="px-3 mt-2">
                     {currentUser ?
                     <Link className="btn btn-primary rounded-6" to="/dashboard">Dashboard</Link> :
-                    <Link to="/" className="btn btn-primary rounded-6" onClick={handleLoginOpen}>Get Started</Link>
+                    <Link to="/" className="btn btn-primary rounded-6" onClick={handleSignupOpen}>Get Started</Link>
                     }
                 </Nav.Item>
             </Nav>
