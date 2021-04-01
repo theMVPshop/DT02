@@ -13,8 +13,8 @@ export const Editor = () => {
     const [ newDraft, setNewDraft ] = useState(false)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
-    const [visible, setVisible] = useState([])
-    const [showModal, setShowModal] = useState(false)
+    const [ visible, setVisible ] = useState([])
+    const [ showModal, setShowModal ] = useState(false)
 
     const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, } = useContext(DraftrrContext)
 
@@ -22,23 +22,11 @@ export const Editor = () => {
         initialize()
     }, [newDraft])
 
-    useEffect(() => {
-        const allChars = [...editable, ...locked]
-        console.log(allChars)
-        if (allChars.length > newProject.maxCharacters) {
-            const newLetters = allChars
-            newLetters.shift()
-            console.log(newLetters)
-            // setLetters(newLetters)
-            // setValue(newLetters.join(""))
-        }
-    })
-
     //initial functions for when the session begins
     const initialize = () => { 
         if(!newDraft) {
             window.addEventListener("keydown", handleKeyDown) 
-            interval = setInterval(checkTimeStamps, 100)
+            interval = setInterval(checkTimeStamps, 50)
         }
     } 
     
@@ -100,20 +88,14 @@ export const Editor = () => {
     }
 
     const checkMaxCharacters = () => {
-        // let newState = locked.concat(editable).reverse()
         let newState = [...locked, ...editable]
-        newState.reverse()
-        // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
-        let newArray = []
+
         newState.forEach((item, index) => {
-            if(index < newProject.maxCharacters) {
-                newArray.push(item)
+            if (newState.length >= newProject.maxCharacters) {
+                newState.shift()
             }
         })
-        newArray.reverse()
-        console.log(newArray)
-        setVisible([...newArray])
-        // console.log('newArray', newArray)
+        setVisible([...newState])
     }
     
     const checkTimeStamps = () => {
@@ -132,9 +114,7 @@ export const Editor = () => {
 
     const combineDoc = () => {
         const final = [...locked, ...editable]
-        const mappedChars = final.map((char) => {
-            return char.key
-        })
+        const mappedChars = final.map((char) => char.key)
         setDocument(mappedChars.join(""))
     }
 
@@ -193,22 +173,15 @@ export const Editor = () => {
                         </div>
                     </div>
                     <div id="mainTextBox">
-                        {/* <span>
-                            {locked[0] && locked.map(item => <>{item.key}</>)}
-                        </span>
-                        <span>
-                            {editable[0] && editable.map(item => <>{item.key}</>)}
-                        </span>
-                        <span className="flashing">|</span> */}
-                        <span>
-                            {visible && visible.map((item, index) => <>{item.isLocked && item.key === " " ? <>&nbsp;</> : item.isLocked && item.key }</>)}
-                        </span>
-                        <span>
-                            {visible && visible.map((item, index) => <>{!item.isLocked && item.key === " " ? <>&nbsp;</> : !item.isLocked && item.key }</>)}
-
-                            {/* {visible && visible.map((item, index) => <>{!item.isLocked && item.key}</>)} */}
-                        </span>
-                        <span>|</span>
+                        <div className="d-flex flex-wrap align-items-center">
+                            <span>
+                                {visible && visible.map((item, index) => <>{item.isLocked && item.key === " " ? <>&nbsp;</> : item.isLocked && item.key }</>)}
+                            </span>
+                            <span>
+                                {visible && visible.map((item, index) => <>{!item.isLocked && item.key === " " ? <>&nbsp;</> : !item.isLocked && item.key }</>)}
+                            </span>
+                            <span>|</span>
+                        </div>
                     </div>
                 </>
             }
