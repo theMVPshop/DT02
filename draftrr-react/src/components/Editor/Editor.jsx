@@ -22,6 +22,18 @@ export const Editor = () => {
         initialize()
     }, [newDraft])
 
+    useEffect(() => {
+        const allChars = [...editable, ...locked]
+        console.log(allChars)
+        if (allChars.length > newProject.maxCharacters) {
+            const newLetters = allChars
+            newLetters.shift()
+            console.log(newLetters)
+            // setLetters(newLetters)
+            // setValue(newLetters.join(""))
+        }
+    })
+
     //initial functions for when the session begins
     const initialize = () => { 
         if(!newDraft) {
@@ -88,7 +100,9 @@ export const Editor = () => {
     }
 
     const checkMaxCharacters = () => {
-        let newState = locked.concat(editable).reverse()
+        // let newState = locked.concat(editable).reverse()
+        let newState = [...locked, ...editable]
+        newState.reverse()
         // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
         let newArray = []
         newState.forEach((item, index) => {
@@ -97,6 +111,7 @@ export const Editor = () => {
             }
         })
         newArray.reverse()
+        console.log(newArray)
         setVisible([...newArray])
         // console.log('newArray', newArray)
     }
@@ -178,6 +193,13 @@ export const Editor = () => {
                         </div>
                     </div>
                     <div id="mainTextBox">
+                        {/* <span>
+                            {locked[0] && locked.map(item => <>{item.key}</>)}
+                        </span>
+                        <span>
+                            {editable[0] && editable.map(item => <>{item.key}</>)}
+                        </span>
+                        <span className="flashing">|</span> */}
                         <span>
                             {visible && visible.map((item, index) => <>{item.isLocked && item.key}</>)}
                         </span>
