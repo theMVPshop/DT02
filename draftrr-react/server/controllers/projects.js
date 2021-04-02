@@ -49,16 +49,15 @@ const getProjectByUserID = (req, res) => {
 }
 
 const updateProjectByProjectID = (req, res) => {
-  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Users_ID = ? WHERE idProjects = ?;"
+  console.log(req.params.id)
+  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ? WHERE idProjects = ?;"
 
-  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.params.id])
+  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
-    return res.status(204).json();
+    return res.json();
   })
-
-
 }
 
 const deleteProjectByProjectID = (req, res) => {

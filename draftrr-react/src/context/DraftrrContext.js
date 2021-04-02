@@ -18,6 +18,7 @@ export function DraftrrProvider({ children }) {
         passwordConfirm: ''
     })
     const [newProject, setNewProject] = useState({
+        
         title: '',
         timeFrame: 20,
         maxCharacters: 50,
@@ -30,7 +31,17 @@ export function DraftrrProvider({ children }) {
     const [newDraft, setNewDraft] = useState(false)
     const [projects, setProjects] = useState()
     const [currentTextFile, setCurrentTextFile] = useState({})
-    const [currentProject, setCurrentProject] = useState({})
+    const [currentProject, setCurrentProject] = useState({
+        id: 0,
+        title: '',
+        timeFrame: 20,
+        maxCharacters: 50,
+        font: 'helvetica',
+        trusteeName: '',
+        trusteeEmail: '',
+        textID: '',
+        userID: ''
+    })
 
     function handleCredentials(event) {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
@@ -97,9 +108,21 @@ export function DraftrrProvider({ children }) {
         newUser && createUser()
     }, [currentUser])
 
+    useEffect(() => {
+        console.log('current project', currentProject)
+    }, [currentProject])
+
 
     const createProject = (payload) => {
-        axios.post(`http://localhost:4000/projects`, payload).then(res => { console.log('project created!', res) })
+        axios.post(`http://localhost:4000/projects`, payload)
+        .then(res => { console.log('project created!', res) 
+            const newState = payload
+            newState.id = res.data.newId
+            
+            setCurrentProject(newState)
+            
+    
+        })
     }
 
     useEffect(() => {
@@ -146,6 +169,14 @@ export function DraftrrProvider({ children }) {
             })
     }
 
+    const updateProject = () => {
+        const payload = currentProject
+        axios.put(`http://localhost:4000/projects/${currentProject.id}`, payload)
+            .then(res => {
+                console.log('project updated!', res)
+            })
+    }
+
     
 
     const value = {
@@ -178,7 +209,10 @@ export function DraftrrProvider({ children }) {
         setProjects,
         document,
         setDocument,
-        updateTextFile
+        updateTextFile,
+        updateProject,
+        currentProject,
+        setCurrentProject
     }
 
     return (

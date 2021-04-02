@@ -16,7 +16,7 @@ export const Editor = () => {
     const [ visible, setVisible ] = useState([])
     const [ showModal, setShowModal ] = useState(false)
 
-    const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, updateTextFile} = useContext(DraftrrContext)
+    const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
 
     useEffect(() => {
         initialize()
@@ -140,10 +140,16 @@ export const Editor = () => {
 
     //handle update draft settings form
     const handleUpdate = (event) => {
-        setNewProject(previousValues => ({
+        setCurrentProject(previousValues => ({
             ...previousValues, 
             [event.target.name]: event.target.value
         }))
+        
+    }
+
+    const saveSettings = () => {
+        updateProject()
+        setShowModal(false)
     }
 
     //hide/show modal
@@ -178,7 +184,7 @@ export const Editor = () => {
                                 <div className="btn btn-secondary" onClick={handleCloseModal}>
                                     Close
                                 </div>
-                                <div className="btn btn-primary" onClick={handleCloseModal}>
+                                <div className="btn btn-primary" onClick={saveSettings}>
                                     Save Changes
                                 </div>
                             </Modal.Footer>
