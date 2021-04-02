@@ -19,8 +19,16 @@ export const Editor = () => {
     const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
 
     useEffect(() => {
-        initialize()
+        if(!newDraft) {
+            initialize()
+        }
     }, [newDraft])
+
+    useEffect(() => {
+        if(currentProject) {
+            setNewDraft(false)
+        }
+    }, [])
 
     //initial functions for when the session begins
     const initialize = () => { 
