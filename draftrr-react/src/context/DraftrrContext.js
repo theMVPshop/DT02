@@ -147,17 +147,6 @@ export function DraftrrProvider({ children }) {
             }).then(res => {
                 
                 createProject(newProject)
-                
-                // setNewProject({
-                //     title: '',
-                //     timeFrame: 20,
-                //     maxCharacters: 500,
-                //     font: '',
-                //     trusteeName: '',
-                //     trusteeEmail: '',
-                //     textID: '',
-                //     userID: ''
-                // })
             })
     }
 
@@ -174,6 +163,23 @@ export function DraftrrProvider({ children }) {
         axios.put(`http://localhost:4000/projects/${currentProject.id}`, payload)
             .then(res => {
                 console.log('project updated!', res)
+            })
+    }
+
+    const deleteProject = (sqlID, textID, idx) => {
+        
+        axios.delete(`http://localhost:4000/projects/${sqlID}`)
+            .then(res => {
+                console.log('SQL entry deleted!', res)
+            })
+        axios.delete(`http://localhost:4000/text/${textID}`)
+            .then(res => {
+                console.log('mongo entry deleted!', res)
+            })
+            .then(res => {
+                const newState = projects 
+                newState.splice(idx, 1)
+                setProjects([...newState])
             })
     }
 
@@ -212,7 +218,8 @@ export function DraftrrProvider({ children }) {
         updateTextFile,
         updateProject,
         currentProject,
-        setCurrentProject
+        setCurrentProject,
+        deleteProject
     }
 
     return (

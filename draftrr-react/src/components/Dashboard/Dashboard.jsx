@@ -10,7 +10,7 @@ export const Dashboard = () => {
     const [ textFiles, setTextFiles ] = useState()
     const [ textFilePath, setTextFilePath ] = useState()
     
-    const {currentUser, loading, setLoading, projects, setProjects, currentProject, setCurrentProject} = useContext(DraftrrContext)
+    const {currentUser, loading, setLoading, projects, setProjects, currentProject, setCurrentProject, deleteProject} = useContext(DraftrrContext)
 
     useEffect(() => {
         handleGetProjects()
@@ -24,6 +24,7 @@ export const Dashboard = () => {
             setProjects(res.data)
             console.log('res', res.data)
         })
+        console.log('projects', projects)
     }
 
     const handleGetTextFiles = () => {
@@ -31,14 +32,21 @@ export const Dashboard = () => {
         console.log(textFiles)
     }
 
-    const handleGoToProject = (payload) => {
+    const handleSelect = (payload) => {
         setCurrentProject(payload)
     }
 
     const handleNewClick = () => {
         setCurrentProject()
     }
+    
+    const handleDelete = (project, idx) => {
+        deleteProject(project.idProjects, project.Text_ID, idx)
+    }
 
+    useEffect(() => {
+        console.log('projects', projects)
+    }, [projects])
 
 
     return (
@@ -50,8 +58,9 @@ export const Dashboard = () => {
             </Link>
             <div className="d-flex flex-column justify-content-center align-items-center">
                 <h2>My Drafts</h2>
-                {projects && <ul>{projects.map((project, idx) => <li key={idx} id={project.idProjects} style={{display: 'flex', width: '250px', justifyContent: 'space-between'}}>{project.Title}
-                                                                    <Link to='editor' className="btn btn-secondary rounded-6 mb-5" onClick={()=> handleGoToProject(project)}>Go to Project</Link>
+                {projects && <ul>{projects.map((project, idx) => <li key={idx} id={project.idProjects} style={{display: 'flex', width: '300px', justifyContent: 'space-between'}}>{project.Title}
+                                                                    <Link to='editor' className="btn btn-info rounded-6 mb-5" onClick={()=> handleSelect(project)}>Go to Project</Link>
+                                                                    <button  className="btn btn-danger rounded-6 mb-5" onClick={()=> handleDelete(project, idx)}>Delete Project</button>
                                                                  </li>)}
                             </ul>}
             </div>
