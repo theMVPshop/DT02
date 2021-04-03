@@ -6,6 +6,7 @@ export const DraftrrContext = React.createContext()
 
 export function DraftrrProvider({ children }) {
     const [loginOpen, setLoginOpen] = useState(false)
+    const [settingsOpen, setSettingsOpen] = useState(false)
     const [isLogin, setIsLogin] = useState(true)
     const [newUser, setNewUser] = useState(false)
     const [currentUser, setCurrentUser] = useState()
@@ -74,9 +75,7 @@ export function DraftrrProvider({ children }) {
     }
 
     function updateProfile(username) {
-        return auth.currentUser.updateProfile({
-            displayName: username
-        })
+        return auth.currentUser.updateProfile({ displayName: username })
     }
 
     function createUser() {
@@ -194,11 +193,12 @@ export function DraftrrProvider({ children }) {
         signup,
         login,
         logout,
-        resetPassword,
         updateEmail,
         updatePassword,
         loginOpen,
         setLoginOpen,
+        settingsOpen,
+        setSettingsOpen,
         isLogin,
         setIsLogin,
         currentUser,
