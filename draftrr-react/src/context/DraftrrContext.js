@@ -26,7 +26,9 @@ export function DraftrrProvider({ children }) {
         trusteeName: '',
         trusteeEmail: '',
         textID: '',
-        userID: ''
+        userID: '',
+        locked: true,
+        submitted: false
     })
     const [newDraft, setNewDraft] = useState(false)
     const [projects, setProjects] = useState()
@@ -40,7 +42,9 @@ export function DraftrrProvider({ children }) {
         trusteeName: '',
         trusteeEmail: '',
         textID: '',
-        userID: ''
+        userID: '',
+        locked: true,
+        submitted: false
     })
 
     function handleCredentials(event) {
@@ -140,7 +144,8 @@ export function DraftrrProvider({ children }) {
                 newState.textID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.userID = currentUser.uid
-                
+                newState.locked = true
+                newState.submitted = false
                 console.log('new project', newProject)
                 
                 

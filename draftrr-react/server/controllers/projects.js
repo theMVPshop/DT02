@@ -4,9 +4,9 @@ const { handleSQLError } = require('../sql/error')
 
 const createProject = (req, res) => {
 
-  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, Text_ID, Users_ID ) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, Text_ID, Users_ID, Locked, Submitted ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID])
+  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.body.locked, req.body.submitted])
 
   console.log("hit create project", sql)
 
@@ -50,9 +50,9 @@ const getProjectByUserID = (req, res) => {
 
 const updateProjectByProjectID = (req, res) => {
   console.log(req.params.id)
-  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ? WHERE idProjects = ?;"
+  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Locked = ?, Submitted = ? WHERE idProjects = ?;"
 
-  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.params.id])
+  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.locked, req.body.submitted, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
