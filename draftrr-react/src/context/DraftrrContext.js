@@ -8,6 +8,7 @@ export function DraftrrProvider({ children }) {
     const [loginOpen, setLoginOpen] = useState(false)
     const [settingsOpen, setSettingsOpen] = useState(false)
     const [isLogin, setIsLogin] = useState(true)
+    const [isForgotPassword, setIsForgotPassword] = useState(false)
     const [newUser, setNewUser] = useState(false)
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
@@ -46,6 +47,7 @@ export function DraftrrProvider({ children }) {
 
     function handleCredentials(event) {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
+        console.log(credentials)
     };
 
     function signup(email, password) {
@@ -195,12 +197,15 @@ export function DraftrrProvider({ children }) {
         logout,
         updateEmail,
         updatePassword,
+        resetPassword,
         loginOpen,
         setLoginOpen,
         settingsOpen,
         setSettingsOpen,
         isLogin,
         setIsLogin,
+        isForgotPassword,
+        setIsForgotPassword,
         currentUser,
         createUser,
         setNewUser,
