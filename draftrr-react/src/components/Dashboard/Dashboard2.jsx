@@ -1,7 +1,7 @@
 import { useState, useContext, useEffect } from "react"
 import { DraftrrContext } from '../../context/DraftrrContext'
-import { ListGroup, Row, Col, Button, OverlayTrigger, Tooltip, Dropdown } from 'react-bootstrap'
-import { FaUserCog, FaCog, FaFileDownload, FaPlay, FaRedo, FaTrashAlt, FaLock, FaUnlock, FaPaperPlane } from "react-icons/fa";
+import { ListGroup, Button, OverlayTrigger, Tooltip, Dropdown, Spinner } from 'react-bootstrap'
+import { FaUserCog, FaCog, FaFileDownload, FaPlay, FaTrashAlt, FaLock, FaUnlock, FaPaperPlane } from "react-icons/fa";
 import { Link } from "react-router-dom"
 import "./Dashboard.scss"
 
@@ -38,6 +38,7 @@ const dummyList = [
 
 
 export const Dashboard2 = () => {
+    const [loadingDrafts, setLoadingDrafts] = useState(true);
 
     const {currentUser, loading, setLoading, projects, setProjects} = useContext(DraftrrContext)
 
@@ -52,41 +53,20 @@ export const Dashboard2 = () => {
         }
     }
 
-    return (
-        <div className="container body-container w-50 d-flex flex-column align-items-center ">
-            <h1 className=" my-4 text-primary">Dashboard</h1>
-            <h3>{`Hello, ${name}`}</h3>
-            <div className="mb-5">
-                {/* <button onClick={handleGetTextFiles}>Get Text Files</button>             */}
-                <button >Get Text Files</button>            
-            </div>
-                <h2 className="mb-4 text-primary">My Drafts</h2>
-            <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4">
-                {/* <Row>
-                    <Col> */}
-                        <Link to="/editor" >
-                            <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
-                        </Link>
-                    {/* </Col>
-                    <Col> */}
-                        <OverlayTrigger
-                            key="User Settings"
-                            placement="top"
-                            overlay={
-                                <Tooltip id={"tooltop-userSettings"}>
-                                User Settings
-                                </Tooltip>
-                            }
-                        >
-                            <Link to="/settings" className="btn btn-primary rounded-6 btn-lg">
-                                <FaUserCog size='1.5em' />
-                            </Link>
-                        </OverlayTrigger>
-                    {/* </Col>
-                </Row> */}
-            </div>
-            {/* <div className="container-fluid w-50 d-flex flex-column justify-content-center align-items-center border border-secondary"> */}
-                {/* {projects && <ul>{projects.map((project, idx) => <li key={idx}>{project.Title}</li>)}</ul>} */}
+    const handleChangeClick = () => {
+        setLoadingDrafts(false)
+    }
+
+    const LoadingDashboard = () => {
+        if (loadingDrafts) {
+            return (
+                <div className="container body-container w-50 d-flex flex-column align-items-center ">
+                    <Spinner animation="border" color="primary" />
+                    <h5>Loading Drafts</h5>
+                </div>
+            )
+        } else {
+            return (
                 <ListGroup className="shadow p-3 mb-5 bg-white rounded">
                     {dummyList.map(draft => {
                         return (
@@ -183,16 +163,46 @@ export const Dashboard2 = () => {
                                         </Dropdown.Item>
                                     </Dropdown.Menu>
                                 </Dropdown>
-                                
-                                
-                                
-                                
-                             
+
                             </div>
                         )
                     })}
-                </ListGroup>    
-            {/* </div> */}
+                </ListGroup>
+            )
+        }
+    }
+
+    return (
+        <div className="container body-container w-50 d-flex flex-column align-items-center ">
+            <h1 className=" my-4 text-primary">Dashboard</h1>
+            <h3>{`Hello, ${name}`}</h3>
+            <div className="mb-5">
+                {/* <button onClick={handleGetTextFiles}>Get Text Files</button>             */}
+                <button onClick={handleChangeClick}>Get Text Files</button>            
+            </div>
+                <h2 className="mb-4 text-primary">My Drafts</h2>
+            <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4">
+
+                        <Link to="/editor" >
+                            <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
+                        </Link>
+
+                        <OverlayTrigger
+                            key="User Settings"
+                            placement="top"
+                            overlay={
+                                <Tooltip id={"tooltop-userSettings"}>
+                                User Settings
+                                </Tooltip>
+                            }
+                        >
+                            <Link to="/settings" className="btn btn-primary rounded-6 btn-lg">
+                                <FaUserCog size='1.5em' />
+                            </Link>
+                        </OverlayTrigger>
+                            
+            </div>
+                            <LoadingDashboard />
         </div>
     )
 }
