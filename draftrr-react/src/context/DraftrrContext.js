@@ -66,8 +66,8 @@ export function DraftrrProvider({ children }) {
         return auth.sendPasswordResetEmail(email)
     }
 
-    function updateEmail(email) {
-        return currentUser.updateEmail(email)
+    function updateEmail(newEmail) {
+        return auth.currentUser.updateEmail(newEmail)
     }
 
     function updatePassword(password) {

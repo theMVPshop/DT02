@@ -8,7 +8,7 @@ export const UpdateEmail = () => {
     const [loading, setLoading] = useState(false)
     const [emails, setEmails] = useState({
         newEmail: '',
-        newEmailConfirm: ''
+        newEmailConfirm: '',
     })
 
     function handleEmails(event) {

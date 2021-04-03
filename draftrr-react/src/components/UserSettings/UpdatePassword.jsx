@@ -28,7 +28,7 @@ export const UpdatePassword = () => {
 
         try {
             setError('')
-            await updatePassword(passwords.currentPassword, passwords.newPassword)
+            await updatePassword(passwords.newPassword)
             setConfirmation('Password changed.')
         } catch {
             setError('Failed to reset password.')
