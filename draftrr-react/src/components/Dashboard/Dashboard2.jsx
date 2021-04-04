@@ -211,13 +211,13 @@ export const Dashboard2 = () => {
                                                 placement="top"
                                                 overlay={
                                                     <Tooltip id={"tooltop-submit"}>
-                                                    Sumbit {draft.Title} to trustee
+                                                    Submit {draft.Title} to trustee
                                                     </Tooltip>
                                                 }
                                             >
                                                 <div>
                                                     <FaPaperPlane style={{ margin: '0 15px' }} size='1.5em' title="Submit Draft" color={draft.unlocked ? 'silver' : '#5895B2'}/>
-                                                    Sumbit
+                                                    Submit
                                                 </div>
                                             </OverlayTrigger>
                                         </Dropdown.Item>
