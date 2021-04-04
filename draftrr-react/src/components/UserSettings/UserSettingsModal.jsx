@@ -37,7 +37,7 @@ export const UserSettingsModal = () => {
     }
 
   return (
-    <Modal show={settingsOpen}>
+    <Modal show={settingsOpen} onHide={handleClose}>
       <Modal.Header>
         <h3>Settings</h3>
         <div>

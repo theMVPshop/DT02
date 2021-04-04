@@ -45,11 +45,7 @@ export const Dashboard2 = () => {
     const [ textFiles, setTextFiles ] = useState()
     const [ textFilePath, setTextFilePath ] = useState()
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [deleteDraft, setDeleteDraft] = useState(
-        {
-            draft: {Title: ''}
-        }
-        )
+    const [deleteDraft, setDeleteDraft] = useState({draft: {Title: ''}})
 
     const history = useHistory();
 
@@ -153,7 +149,15 @@ export const Dashboard2 = () => {
                     <h5>Loading Drafts</h5>
                 </div>
             )
-        } else {
+        } else if (projects.length === 0) {
+            return (
+                <div className="container body-container w-80 d-flex flex-column align-items-center">
+                    <h3 color="primary">Looks like you don't have any drafts.</h3>
+                    <h5 color="primary">Click "New Draft" to get one started.</h5>
+                </div>
+            )
+        } 
+        else {
             return (
                 <ListGroup className="shadow p-3 mb-5 bg-white rounded">
                     {projects && projects.map((draft, idx) => {
