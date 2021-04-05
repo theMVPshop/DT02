@@ -25,6 +25,15 @@ export const Editor = () => {
     }, [newDraft])
 
     useEffect(() => {
+        console.log('show modal', showModal)
+        if(!showModal) {
+            initialize()
+        } else {
+            pause()
+        }
+    }, [showModal])
+
+    useEffect(() => {
         if(currentProject) {
             setNewDraft(false)
         }
@@ -33,10 +42,19 @@ export const Editor = () => {
     //initial functions for when the session begins
     const initialize = () => { 
         if(!newDraft) {
-            window.addEventListener("keydown", handleKeyDown) 
+            window.addEventListener("keydown", handleKeyDown, true) 
             interval = setInterval(checkTimeStamps, 50)
+            console.log('initializing draft')
         }
     } 
+
+    const pause = () => {
+        clearInterval(interval); 
+        
+        console.log('pausing draft')
+        console.log('window', window)
+        return window.removeEventListener("keydown", handleKeyDown, true)
+    }
     
     //save progress and keep working
     const handleSave = () => {combineDoc()} 
@@ -54,6 +72,7 @@ export const Editor = () => {
     const autoSave = () => {} 
 
     const handleKeyDown = (e) => {
+        console.log('handling keydown')
         const keycode = e.charCode || e.keyCode
         let current = editable
 

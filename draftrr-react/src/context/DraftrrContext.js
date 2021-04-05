@@ -28,7 +28,9 @@ export function DraftrrProvider({ children }) {
         trusteeName: '',
         trusteeEmail: '',
         textID: '',
-        userID: ''
+        userID: '',
+        locked: true,
+        submitted: false
     })
     const [newDraft, setNewDraft] = useState(false)
     const [projects, setProjects] = useState()
@@ -42,7 +44,9 @@ export function DraftrrProvider({ children }) {
         trusteeName: '',
         trusteeEmail: '',
         textID: '',
-        userID: ''
+        userID: '',
+        locked: true,
+        submitted: false
     })
 
     function handleCredentials(event) {
@@ -141,7 +145,8 @@ export function DraftrrProvider({ children }) {
                 newState.textID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.userID = currentUser.uid
-                
+                newState.locked = true
+                newState.submitted = false
                 console.log('new project', newProject)
                 
                 
@@ -184,6 +189,17 @@ export function DraftrrProvider({ children }) {
             })
     }
 
+    const getDraft = (id) => {
+        const newState = document
+        axios.get(`http://localhost:4000/text/${id}`)
+            .then(res => {
+                newState.text = res.data.text
+                console.log('getting project', res.data.text)
+                setDocument(newState)
+            })
+
+    }
+
     
 
     const value = {
@@ -224,7 +240,8 @@ export function DraftrrProvider({ children }) {
         updateProject,
         currentProject,
         setCurrentProject,
-        deleteProject
+        deleteProject,
+        getDraft,
     }
 
     return (
