@@ -73,15 +73,21 @@ export function DraftrrProvider({ children }) {
     }
 
     function updateEmail(newEmail) {
-        return auth.currentUser.updateEmail(newEmail)
+        return auth.currentUser.updateEmail(newEmail).then(() => {
+            updateUser()
+        })
     }
 
     function updatePassword(password) {
-        return currentUser.updatePassword(password)
+        return currentUser.updatePassword(password).then(() => {
+            updateUser()
+        })
     }
 
     function updateProfile(username) {
-        return auth.currentUser.updateProfile({ displayName: username })
+        return auth.currentUser.updateProfile({ displayName: username }).then(() => {
+            updateUser()
+        })
     }
 
     function createUser() {
@@ -169,6 +175,24 @@ export function DraftrrProvider({ children }) {
         axios.put(`http://localhost:4000/projects/${currentProject.id}`, payload)
             .then(res => {
                 console.log('project updated!', res)
+            })
+    }
+
+    const updateUser = () => {
+        console.log("updating user info")
+        const payload = {
+                    name: currentUser.displayName,
+                    email: currentUser.email,
+                    password: '',
+                    theme: 'light',
+                    userTimeFrame: 0,
+                    userMaxCharacters: 0,
+                    userFont: '',
+                    newUser: false
+                }
+        axios.put(`http://localhost:4000/users/${currentUser.uid}`, payload)
+            .then(res => {
+                console.log('user updated!', res)
             })
     }
 

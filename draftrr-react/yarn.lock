@@ -5242,7 +5242,10 @@
     "esprima" "~1.0.4"
     "estraverse" "~1.5.0"
     "esutils" "~1.0.0"
+<<<<<<< HEAD
     "source-map" "~0.1.30"
+=======
+>>>>>>> f050795efc05c3d7517672f13340453185b5c9fc
   optionalDependencies:
     "source-map" "~0.1.30"
 
