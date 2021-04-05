@@ -6,6 +6,7 @@ import { Dashboard2 } from "./components/Dashboard/Dashboard2.jsx"
 import Editor from "./components/Editor"
 import Settings from "./components/Settings"
 import { NewDraftForm } from "./components/Editor/NewDraftForm"
+import DraftViewer from './components/DraftViewer/DraftViewer'
 
 export const Router = () => {
     return (
@@ -17,6 +18,7 @@ export const Router = () => {
             <Route path="/editor" component={Editor} />
             <Route path="/settings" component={Settings} />
             <Route path="/form" component={NewDraftForm} />
+            <Route path="/draftviewer" component={DraftViewer} />
         </Switch>
     )
 }

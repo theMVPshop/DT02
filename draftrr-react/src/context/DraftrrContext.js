@@ -189,6 +189,17 @@ export function DraftrrProvider({ children }) {
             })
     }
 
+    const getDraft = (id) => {
+        const newState = document
+        axios.get(`http://localhost:4000/text/${id}`)
+            .then(res => {
+                newState.text = res.data.text
+                console.log('getting project', res.data.text)
+                setDocument(newState)
+            })
+
+    }
+
     
 
     const value = {
@@ -229,7 +240,8 @@ export function DraftrrProvider({ children }) {
         updateProject,
         currentProject,
         setCurrentProject,
-        deleteProject
+        deleteProject,
+        getDraft,
     }
 
     return (

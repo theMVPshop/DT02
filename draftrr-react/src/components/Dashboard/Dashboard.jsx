@@ -72,6 +72,7 @@ export const Dashboard = () => {
                 <h2>My Drafts</h2>
                 {projects && <ul>{projects.map((project, idx) => <li key={idx} id={project.idProjects} style={{display: 'flex', width: '300px', justifyContent: 'space-between'}}>{project.Title}
                                                                     <Link to='editor' className="btn btn-info rounded-6 mb-5" onClick={()=> handleSelect(project)}>Go to Project</Link>
+                                                                    <Link to='draftviewer' className="btn btn-secondary rounded-6 mb-5" onClick={()=> handleSelect(project)}>View Draft</Link>
                                                                     <button  className="btn btn-danger rounded-6 mb-5" onClick={()=> handleDelete(project, idx)}>Delete Project</button>
                                                                  </li>)}
                             </ul>}
