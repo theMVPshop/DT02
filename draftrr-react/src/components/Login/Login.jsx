@@ -15,7 +15,7 @@ export const Login = () => {
             setError('')
             setLoading(true)
             await login(credentials.email, credentials.password)
-            history.push('/dashboard')
+            history.push('/dashboard2')
             setLoginOpen(false)
         } catch {
             setError('Failed to log in.')

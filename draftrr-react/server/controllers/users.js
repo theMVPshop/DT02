@@ -61,9 +61,9 @@ const getUserByEmail = (req, res) => {
 
 const updateUserByID = (req, res) => {
 
-  let sql = "UPDATE Users SET Username =  ?, Email = ?, Password = ?, Theme = ?, UserTimeframe = ?, UserMaxCharacters = ?, UserFont= ? WHERE ID = ?;"
+  let sql = "UPDATE Users SET Username =  ?, Email = ?, Password = ?, Theme = ?, UserTimeframe = ?, UserMaxCharacters = ?, UserFont= ?, NewUser = ?, WHERE ID = ?;"
 
-  sql = mysql.format(sql, [req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont, req.params.id])
+  sql = mysql.format(sql, [req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont, req.body.newUser, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
