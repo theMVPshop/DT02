@@ -17,7 +17,7 @@ export default function DraftViewer() {
 
     return (
         <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px'}}>
-            <PDFViewer width="80%" height="700" className="app" >
+            <PDFViewer width="60%" height="700" className="app" >
                             <Draft   text={document.text}/>
             </PDFViewer>
         </div>
