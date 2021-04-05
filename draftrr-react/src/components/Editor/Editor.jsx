@@ -1,11 +1,11 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import { DraftrrContext } from "../../context/DraftrrContext"
 
-import Modal from "react-bootstrap/Modal"
-
 import { NewDraftForm } from "./NewDraftForm"
+import { SettingsModal } from "./SettingsModal"
 
 import "./Editor.scss"
+import userEvent from "@testing-library/user-event"
 
 let interval
 
@@ -16,48 +16,44 @@ export const Editor = () => {
     const [ visible, setVisible ] = useState([])
     const [ showModal, setShowModal ] = useState(false)
 
-    const { document, setDocument, createProject, createTextFile, currentUser, newProject, setNewProject, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
+    const { document, setDocument, createProject, createTextFile, currentUser, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
 
     useEffect(() => {
-        if(!newDraft) {
-            initialize()
+        if(!newDraft && !showModal) {
+            // initialize()
+            window.addEventListener("keydown", handleKeyDown) 
+            interval = setInterval(checkTimeStamps, 50)
+            return () => {
+                window.removeEventListener("keydown", handleKeyDown)
+            }
+
         }
-    }, [newDraft])
+    }, [newDraft, showModal])
+
 
     useEffect(() => {
-        console.log('show modal', showModal)
-        if(!showModal) {
-            initialize()
-        } else {
-            pause()
+        if (showModal) {
+            window.removeEventListener("keydown", handleKeyDown)
         }
     }, [showModal])
 
     useEffect(() => {
-        if(currentProject) {
+        if(currentProject.textID) {
             setNewDraft(false)
         }
     }, [])
 
-    //initial functions for when the session begins
-    const initialize = () => { 
-        if(!newDraft) {
-            window.addEventListener("keydown", handleKeyDown, true) 
-            interval = setInterval(checkTimeStamps, 50)
-            console.log('initializing draft')
-        }
-    } 
 
     const pause = () => {
         clearInterval(interval); 
         
         console.log('pausing draft')
         console.log('window', window)
-        return window.removeEventListener("keydown", handleKeyDown, true)
+        window.removeEventListener("keydown", handleKeyDown)
     }
     
     //save progress and keep working
-    const handleSave = () => {combineDoc()} 
+    const handleSave = () => combineDoc() 
     
     // clear interval, save document and exit session
     const handleSaveAndExit = () => {
@@ -66,7 +62,7 @@ export const Editor = () => {
     } 
     
     //clear interval, save document and upload to DB
-    const handleSubmit = () => {handleSaveAndExit()} 
+    const handleSubmit = () => handleSaveAndExit()
     
     //possible interval for autosaving progress, still thinking on this one
     const autoSave = () => {} 
@@ -109,19 +105,18 @@ export const Editor = () => {
             
             checkMaxCharacters()
         }
-        if ( e.which == 13 ) {
-            e.preventDefault()
-        }
+        // if ( e.which == 13 ) {
+        //     e.preventDefault()
+        // }
     }
 
     const checkMaxCharacters = () => {
         let newState = locked.concat(editable).reverse()
-        // const newArray = newState.splice((newState.length - 1) - maxCharacters, maxCharacters)
         let newArray = []
 
             newState.forEach((item, index) => {
                 
-                if(index < newProject.maxCharacters) {
+                if(index < currentProject.maxCharacters) {
                     newArray.push(item)
                 }
     
@@ -130,21 +125,13 @@ export const Editor = () => {
         setVisible([...newArray])
 
         
-        // let newState = [...locked, ...editable]
-
-        // newState.forEach((item, index) => {
-        //     if (newState.length >= newProject.maxCharacters) {
-        //         newState.shift()
-        //     }
-        // })
-        // setVisible([...newState])
     }
     
     const checkTimeStamps = () => {
         let newEditable = editable
         let newLocked = locked
         newEditable.forEach((item, index) => {
-            if (item.timestamp < Date.now() - (newProject.timeFrame * 1000)) {
+            if (item.timestamp < Date.now() - (currentProject.timeFrame * 1000)) {
                 let removed = newEditable.splice(index, 1)
                 removed[0].isLocked = true
                 newLocked.push(removed[0])
@@ -181,7 +168,14 @@ export const Editor = () => {
 
     //hide/show modal
     const handleCloseModal = () => setShowModal(false)
-    const handleShowModal = () => setShowModal(true)
+    
+    const handleShowModal = () => {
+        pause()
+        setShowModal(true)
+    }
+    
+    console.log("currentProject:", currentProject)
+
 
     return (
         <div className="body-container editor-container p-5">
@@ -191,21 +185,22 @@ export const Editor = () => {
                 <>
                     <div className="d-flex justify-content-between align-items-center">
                         <button onClick={handleShowModal}>Draft Settings</button>
-                        <Modal show={showModal} onHide={handleCloseModal}>
+                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} />
+                        {/* <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
                             </Modal.Header>
                             <Modal.Body className="d-flex flex-column">
                                 <label htmlFor="title">Title:</label>
-                                <input value={newProject.title} onChange={handleUpdate} type="text" name="title" autoFocus required/>
+                                <input value={currentProject.title} onChange={handleUpdate} type="text" name="title" autoFocus required/>
                                 <label htmlFor="timeFrame">Seconds Editable:</label>
-                                <input value={newProject.timeFrame} onChange={handleUpdate} type="number" name="timeFrame" required/>
+                                <input value={currentProject.timeFrame} onChange={handleUpdate} type="number" name="timeFrame" required/>
                                 <label htmlFor="maxCharacters">Maximum Visible Characters:</label>
-                                <input value={newProject.maxCharacters} onChange={handleUpdate} type="number" name="maxCharacters" required/>
+                                <input value={currentProject.maxCharacters} onChange={handleUpdate} type="number" name="maxCharacters" required/>
                                 <label htmlFor="trusteeName">Name:</label>
-                                <input value={newProject.trusteeName} onChange={handleUpdate} type="text" name="trusteeName" required/>
+                                <input value={currentProject.trusteeName} onChange={handleUpdate} type="text" name="trusteeName" required/>
                                 <label htmlFor="trusteeEmail">Email:</label>
-                                <input value={newProject.trusteeEmail} onChange={handleUpdate} type="email" name="trusteeEmail" required/>
+                                <input value={currentProject.trusteeEmail} onChange={handleUpdate} type="email" name="trusteeEmail" required/>
                             </Modal.Body>
                             <Modal.Footer>
                                 <div className="btn btn-secondary" onClick={handleCloseModal}>
@@ -215,9 +210,9 @@ export const Editor = () => {
                                     Save Changes
                                 </div>
                             </Modal.Footer>
-                        </Modal>               
+                        </Modal>                */}
                         <div className="d-flex flex-column align-items-center">
-                            <div className="font-weight-bold">{newProject.title}</div>
+                            <div className="font-weight-bold">{currentProject.title}</div>
                         </div>
                         <div>
                             <button onClick={handleSave} className="mr-2">Save Progress</button>
@@ -229,7 +224,7 @@ export const Editor = () => {
                             <div style={{display: 'flex', alignItems: 'center'}}>
                                 <span style={{display: 'flex'}}>
                                     {visible && visible.map((item, index) => {
-                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? `\n` : item.key}</div>
+                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
                                     })}
                                 </span>
                                 <span className="flashing">|</span>

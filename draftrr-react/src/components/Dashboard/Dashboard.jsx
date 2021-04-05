@@ -52,7 +52,7 @@ export const Dashboard = () => {
     }
 
     const handleNewClick = () => {
-        setCurrentProject()
+        // setCurrentProject()
     }
     
     const handleDelete = (project, idx) => {
