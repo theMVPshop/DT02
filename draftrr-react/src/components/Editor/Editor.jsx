@@ -10,7 +10,7 @@ import "./Editor.scss"
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(true)
+    const [ newDraft, = ] = useState(true)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ visible, setVisible ] = useState([])
@@ -181,7 +181,12 @@ export const Editor = () => {
 
     //hide/show modal
     const handleCloseModal = () => setShowModal(false)
-    const handleShowModal = () => setShowModal(true)
+    const handleShowModal = () => {
+        pause() 
+        // setShowModal(true)
+        window.removeEventListener("keydown", handleKeyDown, true)
+    }
+    
 
     return (
         <div className="body-container editor-container p-5">
