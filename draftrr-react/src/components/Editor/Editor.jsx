@@ -4,8 +4,10 @@ import { DraftrrContext } from "../../context/DraftrrContext"
 import { NewDraftForm } from "./NewDraftForm"
 import { SettingsModal } from "./SettingsModal"
 
-import "./Editor.scss"
 import userEvent from "@testing-library/user-event"
+import Modal from "react-bootstrap/Modal"
+
+import "./Editor.scss"
 
 let interval
 
@@ -42,7 +44,6 @@ export const Editor = () => {
             setNewDraft(false)
         }
     }, [])
-
 
     const pause = () => {
         clearInterval(interval); 
@@ -170,12 +171,9 @@ export const Editor = () => {
     const handleCloseModal = () => setShowModal(false)
     const handleShowModal = () => {
         pause() 
-        // setShowModal(true)
+        setShowModal(true)
         window.removeEventListener("keydown", handleKeyDown, true)
     }
-    
-    
-
 
     return (
         <div className="body-container editor-container p-5">
@@ -185,7 +183,7 @@ export const Editor = () => {
                 <>
                     <div className="d-flex justify-content-between align-items-center">
                         <button onClick={handleShowModal}>Draft Settings</button>
-                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} />
+                        <SettingsModal showModal={showModal} handleCloseModal={handleCloseModal} handleUpdate={handleUpdate} saveSettings={saveSettings} />
                         {/* <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
