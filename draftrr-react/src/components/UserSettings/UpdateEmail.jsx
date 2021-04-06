@@ -13,6 +13,7 @@ export const UpdateEmail = () => {
 
     function handleEmails(event) {
         setEmails({ ...emails, [event.target.name]: event.target.value })
+        console.log('emails', emails)
     };
 
     async function handleSubmit(e) {

@@ -19,19 +19,19 @@ export function DraftrrProvider({ children }) {
         password: '',
         passwordConfirm: ''
     })
-    const [newProject, setNewProject] = useState({
+    // const [newProject, setNewProject] = useState({
         
-        title: '',
-        timeFrame: 20,
-        maxCharacters: 50,
-        font: 'helvetica',
-        trusteeName: '',
-        trusteeEmail: '',
-        textID: '',
-        userID: '',
-        locked: true,
-        submitted: false
-    })
+    //     title: '',
+    //     timeFrame: 20,
+    //     maxCharacters: 50,
+    //     font: 'helvetica',
+    //     trusteeName: '',
+    //     trusteeEmail: '',
+    //     textID: '',
+    //     userID: '',
+    //     locked: true,
+    //     submitted: false
+    // })
     const [newDraft, setNewDraft] = useState(false)
     const [projects, setProjects] = useState()
     const [currentTextFile, setCurrentTextFile] = useState({})
@@ -73,15 +73,21 @@ export function DraftrrProvider({ children }) {
     }
 
     function updateEmail(newEmail) {
-        return auth.currentUser.updateEmail(newEmail)
+        return auth.currentUser.updateEmail(newEmail).then(() => {
+            updateUser()
+        })
     }
 
     function updatePassword(password) {
-        return currentUser.updatePassword(password)
+        return currentUser.updatePassword(password).then(() => {
+            updateUser()
+        })
     }
 
     function updateProfile(username) {
-        return auth.currentUser.updateProfile({ displayName: username })
+        return auth.currentUser.updateProfile({ displayName: username }).then(() => {
+            // updateUser()
+        })
     }
 
     function createUser() {
@@ -104,7 +110,7 @@ export function DraftrrProvider({ children }) {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
-           })
+        })
 
         return unsubscribe
     })
@@ -131,8 +137,8 @@ export function DraftrrProvider({ children }) {
     }
 
     useEffect(() => {
-        return newProject
-    }, [newProject])
+        return currentProject
+    }, [currentProject])
 
 
     const createTextFile = () => {
@@ -141,24 +147,24 @@ export function DraftrrProvider({ children }) {
         axios.post(`http://localhost:4000/text/create`, payload)
             .then(res => {
                 
-                let newState = newProject
+                let newState = currentProject
                 newState.textID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.userID = currentUser.uid
                 newState.locked = true
                 newState.submitted = false
-                console.log('new project', newProject)
+                console.log('current project', currentProject)
                 
                 
             }).then(res => {
                 
-                createProject(newProject)
+                createProject(currentProject)
             })
     }
 
     const updateTextFile = (payload) => {
-        console.log('text', newProject)
-        axios.put(`http://localhost:4000/text/${newProject.textID}`, payload)
+        console.log('text', currentProject)
+        axios.put(`http://localhost:4000/text/${currentProject.textID}`, payload)
             .then(res => {
                 console.log('response', res.config.data)
             })
@@ -169,6 +175,18 @@ export function DraftrrProvider({ children }) {
         axios.put(`http://localhost:4000/projects/${currentProject.id}`, payload)
             .then(res => {
                 console.log('project updated!', res)
+            })
+    }
+
+    const updateUser = () => {
+        console.log("updating user info")
+        const payload = {
+                    username: currentUser.displayName,
+                    email: currentUser.email,
+                }
+        axios.put(`http://localhost:4000/users/${currentUser.uid}`, payload)
+            .then(res => {
+                console.log('user updated!', res)
             })
     }
 
@@ -225,8 +243,8 @@ export function DraftrrProvider({ children }) {
         currentUser,
         createUser,
         setNewUser,
-        newProject,
-        setNewProject,
+        // newProject,
+        // setNewProject,
         createTextFile,
         newDraft,
         setNewDraft,
