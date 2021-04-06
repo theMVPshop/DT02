@@ -18,7 +18,7 @@ export const Router = () => {
             <Route path="/editor" component={Editor} />
             <Route path="/settings" component={Settings} />
             <Route path="/form" component={NewDraftForm} />
-            <Route path="/draftviewer/:id" component={DraftViewer} />
+            <Route path="/draftviewer/:idProjects/:textID" component={DraftViewer} />
         </Switch>
     )
 }

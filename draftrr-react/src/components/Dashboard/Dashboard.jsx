@@ -50,7 +50,7 @@ export const Dashboard = () => {
         setCurrentProject(payload)
         // history.push({pathname: '/draftviewer',
         //               search: "?" + new URLSearchParams({idProjects: payload.idProjects}).toString()})
-        history.push(`/draftviewer/${payload.Text_ID}`)
+        history.push(`/draftviewer/${payload.idProjects}/${payload.Text_ID}`)
     }
 
     const handleNewClick = () => {

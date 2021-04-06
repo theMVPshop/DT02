@@ -60,6 +60,17 @@ const updateProjectByProjectID = (req, res) => {
   })
 }
 
+const unlockProject = (req, res) => {
+  let sql = "UPDATE Projects SET Locked = ? WHERE idProjects = ?;"
+
+  sql = mysql.format(sql, [req.body.locked, req.params.id])
+
+  pool.query(sql, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.json();
+  })
+}
+
 const deleteProjectByProjectID = (req, res) => {
   let sql = "DELETE FROM Projects where idProjects = ?"
   console.log("deleting project")
@@ -91,5 +102,6 @@ module.exports = {
   getProjectByUserID,
   updateProjectByProjectID,
   deleteProjectByProjectID,
-  deleteProjectByUsers_ID
+  deleteProjectByUsers_ID,
+  unlockProject
 }
