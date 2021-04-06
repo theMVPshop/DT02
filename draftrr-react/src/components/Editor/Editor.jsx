@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import { DraftrrContext } from "../../context/DraftrrContext"
-
+import {useParams, useRouteMatch} from "react-router-dom";
 import { NewDraftForm } from "./NewDraftForm"
 import { SettingsModal } from "./SettingsModal"
+import axios from 'axios'
 
 import "./Editor.scss"
 import userEvent from "@testing-library/user-event"
@@ -17,6 +18,23 @@ export const Editor = () => {
     const [ showModal, setShowModal ] = useState(false)
 
     const { document, setDocument, createProject, createTextFile, currentUser, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
+
+    const { idProjects, textID } = useParams()
+
+    // useEffect(()=> {
+
+    //     axios.get(`http://localhost:4000/text/${textID}`)
+    //         .then(res => {
+    //             console.log('getting project text', res.data.text)
+    //             setDocument(res.data.text)
+    //         });
+
+    //     axios.get(`http://localhost:4000/projects/${idProjects}`)
+    //         .then(res => {
+    //             console.log('getting project', res.data[0])
+    //             setCurrentProject(res.data[0])
+    //         })
+    // },[])
 
     useEffect(() => {
         if(!newDraft && !showModal) {
@@ -38,7 +56,7 @@ export const Editor = () => {
     }, [showModal])
 
     useEffect(() => {
-        if(currentProject.textID) {
+        if(currentProject.idProjects) {
             setNewDraft(false)
         }
     }, [])
@@ -144,11 +162,12 @@ export const Editor = () => {
     const combineDoc = () => {
         const final = [...locked, ...editable]
         const mappedChars = final.map((char) => char.key)
-        setDocument({text: mappedChars.join("")})
-        console.log('document', document)
+        setDocument({text: document.text + " " + mappedChars.join("")})
+        
     }
 
     useEffect(() => {
+        console.log('document', document)
         updateTextFile(document)
     }, [document])
 
