@@ -5,8 +5,10 @@ import { NewDraftForm } from "./NewDraftForm"
 import { SettingsModal } from "./SettingsModal"
 import axios from 'axios'
 
-import "./Editor.scss"
 import userEvent from "@testing-library/user-event"
+import Modal from "react-bootstrap/Modal"
+
+import "./Editor.scss"
 
 let interval
 
@@ -60,7 +62,6 @@ export const Editor = () => {
             setNewDraft(false)
         }
     }, [])
-
 
     const pause = () => {
         clearInterval(interval); 
@@ -189,12 +190,9 @@ export const Editor = () => {
     const handleCloseModal = () => setShowModal(false)
     const handleShowModal = () => {
         pause() 
-        // setShowModal(true)
+        setShowModal(true)
         window.removeEventListener("keydown", handleKeyDown, true)
     }
-    
-    
-
 
     return (
         <div className="body-container editor-container p-5">
@@ -204,7 +202,7 @@ export const Editor = () => {
                 <>
                     <div className="d-flex justify-content-between align-items-center">
                         <button onClick={handleShowModal}>Draft Settings</button>
-                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} />
+                        <SettingsModal showModal={showModal} handleCloseModal={handleCloseModal} handleUpdate={handleUpdate} saveSettings={saveSettings} />
                         {/* <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
@@ -240,13 +238,13 @@ export const Editor = () => {
                         </div>
                     </div>
                     <div id="mainTextBox">
-                            <div style={{display: 'flex', alignItems: 'center'}}>
-                                <span style={{display: 'flex'}}>
+                            <div className="d-flex align-items-center flex-wrap">
+                                {/* <span className="d-flex flex-wrap"> */}
                                     {visible && visible.map((item, index) => {
-                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
+                                        return <span style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</span>
                                     })}
-                                </span>
                                 <span className="flashing">|</span>
+                                {/* </span> */}
                             </div>
                     </div>
                 </>

@@ -38,8 +38,8 @@ export function DraftrrProvider({ children }) {
     const [currentProject, setCurrentProject] = useState({
         id: 0,
         title: '',
-        timeFrame: 20,
-        maxCharacters: 50,
+        timeFrame: 10,
+        maxCharacters: 200,
         font: 'helvetica',
         trusteeName: '',
         trusteeEmail: '',

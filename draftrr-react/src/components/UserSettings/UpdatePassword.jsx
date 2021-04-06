@@ -47,7 +47,7 @@ export const UpdatePassword = () => {
                 
                 <div className="form-group">
                     <label>Current Password</label>
-                    <input type="password" className="form-control" placeholder="Enter new password" name="currentPassword" onChange={handlePasswords} autoFocus/>
+                    <input type="password" className="form-control" placeholder="Enter current password" name="currentPassword" onChange={handlePasswords} autoFocus/>
                 </div>
 
                 <div className="form-group">
