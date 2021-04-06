@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import { DraftrrContext } from "../../context/DraftrrContext"
 
-import Modal from "react-bootstrap/Modal"
-
 import { NewDraftForm } from "./NewDraftForm"
+import { SettingsModal } from "./SettingsModal"
 
 import "./Editor.scss"
 import userEvent from "@testing-library/user-event"
@@ -34,7 +33,6 @@ export const Editor = () => {
 
     useEffect(() => {
         if (showModal) {
-            console.log("show modal true")
             window.removeEventListener("keydown", handleKeyDown)
         }
     }, [showModal])
@@ -55,7 +53,7 @@ export const Editor = () => {
     }
     
     //save progress and keep working
-    const handleSave = () => {combineDoc()} 
+    const handleSave = () => combineDoc() 
     
     // clear interval, save document and exit session
     const handleSaveAndExit = () => {
@@ -64,7 +62,7 @@ export const Editor = () => {
     } 
     
     //clear interval, save document and upload to DB
-    const handleSubmit = () => {handleSaveAndExit()} 
+    const handleSubmit = () => handleSaveAndExit()
     
     //possible interval for autosaving progress, still thinking on this one
     const autoSave = () => {} 
@@ -176,6 +174,8 @@ export const Editor = () => {
         window.removeEventListener("keydown", handleKeyDown, true)
     }
     
+    
+
 
     return (
         <div className="body-container editor-container p-5">
@@ -185,7 +185,8 @@ export const Editor = () => {
                 <>
                     <div className="d-flex justify-content-between align-items-center">
                         <button onClick={handleShowModal}>Draft Settings</button>
-                        <Modal show={showModal} onHide={handleCloseModal}>
+                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} />
+                        {/* <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
                             </Modal.Header>
@@ -209,7 +210,7 @@ export const Editor = () => {
                                     Save Changes
                                 </div>
                             </Modal.Footer>
-                        </Modal>               
+                        </Modal>                */}
                         <div className="d-flex flex-column align-items-center">
                             <div className="font-weight-bold">{currentProject.title}</div>
                         </div>
