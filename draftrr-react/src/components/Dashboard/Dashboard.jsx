@@ -218,7 +218,7 @@ export const Dashboard = () => {
                                                 </div>
                                             </OverlayTrigger>
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        {/* <Dropdown.Item>
                                             <OverlayTrigger
                                                 key="Draft Settings"
                                                 placement="top"
@@ -233,7 +233,7 @@ export const Dashboard = () => {
                                                     Settings
                                                 </div>
                                             </OverlayTrigger>
-                                        </Dropdown.Item>
+                                        </Dropdown.Item> */}
                                         <Dropdown.Item onClick={() => handleShow(draft, idx)}>
                                             <OverlayTrigger
                                                 key="Delete Draft"

@@ -26,7 +26,7 @@ export const SignUp = () => {
                 .then(() => {
                     updateProfile(credentials.username)
                 })
-            history.push('/dashboard2')
+            history.push('/dashboard')
             setLoginOpen(false)
         } catch {
             setError('Failed to create an account')
