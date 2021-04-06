@@ -15,7 +15,7 @@ export const Router = () => {
             <Route path="/about" component={About} />
             <Route path="/dashboard" component={Dashboard} />
             {/* <Route path="/dashboard2" component={Dashboard2} /> */}
-            <Route path="/editor" component={Editor} />
+            <Route path="/editor/" component={Editor} />
             <Route path="/settings" component={Settings} />
             <Route path="/form" component={NewDraftForm} />
             <Route path="/draftviewer/:idProjects/:textID" component={DraftViewer} />

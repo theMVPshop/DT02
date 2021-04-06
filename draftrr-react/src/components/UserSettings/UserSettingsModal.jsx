@@ -1,6 +1,7 @@
 import React, {useContext, useState} from 'react'
 import { Link } from "react-router-dom"
 import Modal from "react-bootstrap/Modal";
+import { FaArrowAltCircleLeft } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import { DraftrrContext } from '../../context/DraftrrContext'
@@ -46,7 +47,7 @@ export const UserSettingsModal = () => {
             </button>
             {isSetting &&
                 <button type="button" className="close" aria-label="Close" onClick={handleBack}>
-                    <span aria-hidden="true">{"<"}</span>
+                    <span aria-hidden="true">{<FaArrowAltCircleLeft color="#5895B2"/>}</span>
                 </button>}
         </div>
       </Modal.Header>

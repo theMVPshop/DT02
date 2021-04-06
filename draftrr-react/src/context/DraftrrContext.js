@@ -23,8 +23,8 @@ export function DraftrrProvider({ children }) {
     const [currentProject, setCurrentProject] = useState({
         id: 0,
         title: '',
-        timeFrame: 20,
-        maxCharacters: 50,
+        timeFrame: 10,
+        maxCharacters: 200,
         font: 'helvetica',
         trusteeName: '',
         trusteeEmail: '',
@@ -125,7 +125,7 @@ export function DraftrrProvider({ children }) {
 
     const updateTextFile = (payload) => {
         console.log('text', currentProject)
-        axios.put(`http://localhost:4000/text/${currentProject.textID}`, payload)
+        axios.put(`http://localhost:4000/text/${currentProject.Text_ID}`, payload)
             .then(res => {
                 console.log('response', res.config.data)
             })

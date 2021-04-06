@@ -8632,6 +8632,11 @@
     "stdout-stream" "^1.4.0"
     "true-case-path" "^1.0.2"
 
+"nodemailer@^6.5.0":
+  "integrity" "sha512-Tm4RPrrIZbnqDKAvX+/4M+zovEReiKlEXWDzG4iwtpL9X34MJY+D5LnQPH/+eghe8DLlAVshHAJZAZWBGhkguw=="
+  "resolved" "https://registry.npmjs.org/nodemailer/-/nodemailer-6.5.0.tgz"
+  "version" "6.5.0"
+
 "nopt@^5.0.0":
   "integrity" "sha512-Tbj67rffqceeLpcRXrT7vKAN8CwfPeIBgM7E6iBkmKLV7bEMwpGgYLGv0jACUsECaa/vuxP0IjEont6umdMgtQ=="
   "resolved" "https://registry.npmjs.org/nopt/-/nopt-5.0.0.tgz"

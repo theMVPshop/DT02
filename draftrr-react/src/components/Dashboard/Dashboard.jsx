@@ -9,7 +9,21 @@ import axios from "axios"
 import "./Dashboard.scss"
 
 
+var nodemailer = require('nodemailer');
+
+var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'rockman4447@gmail.com',
+      pass: 'C*pper08'
+    }
+  });
+
+
 export const Dashboard = () => {
+
+
+
     const [loadingDrafts, setLoadingDrafts] = useState(true);
     const [ textFiles, setTextFiles ] = useState()
     const [ textFilePath, setTextFilePath ] = useState()
@@ -54,7 +68,7 @@ export const Dashboard = () => {
     }
 
     const handleNewClick = () => {
-        // setCurrentProject()
+        
     }
     
     const handleDelete = (project, idx) => {
@@ -71,6 +85,25 @@ export const Dashboard = () => {
     }
     
     const handleClose = () => setShowDeleteModal(false);
+
+    const handleSubmit = (draft) => {
+       
+
+        const mailOptions = {
+                            from: 'rockman4447@gmail.com',
+                            to: draft.TrusteeEmail,
+                            subject: 'Sending Email using Node.js',
+                            text: 'That was easy!',
+                            html: `<p>Click <a href="http://localhost:3000/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
+                            }
+
+
+        console.log('sending email to', mailOptions)
+        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+            console.log('email sent', res)
+        })
+
+    }
 
     const handleShow = (draft, idx) => {
         setDeleteDraft(
@@ -213,12 +246,12 @@ export const Dashboard = () => {
                                                 }
                                             >
                                                 <div>
-                                                    <FaPaperPlane style={{ margin: '0 15px' }} size='1.5em' title="Submit Draft" color={!draft.Locked ? 'silver' : '#5895B2'}/>
+                                                    <FaPaperPlane onClick={()=> handleSubmit(draft)} style={{ margin: '0 15px' }} size='1.5em' title="Submit Draft" color={!draft.Locked ? 'silver' : '#5895B2'}/>
                                                     Submit
                                                 </div>
                                             </OverlayTrigger>
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        {/* <Dropdown.Item>
                                             <OverlayTrigger
                                                 key="Draft Settings"
                                                 placement="top"
@@ -233,7 +266,7 @@ export const Dashboard = () => {
                                                     Settings
                                                 </div>
                                             </OverlayTrigger>
-                                        </Dropdown.Item>
+                                        </Dropdown.Item> */}
                                         <Dropdown.Item onClick={() => handleShow(draft, idx)}>
                                             <OverlayTrigger
                                                 key="Delete Draft"
