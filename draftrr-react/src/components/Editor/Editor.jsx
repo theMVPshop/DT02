@@ -219,13 +219,13 @@ export const Editor = () => {
                         </div>
                     </div>
                     <div id="mainTextBox">
-                            <div style={{display: 'flex', alignItems: 'center'}}>
-                                <span style={{display: 'flex'}}>
+                            <div className="d-flex align-items-center flex-wrap">
+                                {/* <span className="d-flex flex-wrap"> */}
                                     {visible && visible.map((item, index) => {
-                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
+                                        return <span style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</span>
                                     })}
-                                </span>
                                 <span className="flashing">|</span>
+                                {/* </span> */}
                             </div>
                     </div>
                 </>
