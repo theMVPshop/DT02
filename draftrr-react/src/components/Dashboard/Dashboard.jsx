@@ -228,9 +228,9 @@ export const Dashboard = () => {
                 <ListGroup className="shadow p-3 mb-5 bg-white rounded" style={{minWidth: '400px'}} >
                     {projects && projects.map((draft, idx) => {
                         return (
-                            <div className="d-flex align-items-center justify-content-end">
+                            <div key={idx} className="d-flex align-items-center justify-content-end">
                                 <LockedIcon status={draft.Locked} id={draft.idProjects} />
-                                <ListGroup.Item key={idx}>
+                                <ListGroup.Item>
                                     {draft.Title}
                                 </ListGroup.Item>
                                 <Dropdown>
