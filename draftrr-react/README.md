@@ -37,7 +37,9 @@ Formatting and spell checking can be done in the rewrite, but you can’t get to
 - import { FaStopwatch } from "react-icons/fa";
 - import { FaPaperPlane } from "react-icons/fa";
 - import { FaEyeSlash } from "react-icons/fa";
+- import { FaEye } from "react-icons/fa";
 - import { FaRedo } from "react-icons/fa";
+- import { FaArrowAltCircleLeft } from "react-icons/fa";
 - import { ImFontSize } from "react-icons/im";
 - import { CgDarkMode } from "react-icons/cg";
 
@@ -83,6 +85,10 @@ Formatting and spell checking can be done in the rewrite, but you can’t get to
 
 <FaPlay />
 
+### Back
+
+<FaArrowAltCircleLeft />
+
 ### Download
 
 <FaFileDownload />
@@ -102,6 +108,10 @@ Formatting and spell checking can be done in the rewrite, but you can’t get to
 ### Timer
 
 <FaEyeSlash />
+
+### View
+
+<FaEye />
 
 ### Timer
 

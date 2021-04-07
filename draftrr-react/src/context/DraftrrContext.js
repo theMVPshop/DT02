@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
-import { auth } from '../firebase'
+import { db, auth } from '../firebase'
 
 export const DraftrrContext = React.createContext()
 
@@ -9,37 +9,22 @@ export function DraftrrProvider({ children }) {
     const [settingsOpen, setSettingsOpen] = useState(false)
     const [isLogin, setIsLogin] = useState(true)
     const [isForgotPassword, setIsForgotPassword] = useState(false)
-    const [newUser, setNewUser] = useState(false)
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
-    const [document, setDocument] = useState({text: ''})
+    const [document, setDocument] = useState({ text: '' })
     const [credentials, setCredentials] = useState({
         email: '',
         username: '',
         password: '',
         passwordConfirm: ''
     })
-    const [newProject, setNewProject] = useState({
-        
-        title: '',
-        timeFrame: 20,
-        maxCharacters: 50,
-        font: 'helvetica',
-        trusteeName: '',
-        trusteeEmail: '',
-        textID: '',
-        userID: '',
-        locked: true,
-        submitted: false
-    })
     const [newDraft, setNewDraft] = useState(false)
     const [projects, setProjects] = useState()
-    const [currentTextFile, setCurrentTextFile] = useState({})
     const [currentProject, setCurrentProject] = useState({
         id: 0,
         title: '',
-        timeFrame: 20,
-        maxCharacters: 50,
+        timeFrame: 10,
+        maxCharacters: 200,
         font: 'helvetica',
         trusteeName: '',
         trusteeEmail: '',
@@ -55,8 +40,11 @@ export function DraftrrProvider({ children }) {
     };
 
     function signup(email, password) {
-        return auth.createUserWithEmailAndPassword(email, password).then(() => {
-            setNewUser(true)
+        return auth.createUserWithEmailAndPassword(email, password).then(cred => {
+            db.collection('users').doc(cred.user.uid).set({
+                theme: 'light',
+                newUser: true
+            })
         })
     }
 
@@ -84,81 +72,60 @@ export function DraftrrProvider({ children }) {
         return auth.currentUser.updateProfile({ displayName: username })
     }
 
-    function createUser() {
-                    const payload = {
-                    id: currentUser.uid,
-                    name: credentials.username,
-                    email: currentUser.email,
-                    theme: 'light',
-                    timeFrame: 0,
-                    maxCharacters: 0,
-                    font: '',
-                    newUser: true
-                }
-        axios.post(`http://localhost:4000/users/`, payload)
-            .then(res => console.log('user created', res))
-            .then(() => setIsLogin(true))
+    function updateTheme(theme) {
+        return db.collection("users").document(currentUser.uid).update("theme", theme)
+    }
+
+    function updateIsNewUser(isNewUser) {
+        return db.collection("users").document(currentUser.uid).update("newUser", isNewUser)
     }
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged(user => {
             setCurrentUser(user)
             setLoading(false)
-           })
-
+        })
         return unsubscribe
     })
-
-    useEffect(() => {
-        newUser && createUser()
-    }, [currentUser])
 
     useEffect(() => {
         console.log('current project', currentProject)
     }, [currentProject])
 
-
     const createProject = (payload) => {
         axios.post(`http://localhost:4000/projects`, payload)
-        .then(res => { console.log('project created!', res) 
-            const newState = payload
-            newState.id = res.data.newId
-            
-            setCurrentProject(newState)
-            
-    
-        })
+            .then(res => {
+                console.log('project created!', res)
+                const newState = payload
+                newState.id = res.data.newId
+                setCurrentProject(newState)
+            })
     }
 
     useEffect(() => {
-        return newProject
-    }, [newProject])
-
+        return currentProject
+    }, [currentProject])
 
     const createTextFile = () => {
         const payload = { text: '' }
-        
+
         axios.post(`http://localhost:4000/text/create`, payload)
             .then(res => {
-                
-                let newState = newProject
+                let newState = currentProject
                 newState.textID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.userID = currentUser.uid
                 newState.locked = true
                 newState.submitted = false
-                console.log('new project', newProject)
-                
-                
+                console.log('current project', currentProject)
             }).then(res => {
-                
-                createProject(newProject)
+                createProject(currentProject)
             })
     }
 
     const updateTextFile = (payload) => {
-        console.log('text', newProject)
-        axios.put(`http://localhost:4000/text/${newProject.textID}`, payload)
+        console.log('text', currentProject)
+        axios.put(`http://localhost:4000/text/${currentProject.Text_ID}`, payload)
             .then(res => {
                 console.log('response', res.config.data)
             })
@@ -173,7 +140,6 @@ export function DraftrrProvider({ children }) {
     }
 
     const deleteProject = (sqlID, textID, idx) => {
-        
         axios.delete(`http://localhost:4000/projects/${sqlID}`)
             .then(res => {
                 console.log('SQL entry deleted!', res)
@@ -183,24 +149,26 @@ export function DraftrrProvider({ children }) {
                 console.log('mongo entry deleted!', res)
             })
             .then(res => {
-                const newState = projects 
+                const newState = projects
                 newState.splice(idx, 1)
                 setProjects([...newState])
             })
     }
 
-    const getDraft = (id) => {
-        const newState = document
-        axios.get(`http://localhost:4000/text/${id}`)
+    const getProject = (id) => {
+        axios.get(`http://localhost:4000/projects/${id}`)
             .then(res => {
-                newState.text = res.data.text
-                console.log('getting project', res.data.text)
-                setDocument(newState)
+                return res
             })
-
     }
 
-    
+    const getDraft = (id) => {
+        axios.get(`http://localhost:4000/text/${id}`)
+            .then(res => {
+                console.log('getting project', res.data.text)
+                return res
+            })
+    }
 
     const value = {
         currentUser,
@@ -223,10 +191,6 @@ export function DraftrrProvider({ children }) {
         isForgotPassword,
         setIsForgotPassword,
         currentUser,
-        createUser,
-        setNewUser,
-        newProject,
-        setNewProject,
         createTextFile,
         newDraft,
         setNewDraft,
@@ -242,6 +206,7 @@ export function DraftrrProvider({ children }) {
         setCurrentProject,
         deleteProject,
         getDraft,
+        getProject
     }
 
     return (
