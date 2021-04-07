@@ -115,7 +115,7 @@ export const Dashboard = () => {
             })
         
         const mailOptions = {
-            from: 'rockman4447@gmail.com',
+            from: 'draftrrservice@gmail.com',
             to: draft.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
