@@ -52,7 +52,7 @@ export default function DraftViewer() {
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px'}}>
                 {locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button> : null}
                 <PDFViewer width="60%" height="700" className="app" >
-                                <Draft   text={text}/>
+                                <Draft text={text} title={currentProject.Title}/>
                 </PDFViewer>
             </div>
         )
