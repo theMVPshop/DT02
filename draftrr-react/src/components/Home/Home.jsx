@@ -39,9 +39,9 @@ export const Home = () => {
                 <h1 className="text-center font-weight-bold mt-4">What is Draftrr?</h1>
                 <p className="text-center">Draftrr is a writing application that encourages finishing the first draft. It has a minimal interface and no formatting ability.</p>
                 <div className="row my-5 d-flex flex-wrap justify-content-center">
-                    <Card card={"card1"} />
-                    <Card card={"card2"} />
-                    <Card card={"card3"} />
+                    <Card card="card1" />
+                    <Card card="card2" />
+                    <Card card="card3" />
                 </div>
                 <h3 className="text-center font-weight-bold mt-4">Click <span className="text-dark">Get Started</span> to write your first draft now...</h3>
             </section>

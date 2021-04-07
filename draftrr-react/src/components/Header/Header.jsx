@@ -13,7 +13,7 @@ import "./Header.scss"
 export const Header = () => {
     const [signUpBtn, setSignUpBtn] = useState()
     const [loginBtn, setLoginBtn] = useState()
-    const {setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
+    const {currentPage, setCurrentPage, setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
     const history = useHistory()
 
     const handleLoginOpen = () => {
@@ -23,6 +23,13 @@ export const Header = () => {
         }
         loginOpen ? setLoginOpen(false) : setLoginOpen(true)
     }
+
+    useEffect(() => {
+        setCurrentPage("dashboard")
+        return () => {
+            setCurrentPage("")
+        }
+    }, [input])
 
     useEffect(() => {
         if (signUpBtn) {
