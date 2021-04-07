@@ -37,6 +37,20 @@ export const Dashboard = () => {
     const uid = currentUser.uid
     const name = currentUser.displayName
 
+    useEffect(()=>{
+        setCurrentProject({Title: '',
+                            ProjectTimeframe: 10,
+                            ProjectMaxCharacters: 200,
+                            ProjectFont: 'helvetica',
+                            TrusteeName: '',
+                            TrusteeEmail: '',
+                            Text_ID: '',
+                            Users_ID: '',
+                            Locked: true,
+                            Submitted: false})
+    },[])
+    
+
     const handleGetProjects = () => {
         axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => {
             setProjects(res.data)
@@ -55,7 +69,7 @@ export const Dashboard = () => {
         // console.log("resume", payload)
         if (payload.Locked) {
             setCurrentProject(payload)
-            history.push('/editor')
+            history.push(`/editor/${payload.idProjects}/${payload.Text_ID}`)
         }
     }
 
@@ -315,7 +329,7 @@ export const Dashboard = () => {
                 <h2 className="mb-4 text-primary">My Drafts</h2>
             <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4" >
 
-                        <Link to="/editor" onClick={handleNewClick} >
+                        <Link to="/newdraft" onClick={handleNewClick} >
                             <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                         </Link>
 

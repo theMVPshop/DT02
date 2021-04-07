@@ -1,19 +1,15 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import { DraftrrContext } from "../../context/DraftrrContext"
-import {useParams, useRouteMatch} from "react-router-dom";
-import { NewDraftForm } from "./NewDraftForm"
+import {useParams, useRouteMatch, useHistory} from "react-router-dom";
 import { SettingsModal } from "./SettingsModal"
 import axios from 'axios'
 
-import userEvent from "@testing-library/user-event"
-import Modal from "react-bootstrap/Modal"
-
 import "./Editor.scss"
+import userEvent from "@testing-library/user-event"
 
 let interval
 
 export const Editor = () => {
-    const [ newDraft, setNewDraft ] = useState(true)
     const [ editable, setEditable ] = useState([])
     const [ locked, setLocked ] = useState([])
     const [ visible, setVisible ] = useState([])
@@ -23,24 +19,26 @@ export const Editor = () => {
 
     const { idProjects, textID } = useParams()
 
-    // useEffect(()=> {
+    const history = useHistory()
 
-    //     axios.get(`http://localhost:4000/text/${textID}`)
-    //         .then(res => {
-    //             console.log('getting project text', res.data.text)
-    //             setDocument(res.data.text)
-    //         });
+    useEffect(()=> {
 
-    //     axios.get(`http://localhost:4000/projects/${idProjects}`)
-    //         .then(res => {
-    //             console.log('getting project', res.data[0])
-    //             setCurrentProject(res.data[0])
-    //         })
-    // },[])
+        axios.get(`http://localhost:4000/text/${textID}`)
+            .then(res => {
+                console.log('getting project text', res.data.text)
+                setDocument(res.data.text)
+            });
+
+        axios.get(`http://localhost:4000/projects/${idProjects}`)
+            .then(res => {
+                console.log('getting project', res.data[0])
+                setCurrentProject(res.data[0])
+            })
+    },[])
 
     useEffect(() => {
-        if(!newDraft && !showModal) {
-            // initialize()
+        if(!showModal) {
+            
             window.addEventListener("keydown", handleKeyDown) 
             interval = setInterval(checkTimeStamps, 50)
             return () => {
@@ -48,7 +46,7 @@ export const Editor = () => {
             }
 
         }
-    }, [newDraft, showModal])
+    }, [showModal])
 
 
     useEffect(() => {
@@ -57,11 +55,6 @@ export const Editor = () => {
         }
     }, [showModal])
 
-    useEffect(() => {
-        if(currentProject.idProjects) {
-            setNewDraft(false)
-        }
-    }, [])
 
     const pause = () => {
         clearInterval(interval); 
@@ -78,6 +71,7 @@ export const Editor = () => {
     const handleSaveAndExit = () => {
         clearInterval(interval); 
         handleSave()
+        history.push('/dashboard')
     } 
     
     //clear interval, save document and upload to DB
@@ -135,7 +129,7 @@ export const Editor = () => {
 
             newState.forEach((item, index) => {
                 
-                if(index < currentProject.maxCharacters) {
+                if(index < currentProject.ProjectMaxCharacters) {
                     newArray.push(item)
                 }
     
@@ -150,26 +144,36 @@ export const Editor = () => {
         let newEditable = editable
         let newLocked = locked
         newEditable.forEach((item, index) => {
-            if (item.timestamp < Date.now() - (currentProject.timeFrame * 1000)) {
+            if (item.timestamp < Date.now() - (currentProject.ProjectTimeframe * 1000)) {
                 let removed = newEditable.splice(index, 1)
                 removed[0].isLocked = true
                 newLocked.push(removed[0])
                 setEditable([...newEditable])
                 setLocked([...newLocked])
+                
             } 
         })
     }
 
     const combineDoc = () => {
+        
         const final = [...locked, ...editable]
-        const mappedChars = final.map((char) => char.key)
-        setDocument({text: document.text + " " + mappedChars.join("")})
+        const mappedChars = final.map((char) => char.key).join("")
+        clearInterval(interval)
+
+        if(locked !== [] && editable !== []) {
+            updateTextFile(document ? {text: document + ' ' + mappedChars} : {text: mappedChars})
+        
+            
+            
+        }
+        
         
     }
 
     useEffect(() => {
         console.log('document', document)
-        updateTextFile(document)
+        
     }, [document])
 
     //handle update draft settings form
@@ -190,19 +194,20 @@ export const Editor = () => {
     const handleCloseModal = () => setShowModal(false)
     const handleShowModal = () => {
         pause() 
-        setShowModal(true)
+        // setShowModal(true)
         window.removeEventListener("keydown", handleKeyDown, true)
     }
+    
+    
+
 
     return (
         <div className="body-container editor-container p-5">
-            {newDraft ?
-                <NewDraftForm setNewDraft={setNewDraft}  />
-                : 
+            
                 <>
                     <div className="d-flex justify-content-between align-items-center">
                         <button onClick={handleShowModal}>Draft Settings</button>
-                        <SettingsModal showModal={showModal} handleCloseModal={handleCloseModal} handleUpdate={handleUpdate} saveSettings={saveSettings} />
+                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} />
                         {/* <Modal show={showModal} onHide={handleCloseModal}>
                             <Modal.Header closeButton>
                                 <Modal.Title>Draft Settings</Modal.Title>
@@ -232,23 +237,23 @@ export const Editor = () => {
                             <div className="font-weight-bold">{currentProject.title}</div>
                         </div>
                         <div>
-                            <button onClick={handleSave} className="mr-2">Save Progress</button>
+                            
                             <button onClick={handleSaveAndExit} className="mr-2">Save For Later</button>
                             <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                         </div>
                     </div>
                     <div id="mainTextBox">
-                            <div className="d-flex align-items-center flex-wrap">
-                                {/* <span className="d-flex flex-wrap"> */}
+                            <div style={{display: 'flex', alignItems: 'center'}}>
+                                <span style={{display: 'flex'}}>
                                     {visible && visible.map((item, index) => {
-                                        return <span style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</span>
+                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
                                     })}
+                                </span>
                                 <span className="flashing">|</span>
-                                {/* </span> */}
                             </div>
                     </div>
                 </>
-            }
+            
         </div>
     )
 }
