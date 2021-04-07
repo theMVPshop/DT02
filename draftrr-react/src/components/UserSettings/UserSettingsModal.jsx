@@ -58,15 +58,15 @@ export const UserSettingsModal = () => {
         :
         <Modal.Body>
             <div style={{display: "flex", flexDirection: "column"}}>
-                <Link className="btn btn-primary rounded-6 mb-2" name="updatePassword" onClick={openSetting}>
+                <div className="btn btn-primary rounded-6 mb-2" name="updatePassword" onClick={openSetting}>
                     Update Password
-                </Link>
-                <Link className="btn btn-primary rounded-6 mb-2" name="updateEmail" onClick={openSetting}>
+                </div>
+                <div className="btn btn-primary rounded-6 mb-2" name="updateEmail" onClick={openSetting}>
                     Update Email
-                </Link>
-                <Link className="btn btn-primary rounded-6 mb-1" name="updateUsername" onClick={openSetting}>
+                </div>
+                <div className="btn btn-primary rounded-6 mb-1" name="updateUsername" onClick={openSetting}>
                     Update Username
-                </Link>
+                </div>
             </ div>
         </Modal.Body>}
     </Modal>
