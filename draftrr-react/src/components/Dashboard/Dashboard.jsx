@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     const history = useHistory();
 
-    const {currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
+    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
@@ -39,6 +39,13 @@ export const Dashboard = () => {
             Locked: true,
             Submitted: false})
     },[])
+
+    useEffect(() => {
+        setCurrentPage("dashboard")
+        return () => {
+            setCurrentPage("")
+        }
+    }, [])
     
 
     const handleGetProjects = () => {

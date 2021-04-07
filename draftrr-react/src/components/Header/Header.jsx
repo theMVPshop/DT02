@@ -13,7 +13,7 @@ import "./Header.scss"
 export const Header = () => {
     const [signUpBtn, setSignUpBtn] = useState()
     const [loginBtn, setLoginBtn] = useState()
-    const {currentPage, setCurrentPage, setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
+    const {currentPage, setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
     const history = useHistory()
 
     const handleLoginOpen = () => {
@@ -24,12 +24,7 @@ export const Header = () => {
         loginOpen ? setLoginOpen(false) : setLoginOpen(true)
     }
 
-    useEffect(() => {
-        setCurrentPage("dashboard")
-        return () => {
-            setCurrentPage("")
-        }
-    }, [input])
+
 
     useEffect(() => {
         if (signUpBtn) {
@@ -80,7 +75,9 @@ export const Header = () => {
                     }
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-2">
-                    {currentUser ?
+                    {currentPage && currentUser ? 
+                    <Link className="btn btn-primary rounded-6" to="/dashboard">Usersetting</Link> :
+                    currentUser ?
                     <Link className="btn btn-primary rounded-6" to="/dashboard">Dashboard</Link> :
                     <Link to="/" className="btn btn-primary rounded-6" onClick={handleSignupOpen}>Get Started</Link>
                     }
