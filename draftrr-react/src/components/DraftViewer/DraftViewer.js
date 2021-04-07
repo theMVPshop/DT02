@@ -10,6 +10,7 @@ export default function DraftViewer() {
 
     const [text, setText] = useState('')
     const [locked, setLocked] = useState(true)
+    const [loaded, setLoaded] = useState(false)
 
     const {currentProject, setCurrentProject, getDraft, document, getProject} = useContext(DraftrrContext)
 
@@ -22,6 +23,7 @@ export default function DraftViewer() {
             .then(res => {
                 console.log('getting project text', res.data.text)
                 setText(res.data.text)
+                setLoaded(true)
             });
 
         axios.get(`http://localhost:4000/projects/${idProjects}`)
@@ -45,7 +47,7 @@ export default function DraftViewer() {
     }
     
     
-    if(text) {
+    if(loaded) {
         return (
             <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '50px'}}>
                 {locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button> : null}
