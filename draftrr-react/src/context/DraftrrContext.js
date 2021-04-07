@@ -42,6 +42,7 @@ export function DraftrrProvider({ children }) {
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password).then(cred => {
             db.collection('users').doc(cred.user.uid).set({
+                id: cred.user.uid,
                 theme: 'light',
                 newUser: true
             })
