@@ -6,7 +6,7 @@ const createProject = (req, res) => {
 
   let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, Text_ID, Users_ID, Locked, Submitted ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.userID, req.body.locked, req.body.submitted])
+  sql = mysql.format(sql, [req.body.Title, req.body.ProjectTimeframe, req.body.ProjectMaxCharacters, req.body.ProjectFont, req.body.TrusteeName, req.body.TrusteeEmail, req.body.Text_ID, req.body.Users_ID, req.body.Locked, req.body.Submitted])
 
   console.log("hit create project", sql)
 
@@ -52,7 +52,7 @@ const updateProjectByProjectID = (req, res) => {
   console.log(req.params.id)
   let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Locked = ?, Submitted = ? WHERE idProjects = ?;"
 
-  sql = mysql.format(sql, [req.body.title, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.trusteeName, req.body.trusteeEmail, req.body.textID, req.body.locked, req.body.submitted, req.params.id])
+  sql = mysql.format(sql, [req.body.Title, req.body.ProjectTimeframe, req.body.ProjectMaxCharacters, req.body.ProjectFont, req.body.TrusteeName, req.body.TrusteeEmail, req.body.Text_ID, req.body.Locked, req.body.Submitted, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
@@ -64,6 +64,17 @@ const unlockProject = (req, res) => {
   let sql = "UPDATE Projects SET Locked = ? WHERE idProjects = ?;"
 
   sql = mysql.format(sql, [req.body.locked, req.params.id])
+
+  pool.query(sql, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.json();
+  })
+}
+
+const submitProject = (req, res) => {
+  let sql = "UPDATE Projects SET Submitted = ? WHERE idProjects = ?;"
+
+  sql = mysql.format(sql, [req.body.submitted, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
@@ -103,5 +114,6 @@ module.exports = {
   updateProjectByProjectID,
   deleteProjectByProjectID,
   deleteProjectByUsers_ID,
-  unlockProject
+  unlockProject,
+  submitProject,
 }

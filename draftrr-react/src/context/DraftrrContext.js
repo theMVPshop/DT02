@@ -2,6 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import axios from 'axios'
 import { db, auth } from '../firebase'
 
+
 export const DraftrrContext = React.createContext()
 
 export function DraftrrProvider({ children }) {
@@ -11,7 +12,7 @@ export function DraftrrProvider({ children }) {
     const [isForgotPassword, setIsForgotPassword] = useState(false)
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
-    const [document, setDocument] = useState({ text: '' })
+    const [document, setDocument] = useState('')
     const [credentials, setCredentials] = useState({
         email: '',
         username: '',
@@ -21,18 +22,19 @@ export function DraftrrProvider({ children }) {
     const [newDraft, setNewDraft] = useState(false)
     const [projects, setProjects] = useState()
     const [currentProject, setCurrentProject] = useState({
-        id: 0,
-        title: '',
-        timeFrame: 10,
-        maxCharacters: 200,
-        font: 'helvetica',
-        trusteeName: '',
-        trusteeEmail: '',
-        textID: '',
-        userID: '',
-        locked: true,
-        submitted: false
+        Title: '',
+        ProjectTimeframe: 10,
+        ProjectMaxCharacters: 200,
+        ProjectFont: 'helvetica',
+        TrusteeName: '',
+        TrusteeEmail: '',
+        Text_ID: '',
+        Users_ID: '',
+        Locked: true,
+        Submitted: false
     })
+
+  
 
     function handleCredentials(event) {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
@@ -95,12 +97,13 @@ export function DraftrrProvider({ children }) {
 
     const createProject = (payload) => {
         axios.post(`http://localhost:4000/projects`, payload)
-            .then(res => {
-                console.log('project created!', res)
-                const newState = payload
-                newState.id = res.data.newId
-                setCurrentProject(newState)
-            })
+        .then(res => { console.log('project created!',  res) 
+        
+        let newState = JSON.parse(res.config.data)
+        newState.idProjects = res.data.newId
+        setCurrentProject(newState)
+    
+        })
     }
 
     useEffect(() => {
@@ -109,32 +112,36 @@ export function DraftrrProvider({ children }) {
 
     const createTextFile = () => {
         const payload = { text: '' }
-
+        let newState = currentProject
         axios.post(`http://localhost:4000/text/create`, payload)
             .then(res => {
-                let newState = currentProject
-                newState.textID = res.data.id
+                
+               
+                newState.Text_ID = res.data.id
                 console.log('user id', currentUser.uid)
-                newState.userID = currentUser.uid
-                newState.locked = true
-                newState.submitted = false
+                newState.Users_ID = currentUser.uid
+                newState.Locked = true
+                newState.Submitted = false
+                newState.ProjectFont = 'helvetica'
                 console.log('current project', currentProject)
             }).then(res => {
-                createProject(currentProject)
+                
+                createProject(newState)
             })
     }
 
     const updateTextFile = (payload) => {
-        console.log('text', currentProject)
+        
         axios.put(`http://localhost:4000/text/${currentProject.Text_ID}`, payload)
             .then(res => {
-                console.log('response', res.config.data)
+                console.log('response updated', JSON.parse(res.config.data).text)
+                setDocument(JSON.parse(res.config.data).text)
             })
     }
 
     const updateProject = () => {
         const payload = currentProject
-        axios.put(`http://localhost:4000/projects/${currentProject.id}`, payload)
+        axios.put(`http://localhost:4000/projects/${currentProject.idProjects}`, payload)
             .then(res => {
                 console.log('project updated!', res)
             })

@@ -7,6 +7,7 @@ import {UserSettingsModal} from '../UserSettings/UserSettingsModal'
 import { Link, useHistory } from "react-router-dom"
 import axios from "axios"
 import "./Dashboard.scss"
+import {SettingsModal} from '../Editor/SettingsModal'
 
 
 var nodemailer = require('nodemailer');
@@ -29,13 +30,28 @@ export const Dashboard = () => {
     const [ textFilePath, setTextFilePath ] = useState()
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [deleteDraft, setDeleteDraft] = useState({draft: {Title: ''}})
+    const [showModal, setShowModal] = useState(false)
 
     const history = useHistory();
 
-    const {currentUser, loading, setLoading, projects, setProjects, currentProject, setCurrentProject, deleteProject, setSettingsOpen} = useContext(DraftrrContext)
+    const {currentUser, loading, setLoading, projects, setProjects, currentProject, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
+
+    useEffect(()=>{
+        setCurrentProject({Title: '',
+                            ProjectTimeframe: 10,
+                            ProjectMaxCharacters: 200,
+                            ProjectFont: 'helvetica',
+                            TrusteeName: '',
+                            TrusteeEmail: '',
+                            Text_ID: '',
+                            Users_ID: '',
+                            Locked: true,
+                            Submitted: false})
+    },[])
+    
 
     const handleGetProjects = () => {
         axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => {
@@ -51,13 +67,49 @@ export const Dashboard = () => {
         console.log(textFiles)
     }
 
+    
+
     const handleSelect = (payload) => {
         // console.log("resume", payload)
         if (payload.Locked) {
             setCurrentProject(payload)
-            history.push('/editor')
+            history.push(`/editor/${payload.idProjects}/${payload.Text_ID}`)
         }
     }
+
+
+    //SETTINGS MODAL FUNCTIONS////////////////////////////////
+    const handleShowModal = (payload) => {
+        setCurrentProject(payload)
+        setShowModal(true)
+    }
+
+    const saveSettings = () => {
+        updateProject()
+        setShowModal(false)
+        setCurrentProject({Title: '',
+                            ProjectTimeframe: 10,
+                            ProjectMaxCharacters: 200,
+                            ProjectFont: 'helvetica',
+                            TrusteeName: '',
+                            TrusteeEmail: '',
+                            Text_ID: '',
+                            Users_ID: '',
+                            Locked: true,
+                            Submitted: false})
+    }
+
+    const handleCloseModal = () => setShowModal(false)
+
+    const handleUpdate = (event) => {
+        setCurrentProject(previousValues => ({
+            ...previousValues, 
+            [event.target.name]: event.target.value
+        }))
+    }
+    ///////////////////////////////////////////////////////////
+
+
 
     const handleView = (payload) => {
         // console.log("resume", payload)
@@ -87,6 +139,13 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
+
+        
+        axios.put(`http://localhost:4000/projects/submit/${draft.idProjects}`, {submitted: 1})
+            .then(res => {
+                console.log('submitting project', res)
+            })
+        
        
 
         const mailOptions = {
@@ -216,18 +275,18 @@ export const Dashboard = () => {
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu >
-                                        <Dropdown.Item onClick={()=> handleSelect(draft)}>
+                                        <Dropdown.Item onClick={()=> draft.Submitted !== 1 ? handleSelect(draft) : null}>
                                             <OverlayTrigger
                                                 key="Resume Draft"
                                                 placement="top"
                                                 overlay={
                                                     <Tooltip id={"tooltop-resume"}>
-                                                    Resume {draft.Title}
+                                                    {draft.Submitted ? `Draft Has Already Been Submitted` : `Resume ${draft.Title}`}
                                                     </Tooltip>
                                                 }
                                             >
                                                 <div>
-                                                    <FaPlay style={{ margin: '0 15px' }} size='1.5em' title="Resume Draft" color={!draft.Locked ? 'silver' : '#5895B2'} />
+                                                    <FaPlay style={{ margin: '0 15px' }} size='1.5em' title="Resume Draft" color={draft.Submitted ? 'silver' : '#5895B2'} />
                                                     Resume
                                                 </div>
                                             </OverlayTrigger>
@@ -235,23 +294,23 @@ export const Dashboard = () => {
                                         <Dropdown.Item onClick={()=> handleView(draft)}>
                                             <ViewDownloadOption draft={draft} />
                                         </Dropdown.Item>
-                                        <Dropdown.Item>
+                                        <Dropdown.Item onClick={()=> draft.Locked !== 0 ? handleSubmit(draft) : null}>
                                             <OverlayTrigger
                                                 key="Submit Draft"
                                                 placement="top"
                                                 overlay={
                                                     <Tooltip id={"tooltop-submit"}>
-                                                    Submit {draft.Title} to trustee
+                                                    {draft.Locked === 0 ? "Draft Already Unlocked" : draft.Submitted ? `Resend ${draft.Title} to trustee` : `Submit ${draft.Title} to trustee`}
                                                     </Tooltip>
                                                 }
                                             >
                                                 <div>
-                                                    <FaPaperPlane onClick={()=> handleSubmit(draft)} style={{ margin: '0 15px' }} size='1.5em' title="Submit Draft" color={!draft.Locked ? 'silver' : '#5895B2'}/>
-                                                    Submit
+                                                    <FaPaperPlane style={{ margin: '0 15px' }} size='1.5em' title="Submit Draft" color={!draft.Locked ? 'silver' : '#5895B2'}/>
+                                                    { draft.Locked === 0 ? "Submit" : draft.Submitted ? "Resend Email" : "Submit"}
                                                 </div>
                                             </OverlayTrigger>
                                         </Dropdown.Item>
-                                        {/* <Dropdown.Item>
+                                        <Dropdown.Item onClick={()=> draft.Submitted !== 1 ? handleShowModal(draft) : null}>
                                             <OverlayTrigger
                                                 key="Draft Settings"
                                                 placement="top"
@@ -266,7 +325,7 @@ export const Dashboard = () => {
                                                     Settings
                                                 </div>
                                             </OverlayTrigger>
-                                        </Dropdown.Item> */}
+                                        </Dropdown.Item>
                                         <Dropdown.Item onClick={() => handleShow(draft, idx)}>
                                             <OverlayTrigger
                                                 key="Delete Draft"
@@ -306,6 +365,7 @@ export const Dashboard = () => {
 
     return (
         <div className="container body-container w-50 d-flex flex-column align-items-center ">
+            <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
             <h1 className=" text-primary">Dashboard</h1>
             <h3 className=" my-3">{`Hello, ${name}`}</h3>
             {/* <div className="mb-5">
@@ -315,7 +375,7 @@ export const Dashboard = () => {
                 <h2 className="mb-4 text-primary">My Drafts</h2>
             <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4" >
 
-                        <Link to="/editor" onClick={handleNewClick} >
+                        <Link to="/newdraft" onClick={handleNewClick} >
                             <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                         </Link>
 
