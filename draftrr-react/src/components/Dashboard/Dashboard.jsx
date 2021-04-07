@@ -10,17 +10,6 @@ import "./Dashboard.scss"
 import {SettingsModal} from '../Editor/SettingsModal'
 
 
-var nodemailer = require('nodemailer');
-
-var transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: 'rockman4447@gmail.com',
-      pass: 'C*pper08'
-    }
-  });
-
-
 export const Dashboard = () => {
 
 
@@ -97,6 +86,9 @@ export const Dashboard = () => {
                             Users_ID: '',
                             Locked: true,
                             Submitted: false})
+
+        handleGetProjects()
+        
     }
 
     const handleCloseModal = () => setShowModal(false)
