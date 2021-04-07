@@ -1,11 +1,12 @@
 import { useState, useEffect, useRef, useContext } from "react"
 import { DraftrrContext } from "../../context/DraftrrContext"
-import {useParams, useRouteMatch, useHistory} from "react-router-dom";
+import {useParams, useHistory} from "react-router-dom"
+
 import { SettingsModal } from "./SettingsModal"
-import axios from 'axios'
+
+import axios from "axios"
 
 import "./Editor.scss"
-import userEvent from "@testing-library/user-event"
 
 let interval
 
@@ -15,36 +16,31 @@ export const Editor = () => {
     const [ visible, setVisible ] = useState([])
     const [ showModal, setShowModal ] = useState(false)
 
-    const { document, setDocument, createProject, createTextFile, currentUser, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
+    const { document, setDocument, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
 
     const { idProjects, textID } = useParams()
 
     const history = useHistory()
 
     useEffect(()=> {
-
         axios.get(`http://localhost:4000/text/${textID}`)
             .then(res => {
-                console.log('getting project text', res.data.text)
                 setDocument(res.data.text)
             });
 
         axios.get(`http://localhost:4000/projects/${idProjects}`)
             .then(res => {
-                console.log('getting project', res.data[0])
                 setCurrentProject(res.data[0])
             })
     },[])
 
     useEffect(() => {
         if(!showModal) {
-            
             window.addEventListener("keydown", handleKeyDown) 
             interval = setInterval(checkTimeStamps, 50)
             return () => {
                 window.removeEventListener("keydown", handleKeyDown)
             }
-
         }
     }, [showModal])
 
@@ -58,9 +54,6 @@ export const Editor = () => {
 
     const pause = () => {
         clearInterval(interval); 
-        
-        console.log('pausing draft')
-        
         window.removeEventListener("keydown", handleKeyDown)
     }
     
@@ -69,7 +62,7 @@ export const Editor = () => {
     
     // clear interval, save document and exit session
     const handleSaveAndExit = () => {
-        clearInterval(interval); 
+        clearInterval(interval)
         handleSave()
         history.push('/dashboard')
     } 
@@ -84,12 +77,8 @@ export const Editor = () => {
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
             html: `<p>Click <a href="http://localhost:3000/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
-            }
-
-
-        console.log('sending email to', mailOptions)
+        }
         axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
-        console.log('email sent', res)
         })
 }
     
@@ -97,7 +86,6 @@ export const Editor = () => {
     const autoSave = () => {} 
 
     const handleKeyDown = (e) => {
-        console.log('handling keydown')
         const keycode = e.charCode || e.keyCode
         let current = editable
 
@@ -128,10 +116,8 @@ export const Editor = () => {
                 timestamp: Date.now(),
                 isLocked: false,
             }
-            
             current.push(keyValue)
             setEditable([...current])
-            
             checkMaxCharacters()
         }
         // if ( e.which == 13 ) {
@@ -142,18 +128,13 @@ export const Editor = () => {
     const checkMaxCharacters = () => {
         let newState = locked.concat(editable).reverse()
         let newArray = []
-
-            newState.forEach((item, index) => {
-                
-                if(index < currentProject.ProjectMaxCharacters) {
-                    newArray.push(item)
-                }
-    
-            })
+        newState.forEach((item, index) => {
+            if(index < currentProject.ProjectMaxCharacters) {
+                newArray.push(item)
+            }
+        })
         newArray.reverse()
         setVisible([...newArray])
-
-        
     }
     
     const checkTimeStamps = () => {
@@ -172,25 +153,13 @@ export const Editor = () => {
     }
 
     const combineDoc = () => {
-        
         const final = [...locked, ...editable]
         const mappedChars = final.map((char) => char.key).join("")
         clearInterval(interval)
-
-        if(locked !== [] && editable !== []) {
+        if (locked !== [] && editable !== []) {
             updateTextFile(document ? {text: document + ' ' + mappedChars} : {text: mappedChars})
-        
-            
-            
         }
-        
-        
     }
-
-    useEffect(() => {
-        console.log('document', document)
-        
-    }, [document])
 
     //handle update draft settings form
     const handleUpdate = (event) => {
@@ -198,7 +167,6 @@ export const Editor = () => {
             ...previousValues, 
             [event.target.name]: event.target.value
         }))
-        
     }
 
     const saveSettings = () => {
@@ -214,37 +182,29 @@ export const Editor = () => {
         window.removeEventListener("keydown", handleKeyDown, true)
     }
     
-    
-
-
     return (
         <div className="body-container editor-container p-5">
-            
-                <>
-                    <div className="d-flex justify-content-between align-items-center">
-                        <button onClick={handleShowModal}>Draft Settings</button>
-                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
-                        <div className="d-flex flex-column align-items-center">
-                            <div className="font-weight-bold">{currentProject.title}</div>
-                        </div>
-                        <div>
-                            
-                            <button onClick={handleSaveAndExit} className="mr-2">Save For Later</button>
-                            <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
-                        </div>
+            <div className="d-flex justify-content-between align-items-center">
+                <button onClick={handleShowModal}>Draft Settings</button>
+                <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
+                <div className="d-flex flex-column align-items-center">
+                    <div className="font-weight-bold">{currentProject.title}</div>
+                </div>
+                <div>
+                    <button onClick={handleSaveAndExit} className="mr-2">Save For Later</button>
+                    <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
+                </div>
+            </div>
+            <div id="mainTextBox">
+                    <div className="d-flex align-items-center">
+                        <span className="d-flex">
+                            {visible && visible.map((item, index) => {
+                                return <div key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
+                            })}
+                        </span>
+                        <span className="flashing">|</span>
                     </div>
-                    <div id="mainTextBox">
-                            <div style={{display: 'flex', alignItems: 'center'}}>
-                                <span style={{display: 'flex'}}>
-                                    {visible && visible.map((item, index) => {
-                                        return <div key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
-                                    })}
-                                </span>
-                                <span className="flashing">|</span>
-                            </div>
-                    </div>
-                </>
-            
+            </div>
         </div>
     )
 }

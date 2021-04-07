@@ -13,7 +13,7 @@ import "./Header.scss"
 export const Header = () => {
     const [signUpBtn, setSignUpBtn] = useState()
     const [loginBtn, setLoginBtn] = useState()
-    const {setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
+    const {currentPage, setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
     const history = useHistory()
 
     const handleLoginOpen = () => {
@@ -23,6 +23,8 @@ export const Header = () => {
         }
         loginOpen ? setLoginOpen(false) : setLoginOpen(true)
     }
+
+
 
     useEffect(() => {
         if (signUpBtn) {
@@ -55,7 +57,7 @@ export const Header = () => {
     }
 
     return (
-        <header style={{backgroundColor: "white"}} className="pt-2 d-flex justify-content-between align-items-center">
+        <header style={{backgroundColor: "white"}} className="py-2 d-flex justify-content-between align-items-center">
             <Link className="d-flex align-items-center pl-3 pt-1" to="/">
                 <div className="mr-3">
                 <Logo width="4em" />
@@ -64,7 +66,6 @@ export const Header = () => {
             </Link>
             <Nav activeKey="/home">
                 <Nav.Item className="px-3 mt-3">
-                    {/* <Nav.Link href="/home">Active</Nav.Link> */}
                     <Link to="/about">About</Link>
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-3">
@@ -74,9 +75,10 @@ export const Header = () => {
                     }
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-2">
-                    {currentUser ?
-                    <Link className="btn btn-primary rounded-6" to="/dashboard">Dashboard</Link>
-                                                                                                    :
+                    {currentPage && currentUser ? 
+                    <Link className="btn btn-primary rounded-6" to="/dashboard">Usersetting</Link> :
+                    currentUser ?
+                    <Link className="btn btn-primary rounded-6" to="/dashboard">Dashboard</Link> :
                     <Link to="/" className="btn btn-primary rounded-6" onClick={handleSignupOpen}>Get Started</Link>
                     }
                 </Nav.Item>
