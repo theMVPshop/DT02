@@ -65,18 +65,19 @@ export const Dashboard = () => {
     const saveSettings = () => {
         updateProject()
         setShowModal(false)
-        setCurrentProject({
-            Title: '',
-            ProjectTimeframe: 10,
-            ProjectMaxCharacters: 200,
-            ProjectFont: 'helvetica',
-            TrusteeName: '',
-            TrusteeEmail: '',
-            Text_ID: '',
-            Users_ID: '',
-            Locked: true,
-            Submitted: false
-        })
+        setCurrentProject({Title: '',
+                            ProjectTimeframe: 10,
+                            ProjectMaxCharacters: 200,
+                            ProjectFont: 'helvetica',
+                            TrusteeName: '',
+                            TrusteeEmail: '',
+                            Text_ID: '',
+                            Users_ID: '',
+                            Locked: true,
+                            Submitted: false})
+
+        handleGetProjects()
+        
     }
 
     const handleCloseModal = () => setShowModal(false)
