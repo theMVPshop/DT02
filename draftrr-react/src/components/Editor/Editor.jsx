@@ -60,7 +60,7 @@ export const Editor = () => {
         clearInterval(interval); 
         
         console.log('pausing draft')
-        console.log('window', window)
+        
         window.removeEventListener("keydown", handleKeyDown)
     }
     
@@ -75,7 +75,23 @@ export const Editor = () => {
     } 
     
     //clear interval, save document and upload to DB
-    const handleSubmit = () => handleSaveAndExit()
+    const handleSubmit = () => {
+                                
+        handleSaveAndExit() 
+        const mailOptions = {
+            from: 'rockman4447@gmail.com',
+            to: currentProject.TrusteeEmail,
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!',
+            html: `<p>Click <a href="http://localhost:3000/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
+            }
+
+
+        console.log('sending email to', mailOptions)
+        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        console.log('email sent', res)
+        })
+}
     
     //possible interval for autosaving progress, still thinking on this one
     const autoSave = () => {} 
@@ -194,7 +210,7 @@ export const Editor = () => {
     const handleCloseModal = () => setShowModal(false)
     const handleShowModal = () => {
         pause() 
-        // setShowModal(true)
+        setShowModal(true)
         window.removeEventListener("keydown", handleKeyDown, true)
     }
     
@@ -207,32 +223,7 @@ export const Editor = () => {
                 <>
                     <div className="d-flex justify-content-between align-items-center">
                         <button onClick={handleShowModal}>Draft Settings</button>
-                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} />
-                        {/* <Modal show={showModal} onHide={handleCloseModal}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>Draft Settings</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body className="d-flex flex-column">
-                                <label htmlFor="title">Title:</label>
-                                <input value={currentProject.title} onChange={handleUpdate} type="text" name="title" autoFocus required/>
-                                <label htmlFor="timeFrame">Seconds Editable:</label>
-                                <input value={currentProject.timeFrame} onChange={handleUpdate} type="number" name="timeFrame" required/>
-                                <label htmlFor="maxCharacters">Maximum Visible Characters:</label>
-                                <input value={currentProject.maxCharacters} onChange={handleUpdate} type="number" name="maxCharacters" required/>
-                                <label htmlFor="trusteeName">Name:</label>
-                                <input value={currentProject.trusteeName} onChange={handleUpdate} type="text" name="trusteeName" required/>
-                                <label htmlFor="trusteeEmail">Email:</label>
-                                <input value={currentProject.trusteeEmail} onChange={handleUpdate} type="email" name="trusteeEmail" required/>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <div className="btn btn-secondary" onClick={handleCloseModal}>
-                                    Close
-                                </div>
-                                <div className="btn btn-primary" onClick={saveSettings}>
-                                    Save Changes
-                                </div>
-                            </Modal.Footer>
-                        </Modal>                */}
+                        <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
                         <div className="d-flex flex-column align-items-center">
                             <div className="font-weight-bold">{currentProject.title}</div>
                         </div>
@@ -246,7 +237,7 @@ export const Editor = () => {
                             <div style={{display: 'flex', alignItems: 'center'}}>
                                 <span style={{display: 'flex'}}>
                                     {visible && visible.map((item, index) => {
-                                        return <div style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
+                                        return <div key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
                                     })}
                                 </span>
                                 <span className="flashing">|</span>

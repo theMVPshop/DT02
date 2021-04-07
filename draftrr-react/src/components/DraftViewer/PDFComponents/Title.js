@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import { Page, Document, Image, StyleSheet, Text, View } from '@react-pdf/renderer';
-import Title from './PDFComponents/Title'
 
 
 const styles = StyleSheet.create({
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
     }
   });
   
-  export default function Draft({ text, title }) {
+  export default function Title({ title }) {
     
 
 
@@ -32,7 +31,6 @@ const styles = StyleSheet.create({
                 <Page size="A4" >
                     <View>
                         <Text>{title}</Text>
-                        <Text>{text}</Text>
                     </View>
                     
                 </Page>
