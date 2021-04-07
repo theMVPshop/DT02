@@ -65,16 +65,18 @@ export const Dashboard = () => {
     const saveSettings = () => {
         updateProject()
         setShowModal(false)
-        setCurrentProject({Title: '',
-                            ProjectTimeframe: 10,
-                            ProjectMaxCharacters: 200,
-                            ProjectFont: 'helvetica',
-                            TrusteeName: '',
-                            TrusteeEmail: '',
-                            Text_ID: '',
-                            Users_ID: '',
-                            Locked: true,
-                            Submitted: false})
+        setCurrentProject({
+            Title: '',
+            ProjectTimeframe: 10,
+            ProjectMaxCharacters: 200,
+            ProjectFont: 'helvetica',
+            TrusteeName: '',
+            TrusteeEmail: '',
+            Text_ID: '',
+            Users_ID: '',
+            Locked: true,
+            Submitted: false
+        })
 
         handleGetProjects()
         
@@ -113,7 +115,7 @@ export const Dashboard = () => {
             })
         
         const mailOptions = {
-            from: 'rockman4447@gmail.com',
+            from: 'draftrrservice@gmail.com',
             to: draft.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
@@ -226,9 +228,9 @@ export const Dashboard = () => {
                 <ListGroup className="shadow p-3 mb-5 bg-white rounded" style={{minWidth: '400px'}} >
                     {projects && projects.map((draft, idx) => {
                         return (
-                            <div className="d-flex align-items-center justify-content-end">
+                            <div key={idx} className="d-flex align-items-center justify-content-end">
                                 <LockedIcon status={draft.Locked} id={draft.idProjects} />
-                                <ListGroup.Item key={idx}>
+                                <ListGroup.Item>
                                     {draft.Title}
                                 </ListGroup.Item>
                                 <Dropdown>

@@ -6,6 +6,7 @@ import { db, auth } from '../firebase'
 export const DraftrrContext = React.createContext()
 
 export function DraftrrProvider({ children }) {
+    const [currentPage, setCurrentPage] = useState("")
     const [loginOpen, setLoginOpen] = useState(false)
     const [settingsOpen, setSettingsOpen] = useState(false)
     const [isLogin, setIsLogin] = useState(true)
@@ -178,6 +179,7 @@ export function DraftrrProvider({ children }) {
     }
 
     const value = {
+        currentPage, setCurrentPage,
         currentUser,
         credentials,
         setCredentials,
