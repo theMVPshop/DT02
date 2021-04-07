@@ -43,7 +43,7 @@ export const Home = () => {
                     <Card card={"card2"} />
                     <Card card={"card3"} />
                 </div>
-                <h3 className="text-center font-weight-bold mt-4">Click on 'Get Started' to write your first draft now...</h3>
+                <h3 className="text-center font-weight-bold mt-4">Click <span className="text-dark">Get Started</span> to write your first draft now...</h3>
             </section>
         </div>
     )

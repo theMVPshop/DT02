@@ -1,44 +1,43 @@
 import { useState, useContext, useEffect } from "react"
 import { DraftrrContext } from '../../context/DraftrrContext'
-import Modal from 'react-bootstrap/Modal'
+import { Link, useHistory } from "react-router-dom"
+
+
+import axios from "axios"
+import Modal from "react-bootstrap/Modal"
 import { ListGroup, Button, OverlayTrigger, Tooltip, Dropdown, Spinner } from 'react-bootstrap'
 import { FaUserCog, FaCog, FaFileDownload, FaPlay, FaTrashAlt, FaLock, FaUnlock, FaPaperPlane, FaEye } from "react-icons/fa";
-import {UserSettingsModal} from '../UserSettings/UserSettingsModal'
-import { Link, useHistory } from "react-router-dom"
-import axios from "axios"
-import "./Dashboard.scss"
-import {SettingsModal} from '../Editor/SettingsModal'
 
+import { UserSettingsModal } from '../UserSettings/UserSettingsModal'
+import { SettingsModal } from '../Editor/SettingsModal'
+
+import "./Dashboard.scss"
 
 export const Dashboard = () => {
-
-
-
-    const [loadingDrafts, setLoadingDrafts] = useState(true);
-    const [ textFiles, setTextFiles ] = useState()
-    const [ textFilePath, setTextFilePath ] = useState()
-    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [loadingDrafts, setLoadingDrafts] = useState(true)
+    const [showDeleteModal, setShowDeleteModal] = useState(false)
     const [deleteDraft, setDeleteDraft] = useState({draft: {Title: ''}})
     const [showModal, setShowModal] = useState(false)
 
     const history = useHistory();
 
-    const {currentUser, loading, setLoading, projects, setProjects, currentProject, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
+    const {currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
 
     useEffect(()=>{
-        setCurrentProject({Title: '',
-                            ProjectTimeframe: 10,
-                            ProjectMaxCharacters: 200,
-                            ProjectFont: 'helvetica',
-                            TrusteeName: '',
-                            TrusteeEmail: '',
-                            Text_ID: '',
-                            Users_ID: '',
-                            Locked: true,
-                            Submitted: false})
+        setCurrentProject({
+            Title: '',
+            ProjectTimeframe: 10,
+            ProjectMaxCharacters: 200,
+            ProjectFont: 'helvetica',
+            TrusteeName: '',
+            TrusteeEmail: '',
+            Text_ID: '',
+            Users_ID: '',
+            Locked: true,
+            Submitted: false})
     },[])
     
 
@@ -46,26 +45,16 @@ export const Dashboard = () => {
         axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => {
             setProjects(res.data)
             setLoadingDrafts(false)
-            // console.log('res', res.data)
         })
         console.log('projects', projects)
     }
 
-    const handleGetTextFiles = () => {
-        axios.get(`http://localhost:4000/text/${textFilePath}`).then( res => setTextFiles({res}))
-        console.log(textFiles)
-    }
-
-    
-
     const handleSelect = (payload) => {
-        // console.log("resume", payload)
         if (payload.Locked) {
             setCurrentProject(payload)
             history.push(`/editor/${payload.idProjects}/${payload.Text_ID}`)
         }
     }
-
 
     //SETTINGS MODAL FUNCTIONS////////////////////////////////
     const handleShowModal = (payload) => {
@@ -101,27 +90,14 @@ export const Dashboard = () => {
     }
     ///////////////////////////////////////////////////////////
 
-
-
     const handleView = (payload) => {
-        // console.log("resume", payload)
         setCurrentProject(payload)
-        // history.push({pathname: '/draftviewer',
-        //               search: "?" + new URLSearchParams({idProjects: payload.idProjects}).toString()})
         history.push(`/draftviewer/${payload.idProjects}/${payload.Text_ID}`)
-    }
-
-    const handleNewClick = () => {
-        
     }
     
     const handleDelete = (project, idx) => {
         deleteProject(project.idProjects, project.Text_ID, idx)
         setShowDeleteModal(false)
-    }
-
-    const handleChangeClick = () => {
-        setLoadingDrafts(false)
     }
     
     const handleSettings = () => {
@@ -131,29 +107,23 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
-
-        
         axios.put(`http://localhost:4000/projects/submit/${draft.idProjects}`, {submitted: 1})
             .then(res => {
                 console.log('submitting project', res)
             })
         
-       
-
         const mailOptions = {
-                            from: 'rockman4447@gmail.com',
-                            to: draft.TrusteeEmail,
-                            subject: 'Sending Email using Node.js',
-                            text: 'That was easy!',
-                            html: `<p>Click <a href="http://localhost:3000/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
-                            }
-
+            from: 'rockman4447@gmail.com',
+            to: draft.TrusteeEmail,
+            subject: 'Sending Email using Node.js',
+            text: 'That was easy!',
+            html: `<p>Click <a href="http://localhost:3000/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
+        }
 
         console.log('sending email to', mailOptions)
         axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
             console.log('email sent', res)
         })
-
     }
 
     const handleShow = (draft, idx) => {
@@ -349,46 +319,34 @@ export const Dashboard = () => {
         handleGetProjects()
     }, [])
 
-    useEffect(() => {
-        console.log('projects', projects)
-    }, [projects])
-
-    
-
     return (
         <div className="container body-container w-50 d-flex flex-column align-items-center ">
             <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
             <h1 className=" text-primary">Dashboard</h1>
             <h3 className=" my-3">{`Hello, ${name}`}</h3>
-            {/* <div className="mb-5">
-                <button onClick={handleGetTextFiles}>Get Text Files</button>            
-                <button onClick={handleChangeClick}>Get Text Files</button>            
-            </div> */}
-                <h2 className="mb-4 text-primary">My Drafts</h2>
+            <h2 className="mb-4 text-primary">My Drafts</h2>
             <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4" >
-
-                        <Link to="/newdraft" onClick={handleNewClick} >
-                            <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
-                        </Link>
-
-                        <OverlayTrigger
-                            key="User Settings"
-                            placement="top"
-                            overlay={
-                                <Tooltip id={"tooltop-userSettings"}>
-                                User Settings
-                                </Tooltip>
-                            }
-                        >
-                            <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
-                                <FaUserCog size='1.5em' />
-                            </div>
-                        </OverlayTrigger>
-                            
+                <Link to="/newdraft">
+                    <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
+                </Link>
+                
+                <OverlayTrigger
+                    key="User Settings"
+                    placement="top"
+                    overlay={
+                        <Tooltip id={"tooltop-userSettings"}>
+                        User Settings
+                        </Tooltip>
+                    }
+                >
+                    <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
+                        <FaUserCog size='1.5em' />
+                    </div>
+                </OverlayTrigger>
             </div>
-                            <LoadingDashboard />
-                            <UserSettingsModal />
-                            <DeleteModal />
+                <LoadingDashboard />
+                <UserSettingsModal />
+                <DeleteModal />
         </div>
     )
 }
