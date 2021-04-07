@@ -321,7 +321,7 @@ export const Dashboard = () => {
                                                 }
                                             >
                                                 <div>
-                                                    <FaCog style={{ margin: '0 15px' }} size='1.5em' title="Draft Settings" color={!draft.Locked ? 'silver' : '#5895B2'}/>
+                                                    <FaCog style={{ margin: '0 15px' }} size='1.5em' title="Draft Settings" color={draft.Submitted ? 'silver' : '#5895B2'}/>
                                                     Settings
                                                 </div>
                                             </OverlayTrigger>
