@@ -10,6 +10,7 @@ export function DraftrrProvider({ children }) {
     const [loginOpen, setLoginOpen] = useState(false)
     const [settingsOpen, setSettingsOpen] = useState(false)
     const [isLogin, setIsLogin] = useState(true)
+    const [isSetting, setIsSetting] = useState(false)
     const [isForgotPassword, setIsForgotPassword] = useState(false)
     const [currentUser, setCurrentUser] = useState()
     const [loading, setLoading] = useState(true)
@@ -45,6 +46,7 @@ export function DraftrrProvider({ children }) {
     function signup(email, password) {
         return auth.createUserWithEmailAndPassword(email, password).then(cred => {
             db.collection('users').doc(cred.user.uid).set({
+                id: cred.user.uid,
                 theme: 'light',
                 newUser: true
             })
@@ -81,6 +83,14 @@ export function DraftrrProvider({ children }) {
 
     function updateIsNewUser(isNewUser) {
         return db.collection("users").document(currentUser.uid).update("newUser", isNewUser)
+    }
+
+    function deleteUser() {
+        return auth.currentUser.delete().then(() => {
+            console.log("User deleted")
+        }).catch((error) => {
+            console.log("user was not deleted")
+        })
     }
 
     useEffect(() => {
@@ -188,6 +198,7 @@ export function DraftrrProvider({ children }) {
         signup,
         login,
         logout,
+        deleteUser,
         updateEmail,
         updatePassword,
         resetPassword,
@@ -197,6 +208,8 @@ export function DraftrrProvider({ children }) {
         setSettingsOpen,
         isLogin,
         setIsLogin,
+        isSetting,
+        setIsSetting,
         isForgotPassword,
         setIsForgotPassword,
         currentUser,
