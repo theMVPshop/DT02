@@ -9,7 +9,9 @@ router.post('/projects', projectController.createProject)
 router.get('/projects/:id', projectController.getProjectByProjectID)
 router.get('/user/projects/:uid', projectController.getProjectByUserID)
 router.delete('/projects/:id', projectController.deleteProjectByProjectID)
-router.put('projects/:id', projectController.updateProjectByProjectID)
+router.put('/projects/:id', projectController.updateProjectByProjectID)
+router.put('/projects/unlock/:id', projectController.unlockProject)
+router.put('/projects/submit/:id', projectController.submitProject)
 // get one user
 // put(update) user
 // post(delete) user

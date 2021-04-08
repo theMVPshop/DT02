@@ -2,11 +2,8 @@ import {useState, useContext, useEffect} from 'react'
 import { useHistory } from "react-router-dom"
 import {DraftrrContext} from '../../context/DraftrrContext'
 
-import axios from 'axios'
-
 export const Login = () => {
-    // const {handleLogin} = useContext(DraftrrContext)
-    const {login, credentials, handleCredentials, setLoginOpen} = useContext(DraftrrContext)
+    const {login, credentials, handleCredentials, setLoginOpen, setIsForgotPassword} = useContext(DraftrrContext)
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
     const history = useHistory()
@@ -26,13 +23,16 @@ export const Login = () => {
         }
     }
 
+    const handleForgotPassword = () => {
+        setIsForgotPassword(true)
+    }
+
     return (
         <div>
             <form onSubmit={handleSubmit}>
-            <h3>Log In</h3>
             <div className="form-group">
                 <label>Email address</label>
-                <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} />
+                <input type="email" className="form-control" placeholder="Enter email" name="email" onChange={handleCredentials} autoFocus/>
             </div>
 
             <div className="form-group">
@@ -47,7 +47,7 @@ export const Login = () => {
                     <span style={{color: "red"}}>{`${error} `}</span>
                 </div>}
             <p className="forgot-password text-right">
-                Forgot <a href="#">password?</a>
+                <a onClick={handleForgotPassword} href="#">Forgot password?</a>
             </p>
         </form>    
     </div>

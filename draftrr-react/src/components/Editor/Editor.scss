@@ -33,15 +33,16 @@
     // span:nth-of-type(1) {
     //     color: red;
     // }
-    span:nth-of-type(3) {
-        font-size: 1.3em;
-        animation: blinker 1s linear infinite;
-    }
+    // span:nth-of-type(3) {
+    //     // font-size: 1.3em;
+    //     animation: blinker 1s linear infinite;
+    // }
 }
 
 .flashing {
-    font-size: 1.3em;
     animation: blinker 1s linear infinite;
+    font-size: 1.3em;
+
 }
 
 @keyframes blinker {

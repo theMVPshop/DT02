@@ -6,9 +6,9 @@ const { handleSQLError } = require('../sql/error')
 
 const createUser = (req, res) => {
 
-  let sql = "INSERT INTO Users (ID, Username, Email, Theme, UserTimeframe, UserMaxCharacters, UserFont, NewUser) VALUES (?, ?, ?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Users (ID, Username, Email, Theme, NewUser) VALUES (?, ?, ?, ?;"
 
-  sql = mysql.format(sql, [req.body.id, req.body.name, req.body.email, req.body.theme, req.body.timeFrame, req.body.maxCharacters, req.body.font, req.body.newUser])
+  sql = mysql.format(sql, [req.body.id, req.body.name, req.body.theme, req.body.newUser])
 
   console.log("hit create user", sql)
 
@@ -44,26 +44,50 @@ const getUserByID = (req, res) => {
   )
 }
 
-const getUserByEmail = (req, res) => {
-  console.log('response', res)
-  let sql = "SELECT * FROM Users WHERE Email = ?"
-  console.log("querying user by id", req.params.email)
-  sql = mysql.format(sql, [req.params.email])
-  console.log('sql', sql)
-  console.log("querying user by id", req.params.email)
-  pool.query(sql, (err, rows) => {
+// const getUserByEmail = (req, res) => {
+//   console.log('response', res)
+//   let sql = "SELECT * FROM Users WHERE Email = ?"
+//   console.log("querying user by id", req.params.email)
+//   sql = mysql.format(sql, [req.params.email])
+//   console.log('sql', sql)
+//   console.log("querying user by id", req.params.email)
+//   pool.query(sql, (err, rows) => {
+//     if (err) return handleSQLError(res, err)
+//     console.log(res)
+//     return res.json(rows);
+//   }
+//   )
+// }
+
+const updateUsernameByID = (req, res) => {
+
+  let sql = "UPDATE Users SET Username = ? WHERE ID = ?;"
+
+  sql = mysql.format(sql, [req.body.username, req.params.id])
+
+  pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
-    console.log(res)
-    return res.json(rows);
-  }
-  )
+    return res.status(204).json();
+  })
 }
 
-const updateUserByID = (req, res) => {
+const updateEmailByID = (req, res) => {
 
-  let sql = "UPDATE Users SET Username =  ?, Email = ?, Password = ?, Theme = ?, UserTimeframe = ?, UserMaxCharacters = ?, UserFont= ? WHERE ID = ?;"
+  let sql = "UPDATE Users SET Email = ? WHERE ID = ?;"
 
-  sql = mysql.format(sql, [req.body.username, req.body.email, req.body.password, req.body.theme, req.body.userTimeframe, req.body.userMaxCharacters, req.body.userFont, req.params.id])
+  sql = mysql.format(sql, [req.body.email, req.params.id])
+
+  pool.query(sql, (err, results) => {
+    if (err) return handleSQLError(res, err)
+    return res.status(204).json();
+  })
+}
+
+const updateThemeByID = (req, res) => {
+
+  let sql = "UPDATE Users SET Theme = ? WHERE ID = ?;"
+
+  sql = mysql.format(sql, [req.body.theme, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)
@@ -96,10 +120,10 @@ module.exports = {
   createUser,
   listUsers,
   getUserByID,
-  updateUserByID,
+  updateUsernameByID,
+  updateEmailByID,
+  updateThemeByID,
   deleteUserByID,
-  getUserByEmail,
-
 }
 
 

@@ -3,28 +3,32 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-pdf/renderer": "^1.6.15",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
+    "concurrently": "^6.0.0",
     "firebase": "^8.3.1",
     "netlify-identity-widget": "^1.9.1",
     "node-sass": "^5.0.0",
+    "nodemailer": "^6.5.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-icons": "^4.2.0",
+    "react-pdf": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-typing-effect": "^2.0.5",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
-    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "start": "concurrently \"cd server && npm run start\" \"react-scripts start\""
   },
   "eslintConfig": {
     "extends": [
