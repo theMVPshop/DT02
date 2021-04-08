@@ -4,9 +4,9 @@ const { handleSQLError } = require('../sql/error')
 
 const createProject = (req, res) => {
 
-  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, ProjectFont, TrusteeName, TrusteeEmail, Text_ID, Users_ID, Locked, Submitted ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
+  let sql = "INSERT INTO Projects (Title, ProjectTimeframe, ProjectMaxCharacters, TrusteeName, TrusteeEmail, Text_ID, Users_ID, Locked, Submitted, Username ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);"
 
-  sql = mysql.format(sql, [req.body.Title, req.body.ProjectTimeframe, req.body.ProjectMaxCharacters, req.body.ProjectFont, req.body.TrusteeName, req.body.TrusteeEmail, req.body.Text_ID, req.body.Users_ID, req.body.Locked, req.body.Submitted])
+  sql = mysql.format(sql, [req.body.Title, req.body.ProjectTimeframe, req.body.ProjectMaxCharacters, req.body.TrusteeName, req.body.TrusteeEmail, req.body.Text_ID, req.body.Users_ID, req.body.Locked, req.body.Submitted, req.body.Username])
 
   console.log("hit create project", sql)
 
