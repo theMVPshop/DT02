@@ -69,8 +69,14 @@ export const Editor = () => {
     
     //clear interval, save document and upload to DB
     const handleSubmit = () => {
-                                
-        handleSaveAndExit() 
+
+        console.log('submitting project!')
+        axios.put(`http://localhost:4000/projects/submit/${currentProject.idProjects}`, {submitted: 1})
+            .then(res => {
+                console.log('project submitted!', res)
+            })
+                                     
+        
         const mailOptions = {
             from: 'rockman4447@gmail.com',
             to: currentProject.TrusteeEmail,
@@ -78,8 +84,12 @@ export const Editor = () => {
             text: 'That was easy!',
             html: `<p>Click <a href="http://localhost:3000/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
         }
+        console.log('sending email to', mailOptions)
         axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+            console.log('email sent', res)
+            
         })
+        handleSaveAndExit() 
 }
     
     //possible interval for autosaving progress, still thinking on this one
