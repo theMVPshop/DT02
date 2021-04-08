@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     const history = useHistory();
 
-    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
+    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject, projectsUpdated, setProjectsUpdated} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
@@ -86,6 +86,7 @@ export const Dashboard = () => {
         })
 
         handleGetProjects()
+        setProjectsUpdated(!projectsUpdated)
         
     }
 
@@ -326,7 +327,7 @@ export const Dashboard = () => {
 
     useEffect(() => {
         handleGetProjects()
-    }, [])
+    }, [projectsUpdated])
 
     return (
         <div className="container body-container w-50 d-flex flex-column align-items-center ">
