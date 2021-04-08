@@ -18,3 +18,6 @@ The slider determines how long the text you are typing is available for edit.  I
 The email is assigned to someone other than you.  Only they can ‘unlock’ your first draft.  
 
 Formatting and spell checking can be done in the rewrite, but you can’t get to the Final Draft until you finish the first.
+
+“When your story is ready for rewrite, cut it to the bone. Get rid of every ounce of excess fat. This is going to hurt; revising a story down to the bare essentials is always a little like murdering children, but it must be done.”
+—Stephen King, WD
