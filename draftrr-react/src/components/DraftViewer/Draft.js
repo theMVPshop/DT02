@@ -1,18 +1,20 @@
 import React, {useState, useContext} from 'react';
-import { DraftrrContext } from '../../context/DraftrrContext'
+// import { DraftrrContext } from '../../context/DraftrrContext'
 import { Page, Document, Image, StyleSheet, Text, View } from '@react-pdf/renderer';
 import Logo  from '../../img/draftrrLogo.png'
-import Title from './PDFComponents/Title'
+// import Title from './PDFComponents/Title'
 
 const styles = StyleSheet.create({
     page: {
         fontFamily: 'Helvetica',
         fontSize: 11,
+        padding: 40,
     }, 
     textArea: {
         paddingTop: 30,
-        paddingLeft:60,
-        paddingRight:60,
+        paddingLeft:15,
+        paddingRight:15,
+
         lineHeight: 1.5,
         flexDirection: 'column',
     },
@@ -22,14 +24,14 @@ const styles = StyleSheet.create({
         marginRight: 'auto'
     },
     image: {
-        marginVertical: 15,
+        // marginTop: 15,
         marginHorizontal: 20,
         width: 100,
       },
     title: {
         fontSize: 24,
         textAlign: 'center',
-        padding: 0,
+        // padding: 0,
       },
       author: {
           fontSize: 10,
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
 
         return (
             <Document>
-                <Page size="A4" style={styles.page}>
+                <Page size="A4" style={styles.page} wrap>
                     <Image
                         style={styles.image}
                         src={Logo}
