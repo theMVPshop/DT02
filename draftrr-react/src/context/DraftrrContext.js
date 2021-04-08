@@ -27,7 +27,6 @@ export function DraftrrProvider({ children }) {
         Title: '',
         ProjectTimeframe: 10,
         ProjectMaxCharacters: 200,
-        ProjectFont: 'helvetica',
         TrusteeName: '',
         TrusteeEmail: '',
         Text_ID: '',
@@ -36,7 +35,7 @@ export function DraftrrProvider({ children }) {
         Submitted: false
     })
 
-  
+
 
     function handleCredentials(event) {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
@@ -107,13 +106,14 @@ export function DraftrrProvider({ children }) {
 
     const createProject = (payload) => {
         axios.post(`http://localhost:4000/projects`, payload)
-        .then(res => { console.log('project created!',  res) 
-        
-        let newState = JSON.parse(res.config.data)
-        newState.idProjects = res.data.newId
-        setCurrentProject(newState)
-    
-        })
+            .then(res => {
+                console.log('project created!', res)
+
+                let newState = JSON.parse(res.config.data)
+                newState.idProjects = res.data.newId
+                setCurrentProject(newState)
+
+            })
     }
 
     useEffect(() => {
@@ -125,23 +125,23 @@ export function DraftrrProvider({ children }) {
         let newState = currentProject
         axios.post(`http://localhost:4000/text/create`, payload)
             .then(res => {
-                
-               
+
+
                 newState.Text_ID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.Users_ID = currentUser.uid
                 newState.Locked = true
                 newState.Submitted = false
-                newState.ProjectFont = 'helvetica'
+                newState.Username = currentUser.displayName
                 console.log('current project', currentProject)
             }).then(res => {
-                
+
                 createProject(newState)
             })
     }
 
     const updateTextFile = (payload) => {
-        
+
         axios.put(`http://localhost:4000/text/${currentProject.Text_ID}`, payload)
             .then(res => {
                 console.log('response updated', JSON.parse(res.config.data).text)

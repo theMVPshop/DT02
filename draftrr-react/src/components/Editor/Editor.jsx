@@ -195,15 +195,14 @@ export const Editor = () => {
                     <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                 </div>
             </div>
+            <input style={{border: "none", color: "transparent", width: "1px", caretColor: "transparent"}} type="text" autoFocus/>
             <div id="mainTextBox">
-                    <div className="d-flex align-items-center">
-                        <span className="d-flex">
-                            {visible && visible.map((item, index) => {
-                                return <div key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
-                            })}
-                        </span>
-                        <span className="flashing">|</span>
-                    </div>
+                <div className="d-flex align-items-center flex-wrap">
+                    {visible && visible.map((item, index) => {
+                        return <span key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</span>
+                    })}
+                    <span className="flashing">|</span>
+                </div>
             </div>
         </div>
     )
