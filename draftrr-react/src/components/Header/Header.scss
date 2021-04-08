@@ -17,8 +17,13 @@ header {
     100% { opacity: 1; }
 }
 
-nav {
+.navbar-nav {
     @media (max-width: 990px) {
-        background-color: red;
+        position: fixed;
+        right: 0;
+        text-align: right;
+        background-color: rgba(255, 255, 255, 0.692);
+        padding: 1em;
+        border-radius: 1em;
     }
 }
