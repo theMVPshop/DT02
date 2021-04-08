@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
                     />
                     <View style={styles.textArea}>
                         <Text style={styles.title}>{title}</Text>
-                        {/* <Text style={styles.author}>by {name}</Text> */}
+                        {name ? <Text style={styles.author}>by {name}</Text> : null}
                         <Text style={styles.textBody}>{text}</Text>
                     </View>
                         <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
