@@ -165,8 +165,8 @@ export const Dashboard = () => {
                             <p>Are you sure you want to delete this draft? This cannot be undone.</p>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="primary" onClick={handleClose}>Cancel</Button>
-                            <Button variant="danger" onClick={()=> handleDelete(deleteDraft.draft, deleteDraft.idx)}>Delete</Button>
+                            <Button className="btn btn-primary rounded-6 mb-1"  onClick={handleClose}>Cancel</Button>
+                            <Button className="btn btn-secondary rounded-6 mb-1" onClick={()=> handleDelete(deleteDraft.draft, deleteDraft.idx)}>Delete</Button>
                         </Modal.Footer>
                     </Modal.Dialog>
                 </Modal>
