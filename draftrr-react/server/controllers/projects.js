@@ -50,9 +50,9 @@ const getProjectByUserID = (req, res) => {
 
 const updateProjectByProjectID = (req, res) => {
   console.log(req.params.id)
-  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, ProjectFont = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Locked = ?, Submitted = ? WHERE idProjects = ?;"
+  let sql = "UPDATE Projects SET Title = ?, ProjectTimeframe = ?, ProjectMaxCharacters = ?, TrusteeName = ?, TrusteeEmail = ?, Text_ID = ?, Locked = ?, Submitted = ? WHERE idProjects = ?;"
 
-  sql = mysql.format(sql, [req.body.Title, req.body.ProjectTimeframe, req.body.ProjectMaxCharacters, req.body.ProjectFont, req.body.TrusteeName, req.body.TrusteeEmail, req.body.Text_ID, req.body.Locked, req.body.Submitted, req.params.id])
+  sql = mysql.format(sql, [req.body.Title, req.body.ProjectTimeframe, req.body.ProjectMaxCharacters, req.body.TrusteeName, req.body.TrusteeEmail, req.body.Text_ID, req.body.Locked, req.body.Submitted, req.params.id])
 
   pool.query(sql, (err, results) => {
     if (err) return handleSQLError(res, err)

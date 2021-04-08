@@ -32,7 +32,8 @@ export function DraftrrProvider({ children }) {
         Text_ID: '',
         Users_ID: '',
         Locked: true,
-        Submitted: false
+        Submitted: false,
+        Username: ''
     })
 
 
@@ -144,7 +145,7 @@ export function DraftrrProvider({ children }) {
 
         axios.put(`http://localhost:4000/text/${currentProject.Text_ID}`, payload)
             .then(res => {
-                console.log('response updated', JSON.parse(res.config.data).text)
+                console.log('text file updated!', JSON.parse(res.config.data).text)
                 setDocument(JSON.parse(res.config.data).text)
             })
     }
