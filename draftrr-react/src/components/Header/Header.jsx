@@ -26,13 +26,6 @@ export const Header = () => {
     }
 
     useEffect(() => {
-        setCurrentPage("dashboard")
-        return () => {
-            setCurrentPage("")
-        }
-    }, [])
-
-    useEffect(() => {
         if (signUpBtn) {
             setIsLogin(false)
         } 
