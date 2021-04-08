@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
       pageNumber: {
         position: 'absolute',
         fontSize: 12,
-        bottom: 30,
+        bottom: 10,
         left: 0,
         right: 0,
         textAlign: 'center',
@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
                         <Text style={styles.pageNumber} render={({ pageNumber, totalPages }) => (
                                 `${pageNumber} / ${totalPages}`
                             )} fixed />
-                    
                 </Page>
             </Document>
             
