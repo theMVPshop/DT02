@@ -3,9 +3,11 @@ import { Link, useHistory } from "react-router-dom"
 
 import { Logo } from "../../img/Logo"
 import { DraftrrLogo } from "../../img/DraftrrLogo.jsx";
+import { FaUserCog } from "react-icons/fa";
 
 import { Nav } from "react-bootstrap"
 import {LoginModal} from '../Login/LoginModal'
+import { UserSettingsModal } from '../UserSettings/UserSettingsModal'
 import { DraftrrContext } from '../../context/DraftrrContext'
 
 import "./Header.scss"
@@ -13,7 +15,8 @@ import "./Header.scss"
 export const Header = () => {
     const [signUpBtn, setSignUpBtn] = useState()
     const [loginBtn, setLoginBtn] = useState()
-    const {currentPage, setIsLogin, loginOpen, setLoginOpen, currentUser, logout} = useContext(DraftrrContext)
+    const [showModal, setShowModal] = useState(false)
+    const {currentPage, setIsLogin, loginOpen, setLoginOpen, currentUser, setSettingsOpen, logout} = useContext(DraftrrContext)
     const history = useHistory()
 
     const handleLoginOpen = () => {
@@ -56,6 +59,10 @@ export const Header = () => {
         history.push('/')
     }
 
+    const handleSettings = () => {
+        setSettingsOpen(true)
+    }
+
     return (
         <header style={{backgroundColor: "white"}} className="py-2 d-flex justify-content-between align-items-center">
             <Link className="d-flex align-items-center pl-3 pt-1" to="/">
@@ -76,7 +83,9 @@ export const Header = () => {
                 </Nav.Item>
                 <Nav.Item className="px-3 mt-2">
                     {currentPage && currentUser ? 
-                    <Link className="btn btn-primary rounded-6" to="/dashboard">Usersetting</Link> :
+                        <div className="btn btn-primary rounded-6 btn-md" onClick={handleSettings}>
+                            <FaUserCog size='1.5em' />
+                        </div> :
                     currentUser ?
                     <Link className="btn btn-primary rounded-6" to="/dashboard">Dashboard</Link> :
                     <Link to="/" className="btn btn-primary rounded-6" onClick={handleSignupOpen}>Get Started</Link>

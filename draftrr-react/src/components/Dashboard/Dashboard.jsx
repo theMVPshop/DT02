@@ -109,9 +109,9 @@ export const Dashboard = () => {
         setShowDeleteModal(false)
     }
     
-    const handleSettings = () => {
-        setSettingsOpen(true)
-    }
+    // const handleSettings = () => {
+    //     setSettingsOpen(true)
+    // }
     
     const handleClose = () => setShowDeleteModal(false);
 
@@ -165,8 +165,8 @@ export const Dashboard = () => {
                             <p>Are you sure you want to delete this draft? This cannot be undone.</p>
                         </Modal.Body>
                         <Modal.Footer>
-                            <Button variant="primary" onClick={handleClose}>Cancel</Button>
-                            <Button variant="danger" onClick={()=> handleDelete(deleteDraft.draft, deleteDraft.idx)}>Delete</Button>
+                            <Button className="btn btn-primary rounded-6 mb-1"  onClick={handleClose}>Cancel</Button>
+                            <Button className="btn btn-secondary rounded-6 mb-1" onClick={()=> handleDelete(deleteDraft.draft, deleteDraft.idx)}>Delete</Button>
                         </Modal.Footer>
                     </Modal.Dialog>
                 </Modal>
@@ -339,7 +339,7 @@ export const Dashboard = () => {
                     <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                 </Link>
                 
-                <OverlayTrigger
+                {/* <OverlayTrigger
                     key="User Settings"
                     placement="top"
                     overlay={
@@ -351,7 +351,7 @@ export const Dashboard = () => {
                     <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
                         <FaUserCog size='1.5em' />
                     </div>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
             </div>
                 <LoadingDashboard />
                 <UserSettingsModal />
