@@ -109,9 +109,9 @@ export const Dashboard = () => {
         setShowDeleteModal(false)
     }
     
-    const handleSettings = () => {
-        setSettingsOpen(true)
-    }
+    // const handleSettings = () => {
+    //     setSettingsOpen(true)
+    // }
     
     const handleClose = () => setShowDeleteModal(false);
 
@@ -339,7 +339,7 @@ export const Dashboard = () => {
                     <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                 </Link>
                 
-                <OverlayTrigger
+                {/* <OverlayTrigger
                     key="User Settings"
                     placement="top"
                     overlay={
@@ -351,7 +351,7 @@ export const Dashboard = () => {
                     <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
                         <FaUserCog size='1.5em' />
                     </div>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
             </div>
                 <LoadingDashboard />
                 <UserSettingsModal />
