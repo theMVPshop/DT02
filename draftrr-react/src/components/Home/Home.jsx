@@ -10,7 +10,7 @@ export const Home = () => {
         <div className="mt-2 pt-4 body-container">
             <div className="home-upper-content">
                 <section className="d-flex flex-wrap justify-content-around align-items-center pb-5">
-                    <div className="mx-5">
+                    <div className="main-copy mx-5">
                         <h1 className="text-primary">Stop it!</h1>
                         <p className="h4">You have one job: <strong>finish the draft.</strong></p>
                         <ul className="mt-3">

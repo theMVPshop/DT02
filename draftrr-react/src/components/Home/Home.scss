@@ -11,6 +11,15 @@ ul {
   // height: 80vh;
 }
 
+.main-copy {
+  @media (max-width: 990px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
 .typing-effect {
   font-family: monospace;
   min-width: 21em;
