@@ -282,7 +282,7 @@ export const Dashboard = () => {
                                                 </div>
                                             </OverlayTrigger>
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={()=> draft.Submitted !== 1 ? handleShowModal(draft) : null}>
+                                        <Dropdown.Item onClick={()=> handleShowModal(draft) }>
                                             <OverlayTrigger
                                                 key="Draft Settings"
                                                 placement="top"
@@ -293,7 +293,7 @@ export const Dashboard = () => {
                                                 }
                                             >
                                                 <div>
-                                                    <FaCog style={{ margin: '0 15px' }} size='1.5em' title="Draft Settings" color={draft.Submitted ? 'silver' : '#5895B2'}/>
+                                                    <FaCog style={{ margin: '0 15px' }} size='1.5em' title="Draft Settings" color='#5895B2'/>
                                                     Settings
                                                 </div>
                                             </OverlayTrigger>
