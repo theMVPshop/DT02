@@ -11,7 +11,7 @@ export const Home = () => {
             <div className="home-upper-content">
                 <section className="d-flex flex-wrap justify-content-around align-items-center pb-5">
                     <div className="mx-5">
-                        <h1 className="text-primary">Stop!</h1>
+                        <h1 className="text-primary">Stop it!</h1>
                         <p className="h4">You have one job: <strong>finish the draft.</strong></p>
                         <ul className="mt-3">
                             <li>Stop listening to spellcheck. <strong>Just write.</strong></li>
@@ -21,8 +21,8 @@ export const Home = () => {
                             <li>Stop getting in your own way. <strong>Just write.</strong></li>
                         </ul>
                     </div>
-                    <div className="mx-5">
-                        <h2 style={{fontFamily: "monospace", minWidth: "21em"}} className="my-4 pl-3">
+                    <div className="home-image-div mx-5">
+                        <h2 className="typing-effect my-4 pl-3">
                             <ReactTypingEffect
                                 text={["Writing a first draft is hard...", "It's not about perfection...", "It's all about getting started!"]}
                                 // typingDelay={1000}
@@ -31,7 +31,10 @@ export const Home = () => {
                                 eraseSpeed={100}
                             />
                         </h2>
-                        <HomeImage width="500" />
+                        <div className="home-image">
+                            {/* <HomeImage width="500" /> */}
+                            <HomeImage />
+                        </div>
                     </div>
                 </section>
             </div>
