@@ -335,25 +335,11 @@ export const Dashboard = () => {
             <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
             <h1 className=" text-primary">Dashboard</h1>
             <h3 className=" my-3">{`Hello, ${name}`}</h3>
-            <h2 className="mb-4 text-primary">My Drafts</h2>
-            <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4" >
-                <Link to="/newdraft">
+            <h2 className="mb-4 text-secondary">My Drafts</h2>
+            <div className="container d-flex w-100 p-0 justify-content-center align-items-end mb-4" >
+                <Link id="newDraftBtn" to="/newdraft">
                     <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                 </Link>
-                
-                {/* <OverlayTrigger
-                    key="User Settings"
-                    placement="top"
-                    overlay={
-                        <Tooltip id={"tooltop-userSettings"}>
-                        User Settings
-                        </Tooltip>
-                    }
-                >
-                    <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
-                        <FaUserCog size='1.5em' />
-                    </div>
-                </OverlayTrigger> */}
             </div>
                 <LoadingDashboard />
                 <UserSettingsModal />
