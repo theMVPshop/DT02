@@ -49,11 +49,7 @@ export const Dashboard = () => {
     
 
     const handleGetProjects = () => {
-<<<<<<< HEAD
         axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/user/projects/${uid}`).then( res => {
-=======
-        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//user/projects/${uid}`).then( res => {
->>>>>>> 1dbf4386abfcd494973f72e0537e8a3305757340
             setProjects(res.data)
             setLoadingDrafts(false)
         })
@@ -118,11 +114,7 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
-<<<<<<< HEAD
         axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/submit/${draft.idProjects}`, {submitted: 1})
-=======
-        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/submit/${draft.idProjects}`, {submitted: 1})
->>>>>>> 1dbf4386abfcd494973f72e0537e8a3305757340
             .then(res => {
                 console.log('submitting project', res)
             })
@@ -136,11 +128,7 @@ export const Dashboard = () => {
         }
 
         console.log('sending email to', mailOptions)
-<<<<<<< HEAD
         axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
-=======
-        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//mailer/send`, mailOptions).then( res => {
->>>>>>> 1dbf4386abfcd494973f72e0537e8a3305757340
             console.log('email sent', res)
         })
     }
