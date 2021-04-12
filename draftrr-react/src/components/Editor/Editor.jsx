@@ -71,7 +71,7 @@ export const Editor = () => {
     const handleSubmit = () => {
 
         console.log('submitting project!')
-        axios.put(`http://localhost:4000/projects/submit/${currentProject.idProjects}`, {submitted: 1})
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/submit/${currentProject.idProjects}`, {submitted: 1})
             .then(res => {
                 console.log('project submitted!', res)
             })
@@ -82,10 +82,10 @@ export const Editor = () => {
             to: currentProject.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="http://localhost:3000/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://draftrr.com/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
         }
         console.log('sending email to', mailOptions)
-        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
             console.log('email sent', res)
             
         })

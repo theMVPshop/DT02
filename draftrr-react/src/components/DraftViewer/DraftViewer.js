@@ -5,6 +5,7 @@ import {PDFViewer, PDFDownloadLink} from '@react-pdf/renderer'
 import { DraftrrContext } from '../../context/DraftrrContext'
 import {Spinner} from 'react-bootstrap'
 import axios from 'axios'
+import { Document } from 'react-pdf'
 
 export default function DraftViewer() {
 

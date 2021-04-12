@@ -49,7 +49,7 @@ export const Dashboard = () => {
     
 
     const handleGetProjects = () => {
-        axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => {
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/user/projects/${uid}`).then( res => {
             setProjects(res.data)
             setLoadingDrafts(false)
         })
@@ -117,7 +117,7 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
-        axios.put(`http://localhost:4000/projects/submit/${draft.idProjects}`, {submitted: 1})
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/submit/${draft.idProjects}`, {submitted: 1})
             .then(res => {
                 console.log('submitting project', res)
             })
@@ -127,11 +127,11 @@ export const Dashboard = () => {
             to: draft.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="http://localhost:3000/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://draftrr.com/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
         }
 
         console.log('sending email to', mailOptions)
-        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
             console.log('email sent', res)
         })
     }

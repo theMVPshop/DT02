@@ -8,7 +8,7 @@ const projectRoutes = require('./routes/projects')
 const emailRoutes = require('./routes/mailer')
 const db = require("./mongodb/models");
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT
 
 const app = express();
 app.use(bodyParser.json())
