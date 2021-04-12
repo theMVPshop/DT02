@@ -107,7 +107,7 @@ export function DraftrrProvider({ children }) {
     }, [currentProject])
 
     const createProject = (payload) => {
-        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects`, payload)
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects`, payload)
             .then(res => {
                 console.log('project created!', res)
 
@@ -125,7 +125,7 @@ export function DraftrrProvider({ children }) {
     const createTextFile = () => {
         const payload = { text: '' }
         let newState = currentProject
-        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//text/create`, payload)
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/create`, payload)
             .then(res => {
 
 
@@ -144,7 +144,7 @@ export function DraftrrProvider({ children }) {
 
     const updateTextFile = (payload) => {
 
-        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//text/${currentProject.Text_ID}`, payload)
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${currentProject.Text_ID}`, payload)
             .then(res => {
                 console.log('text file updated!', JSON.parse(res.config.data).text)
                 setDocument(JSON.parse(res.config.data).text)
@@ -153,7 +153,7 @@ export function DraftrrProvider({ children }) {
 
     const updateProject = () => {
         const payload = currentProject
-        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/${currentProject.idProjects}`, payload)
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${currentProject.idProjects}`, payload)
             .then(res => {
                 console.log('project updated!', res)
             })
@@ -161,11 +161,11 @@ export function DraftrrProvider({ children }) {
     }
 
     const deleteProject = (sqlID, textID, idx) => {
-        axios.delete(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/${sqlID}`)
+        axios.delete(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${sqlID}`)
             .then(res => {
                 console.log('SQL entry deleted!', res)
             })
-        axios.delete(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//text/${textID}`)
+        axios.delete(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${textID}`)
             .then(res => {
                 console.log('mongo entry deleted!', res)
             })
@@ -177,14 +177,14 @@ export function DraftrrProvider({ children }) {
     }
 
     const getProject = (id) => {
-        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/${id}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${id}`)
             .then(res => {
                 return res
             })
     }
 
     const getDraft = (id) => {
-        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//text/${id}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${id}`)
             .then(res => {
                 console.log('getting project', res.data.text)
                 return res
