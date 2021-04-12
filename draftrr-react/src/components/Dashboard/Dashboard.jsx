@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     const history = useHistory();
 
-    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject, projectsUpdated, setProjectsUpdated} = useContext(DraftrrContext)
+    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject, projectsUpdated} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
@@ -49,7 +49,11 @@ export const Dashboard = () => {
     
 
     const handleGetProjects = () => {
+<<<<<<< HEAD
         axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/user/projects/${uid}`).then( res => {
+=======
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//user/projects/${uid}`).then( res => {
+>>>>>>> 1dbf4386abfcd494973f72e0537e8a3305757340
             setProjects(res.data)
             setLoadingDrafts(false)
         })
@@ -84,9 +88,6 @@ export const Dashboard = () => {
             Locked: true,
             Submitted: false
         })
-
-        handleGetProjects()
-        setProjectsUpdated(!projectsUpdated)
         
     }
 
@@ -117,7 +118,11 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
+<<<<<<< HEAD
         axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/submit/${draft.idProjects}`, {submitted: 1})
+=======
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/submit/${draft.idProjects}`, {submitted: 1})
+>>>>>>> 1dbf4386abfcd494973f72e0537e8a3305757340
             .then(res => {
                 console.log('submitting project', res)
             })
@@ -131,7 +136,11 @@ export const Dashboard = () => {
         }
 
         console.log('sending email to', mailOptions)
+<<<<<<< HEAD
         axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
+=======
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//mailer/send`, mailOptions).then( res => {
+>>>>>>> 1dbf4386abfcd494973f72e0537e8a3305757340
             console.log('email sent', res)
         })
     }
@@ -327,6 +336,10 @@ export const Dashboard = () => {
 
     useEffect(() => {
         handleGetProjects()
+    }, [])
+
+    useEffect(() => {
+        handleGetProjects()
     }, [projectsUpdated])
 
     return (
@@ -334,25 +347,11 @@ export const Dashboard = () => {
             <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
             <h1 className=" text-primary">Dashboard</h1>
             <h3 className=" my-3">{`Hello, ${name}`}</h3>
-            <h2 className="mb-4 text-primary">My Drafts</h2>
-            <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4" >
-                <Link to="/newdraft">
+            <h2 className="mb-4 text-secondary">My Drafts</h2>
+            <div className="container d-flex w-100 p-0 justify-content-center align-items-end mb-4" >
+                <Link id="newDraftBtn" to="/newdraft">
                     <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                 </Link>
-                
-                {/* <OverlayTrigger
-                    key="User Settings"
-                    placement="top"
-                    overlay={
-                        <Tooltip id={"tooltop-userSettings"}>
-                        User Settings
-                        </Tooltip>
-                    }
-                >
-                    <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
-                        <FaUserCog size='1.5em' />
-                    </div>
-                </OverlayTrigger> */}
             </div>
                 <LoadingDashboard />
                 <UserSettingsModal />

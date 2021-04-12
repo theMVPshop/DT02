@@ -1,7 +1,7 @@
-export const HomeImage = ({width}) => {
+export const HomeImage = () => {
     return (
             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                    width={width} viewBox="0 0 568.941 364.768" enableBackground="new 0 0 568.941 364.768"
+                    viewBox="0 0 568.941 364.768" enableBackground="new 0 0 568.941 364.768"
                 >
                 <g>
                     <g>

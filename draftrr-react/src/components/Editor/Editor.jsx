@@ -23,12 +23,12 @@ export const Editor = () => {
     const history = useHistory()
 
     useEffect(()=> {
-        axios.get(`http://localhost:4000/text/${textID}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${textID}`)
             .then(res => {
                 setDocument(res.data.text)
             });
 
-        axios.get(`http://localhost:4000/projects/${idProjects}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${idProjects}`)
             .then(res => {
                 setCurrentProject(res.data[0])
             })
@@ -82,7 +82,7 @@ export const Editor = () => {
             to: currentProject.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="https://draftrr.com/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
         }
         console.log('sending email to', mailOptions)
         axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
