@@ -23,14 +23,14 @@ export default function DraftViewer() {
     useEffect(()=> {
 
 
-        axios.get(`http://localhost:4000/text/${textID}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//text/${textID}`)
             .then(res => {
                 console.log('getting project text', res.data.text)
                 setText(res.data.text)
                 setLoaded(true)
             });
 
-        axios.get(`http://localhost:4000/projects/${idProjects}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/${idProjects}`)
             .then(res => {
                 console.log('getting project', res.data[0])
                 if(res.data[0].Locked === 0) {
@@ -43,7 +43,7 @@ export default function DraftViewer() {
     const handleUnlock = () => {
         
         
-        axios.put(`http://localhost:4000/projects/unlock/${idProjects}`, {locked: 0})
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/unlock/${idProjects}`, {locked: 0})
             .then(res => {
                 console.log('unlocking project', res)
                 setLocked(false)

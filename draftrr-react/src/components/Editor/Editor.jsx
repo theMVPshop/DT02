@@ -23,12 +23,12 @@ export const Editor = () => {
     const history = useHistory()
 
     useEffect(()=> {
-        axios.get(`http://localhost:4000/text/${textID}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//text/${textID}`)
             .then(res => {
                 setDocument(res.data.text)
             });
 
-        axios.get(`http://localhost:4000/projects/${idProjects}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/${idProjects}`)
             .then(res => {
                 setCurrentProject(res.data[0])
             })
@@ -71,7 +71,7 @@ export const Editor = () => {
     const handleSubmit = () => {
 
         console.log('submitting project!')
-        axios.put(`http://localhost:4000/projects/submit/${currentProject.idProjects}`, {submitted: 1})
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/submit/${currentProject.idProjects}`, {submitted: 1})
             .then(res => {
                 console.log('project submitted!', res)
             })
@@ -85,7 +85,7 @@ export const Editor = () => {
             html: `<p>Click <a href="http://localhost:3000/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
         }
         console.log('sending email to', mailOptions)
-        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//mailer/send`, mailOptions).then( res => {
             console.log('email sent', res)
             
         })

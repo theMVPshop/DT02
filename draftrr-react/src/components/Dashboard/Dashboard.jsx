@@ -49,7 +49,7 @@ export const Dashboard = () => {
     
 
     const handleGetProjects = () => {
-        axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => {
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//user/projects/${uid}`).then( res => {
             setProjects(res.data)
             setLoadingDrafts(false)
         })
@@ -114,7 +114,7 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
-        axios.put(`http://localhost:4000/projects/submit/${draft.idProjects}`, {submitted: 1})
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//projects/submit/${draft.idProjects}`, {submitted: 1})
             .then(res => {
                 console.log('submitting project', res)
             })
@@ -128,7 +128,7 @@ export const Dashboard = () => {
         }
 
         console.log('sending email to', mailOptions)
-        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest//mailer/send`, mailOptions).then( res => {
             console.log('email sent', res)
         })
     }
