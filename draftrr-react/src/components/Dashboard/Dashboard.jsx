@@ -124,7 +124,7 @@ export const Dashboard = () => {
             to: draft.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="https://draftrr.com/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
         }
 
         console.log('sending email to', mailOptions)
