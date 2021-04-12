@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     const history = useHistory();
 
-    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject, projectsUpdated, setProjectsUpdated} = useContext(DraftrrContext)
+    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject, projectsUpdated} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
@@ -84,9 +84,6 @@ export const Dashboard = () => {
             Locked: true,
             Submitted: false
         })
-
-        handleGetProjects()
-        setProjectsUpdated(!projectsUpdated)
         
     }
 
@@ -324,6 +321,10 @@ export const Dashboard = () => {
             )
         }
     }
+
+    useEffect(() => {
+        handleGetProjects()
+    }, [])
 
     useEffect(() => {
         handleGetProjects()

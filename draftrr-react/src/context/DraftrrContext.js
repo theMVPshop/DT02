@@ -157,6 +157,7 @@ export function DraftrrProvider({ children }) {
             .then(res => {
                 console.log('project updated!', res)
             })
+            .then(() => setProjectsUpdated(!projectsUpdated))
     }
 
     const deleteProject = (sqlID, textID, idx) => {
