@@ -6,7 +6,7 @@ export const Card = ({card}) => {
             <div className="home-card d-flex flex-column align-items-center">
                 <h3 className="card-heading">Zero Distraction</h3>
                 <div className="w-80 p-2">
-                    <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In ornare quam viverra orci sagittis eu volutpat.</p>
+                    <p className="card-text">Focus... That's the goal. Keep moving forward... That's the strategy.  We've removed all the artiface of the modern writing application and built in features designed to keep you moving forward</p>
                 </div>
             </div>
         )
@@ -15,7 +15,7 @@ export const Card = ({card}) => {
             <div className="home-card d-flex flex-column align-items-center">
             <h3 className="card-heading">Minimal Editing</h3>
             <div className="w-80 p-2">
-                <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Consequat interdum varius sit amet mattis vulputate enim.</p>
+                <p className="card-text">Write now, edit later... The first draft should be the worst draft... Let it be what it's supposed to be... a proof of concept.  </p>
             </div>
         </div>
         )
@@ -24,7 +24,7 @@ export const Card = ({card}) => {
             <div className="home-card d-flex flex-column align-items-center">
             <h3 className="card-heading">100% Accountability</h3>
             <div className="w-80 p-2">
-                <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Quisque sagittis purus sit amet volutpat consequat mauris nunc congue.</p>
+                <p className="card-text">When you create a new document, you are asked to choose an accountability buddy.  Only they can unlock the first draft.  The sooner you fininsh, the sooner you regain control of the work.</p>
             </div>
         </div>
         )
