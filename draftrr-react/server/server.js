@@ -8,13 +8,14 @@ const projectRoutes = require('./routes/projects')
 const emailRoutes = require('./routes/mailer')
 const db = require("./mongodb/models");
 
-const port = process.env.PORT || 4000
+const port = process.env.PORT
 
 const app = express();
 app.use(bodyParser.json())
 app.use(cors())
 
 app.get('/home', (req, res) => { res.send("Backend says Welcome Home!") })
+app.get('/', (req, res) => { res.send("Draftrr: Spellcheck on the next draft!") })
 
 // use the /api prefix to divert requests for data from request for pages
 app.use('/', userRoutes)
@@ -26,7 +27,9 @@ app.use('/', emailRoutes)
 
 require("./mongodb/routes/draftrr.routes")(app)
 
-app.listen(port, () => console.log(`Server is listening on port: ${port}`))
+// app.listen(port, () => console.log(`Server is listening on port: ${port}`))
+
+
 
 db.mongoose
   .connect(db.url, {
@@ -41,5 +44,5 @@ db.mongoose
     process.exit();
   });
 
-
+  module.exports = app;
 

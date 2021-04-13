@@ -21,7 +21,7 @@ export const Dashboard = () => {
 
     const history = useHistory();
 
-    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject} = useContext(DraftrrContext)
+    const {currentPage, setCurrentPage, currentUser, projects, setProjects, setCurrentProject, deleteProject, setSettingsOpen, updateProject, projectsUpdated} = useContext(DraftrrContext)
 
     const uid = currentUser.uid
     const name = currentUser.displayName
@@ -49,7 +49,7 @@ export const Dashboard = () => {
     
 
     const handleGetProjects = () => {
-        axios.get(`http://localhost:4000/user/projects/${uid}`).then( res => {
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/user/projects/${uid}`).then( res => {
             setProjects(res.data)
             setLoadingDrafts(false)
         })
@@ -84,8 +84,6 @@ export const Dashboard = () => {
             Locked: true,
             Submitted: false
         })
-
-        handleGetProjects()
         
     }
 
@@ -116,7 +114,7 @@ export const Dashboard = () => {
     const handleClose = () => setShowDeleteModal(false);
 
     const handleSubmit = (draft) => {
-        axios.put(`http://localhost:4000/projects/submit/${draft.idProjects}`, {submitted: 1})
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/submit/${draft.idProjects}`, {submitted: 1})
             .then(res => {
                 console.log('submitting project', res)
             })
@@ -126,11 +124,11 @@ export const Dashboard = () => {
             to: draft.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="http://localhost:3000/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
         }
 
         console.log('sending email to', mailOptions)
-        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
             console.log('email sent', res)
         })
     }
@@ -281,7 +279,7 @@ export const Dashboard = () => {
                                                 </div>
                                             </OverlayTrigger>
                                         </Dropdown.Item>
-                                        <Dropdown.Item onClick={()=> draft.Submitted !== 1 ? handleShowModal(draft) : null}>
+                                        <Dropdown.Item onClick={()=> handleShowModal(draft) }>
                                             <OverlayTrigger
                                                 key="Draft Settings"
                                                 placement="top"
@@ -292,7 +290,7 @@ export const Dashboard = () => {
                                                 }
                                             >
                                                 <div>
-                                                    <FaCog style={{ margin: '0 15px' }} size='1.5em' title="Draft Settings" color={draft.Submitted ? 'silver' : '#5895B2'}/>
+                                                    <FaCog style={{ margin: '0 15px' }} size='1.5em' title="Draft Settings" color='#5895B2'/>
                                                     Settings
                                                 </div>
                                             </OverlayTrigger>
@@ -328,30 +326,20 @@ export const Dashboard = () => {
         handleGetProjects()
     }, [])
 
+    useEffect(() => {
+        handleGetProjects()
+    }, [projectsUpdated])
+
     return (
         <div className="container body-container w-50 d-flex flex-column align-items-center ">
             <SettingsModal handleUpdate={handleUpdate} saveSettings={saveSettings} showModal={showModal} handleCloseModal={handleCloseModal}/>
             <h1 className=" text-primary">Dashboard</h1>
             <h3 className=" my-3">{`Hello, ${name}`}</h3>
-            <h2 className="mb-4 text-primary">My Drafts</h2>
-            <div className="container d-flex w-100 p-0 justify-content-between align-items-end mb-4" >
-                <Link to="/newdraft">
+            <h2 className="mb-4 text-secondary">My Drafts</h2>
+            <div className="container d-flex w-100 p-0 justify-content-center align-items-end mb-4" >
+                <Link id="newDraftBtn" to="/newdraft">
                     <Button className="btn btn-primary rounded-6 btn-lg">New Draft</Button>
                 </Link>
-                
-                {/* <OverlayTrigger
-                    key="User Settings"
-                    placement="top"
-                    overlay={
-                        <Tooltip id={"tooltop-userSettings"}>
-                        User Settings
-                        </Tooltip>
-                    }
-                >
-                    <div className="btn btn-primary rounded-6 btn-lg" onClick={handleSettings}>
-                        <FaUserCog size='1.5em' />
-                    </div>
-                </OverlayTrigger> */}
             </div>
                 <LoadingDashboard />
                 <UserSettingsModal />

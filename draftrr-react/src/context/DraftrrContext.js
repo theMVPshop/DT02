@@ -6,6 +6,7 @@ import { db, auth } from '../firebase'
 export const DraftrrContext = React.createContext()
 
 export function DraftrrProvider({ children }) {
+    const [projectsUpdated, setProjectsUpdated] = useState(false)
     const [currentPage, setCurrentPage] = useState("")
     const [loginOpen, setLoginOpen] = useState(false)
     const [settingsOpen, setSettingsOpen] = useState(false)
@@ -27,16 +28,16 @@ export function DraftrrProvider({ children }) {
         Title: '',
         ProjectTimeframe: 10,
         ProjectMaxCharacters: 200,
-        ProjectFont: 'helvetica',
         TrusteeName: '',
         TrusteeEmail: '',
         Text_ID: '',
         Users_ID: '',
         Locked: true,
-        Submitted: false
+        Submitted: false,
+        Username: ''
     })
 
-  
+
 
     function handleCredentials(event) {
         setCredentials({ ...credentials, [event.target.name]: event.target.value })
@@ -106,14 +107,15 @@ export function DraftrrProvider({ children }) {
     }, [currentProject])
 
     const createProject = (payload) => {
-        axios.post(`http://localhost:4000/projects`, payload)
-        .then(res => { console.log('project created!',  res) 
-        
-        let newState = JSON.parse(res.config.data)
-        newState.idProjects = res.data.newId
-        setCurrentProject(newState)
-    
-        })
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects`, payload)
+            .then(res => {
+                console.log('project created!', res)
+
+                let newState = JSON.parse(res.config.data)
+                newState.idProjects = res.data.newId
+                setCurrentProject(newState)
+
+            })
     }
 
     useEffect(() => {
@@ -123,46 +125,47 @@ export function DraftrrProvider({ children }) {
     const createTextFile = () => {
         const payload = { text: '' }
         let newState = currentProject
-        axios.post(`http://localhost:4000/text/create`, payload)
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/create`, payload)
             .then(res => {
-                
-               
+
+
                 newState.Text_ID = res.data.id
                 console.log('user id', currentUser.uid)
                 newState.Users_ID = currentUser.uid
                 newState.Locked = true
                 newState.Submitted = false
-                newState.ProjectFont = 'helvetica'
+                newState.Username = currentUser.displayName
                 console.log('current project', currentProject)
             }).then(res => {
-                
+
                 createProject(newState)
             })
     }
 
     const updateTextFile = (payload) => {
-        
-        axios.put(`http://localhost:4000/text/${currentProject.Text_ID}`, payload)
+
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${currentProject.Text_ID}`, payload)
             .then(res => {
-                console.log('response updated', JSON.parse(res.config.data).text)
+                console.log('text file updated!', JSON.parse(res.config.data).text)
                 setDocument(JSON.parse(res.config.data).text)
             })
     }
 
     const updateProject = () => {
         const payload = currentProject
-        axios.put(`http://localhost:4000/projects/${currentProject.idProjects}`, payload)
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${currentProject.idProjects}`, payload)
             .then(res => {
                 console.log('project updated!', res)
             })
+            .then(() => setProjectsUpdated(!projectsUpdated))
     }
 
     const deleteProject = (sqlID, textID, idx) => {
-        axios.delete(`http://localhost:4000/projects/${sqlID}`)
+        axios.delete(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${sqlID}`)
             .then(res => {
                 console.log('SQL entry deleted!', res)
             })
-        axios.delete(`http://localhost:4000/text/${textID}`)
+        axios.delete(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${textID}`)
             .then(res => {
                 console.log('mongo entry deleted!', res)
             })
@@ -174,14 +177,14 @@ export function DraftrrProvider({ children }) {
     }
 
     const getProject = (id) => {
-        axios.get(`http://localhost:4000/projects/${id}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${id}`)
             .then(res => {
                 return res
             })
     }
 
     const getDraft = (id) => {
-        axios.get(`http://localhost:4000/text/${id}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${id}`)
             .then(res => {
                 console.log('getting project', res.data.text)
                 return res
@@ -189,6 +192,7 @@ export function DraftrrProvider({ children }) {
     }
 
     const value = {
+        projectsUpdated, setProjectsUpdated,
         currentPage, setCurrentPage,
         currentUser,
         credentials,

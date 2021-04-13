@@ -23,12 +23,12 @@ export const Editor = () => {
     const history = useHistory()
 
     useEffect(()=> {
-        axios.get(`http://localhost:4000/text/${textID}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${textID}`)
             .then(res => {
                 setDocument(res.data.text)
             });
 
-        axios.get(`http://localhost:4000/projects/${idProjects}`)
+        axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/${idProjects}`)
             .then(res => {
                 setCurrentProject(res.data[0])
             })
@@ -69,17 +69,27 @@ export const Editor = () => {
     
     //clear interval, save document and upload to DB
     const handleSubmit = () => {
-                                
-        handleSaveAndExit() 
+
+        console.log('submitting project!')
+        axios.put(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/projects/submit/${currentProject.idProjects}`, {submitted: 1})
+            .then(res => {
+                console.log('project submitted!', res)
+            })
+                                     
+        
         const mailOptions = {
             from: 'rockman4447@gmail.com',
             to: currentProject.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="http://localhost:3000/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
         }
-        axios.post(`http://localhost:4000/mailer/send`, mailOptions).then( res => {
+        console.log('sending email to', mailOptions)
+        axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
+            console.log('email sent', res)
+            
         })
+        handleSaveAndExit() 
 }
     
     //possible interval for autosaving progress, still thinking on this one
@@ -195,15 +205,14 @@ export const Editor = () => {
                     <button onClick={handleSubmit} className="btn btn-primary rounded-6">Submit</button>
                 </div>
             </div>
+            <input style={{border: "none", color: "transparent", width: "1px", caretColor: "transparent"}} type="text" autoFocus/>
             <div id="mainTextBox">
-                    <div className="d-flex align-items-center">
-                        <span className="d-flex">
-                            {visible && visible.map((item, index) => {
-                                return <div key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</div>
-                            })}
-                        </span>
-                        <span className="flashing">|</span>
-                    </div>
+                <div className="d-flex align-items-center flex-wrap">
+                    {visible && visible.map((item, index) => {
+                        return <span key={index} style={item.isLocked ? {color: 'red'} : null}>{item.key === " "  ? <>&nbsp;</> : item.key === 'Enter' ? <><br/></> : item.key}</span>
+                    })}
+                    <span className="flashing">|</span>
+                </div>
             </div>
         </div>
     )
