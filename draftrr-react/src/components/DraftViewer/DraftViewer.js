@@ -59,7 +59,9 @@ export default function DraftViewer() {
     if(loaded) {
         return (
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '50px', marginBottom: '50px'}}>
-                {currentUser.uid !== uid  && locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button> : null}
+                {currentUser && currentUser.uid !== uid  && locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button> 
+                                          : !currentUser && locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button>
+                                          : null}
                 <PDFViewer width="60%" height="1200" className="app" >
                                 <Draft text={text} title={currentProject.Title} name={currentProject.Username} />
                 </PDFViewer>
