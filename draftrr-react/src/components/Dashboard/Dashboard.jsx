@@ -27,6 +27,7 @@ export const Dashboard = () => {
     const name = currentUser.displayName
 
     useEffect(()=>{
+        console.log('currentUser', currentUser.uid)
         setCurrentProject({
             Title: '',
             ProjectTimeframe: 10,
@@ -99,7 +100,7 @@ export const Dashboard = () => {
 
     const handleView = (payload) => {
         setCurrentProject(payload)
-        history.push(`/draftviewer/${payload.idProjects}/${payload.Text_ID}`)
+        history.push(`/draftviewer/${payload.idProjects}/${payload.Text_ID}/${currentUser.uid}`)
     }
     
     const handleDelete = (project, idx) => {
@@ -124,7 +125,7 @@ export const Dashboard = () => {
             to: draft.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${draft.idProjects}/${draft.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${draft.idProjects}/${draft.Text_ID}/${currentUser.uid}">here</a> to view the Draft!</p>`
         }
 
         console.log('sending email to', mailOptions)

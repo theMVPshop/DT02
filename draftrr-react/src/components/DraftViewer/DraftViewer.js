@@ -15,13 +15,15 @@ export default function DraftViewer() {
 
     const {currentUser, currentProject, setCurrentProject, getDraft, document, getProject} = useContext(DraftrrContext)
 
-    const { idProjects, textID } = useParams()
+    const { idProjects, textID, uid } = useParams()
 
     // const name = currentUser.displayName
-
+    console.log('uid', uid)
+    console.log('currentUser.uid', currentUser.uid)
     
 
     useEffect(()=> {
+        
 
 
         axios.get(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/text/${textID}`)
@@ -57,7 +59,7 @@ export default function DraftViewer() {
     if(loaded) {
         return (
             <div style={{display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', marginTop: '50px', marginBottom: '50px'}}>
-                {!currentUser && locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button> : null}
+                {currentUser.uid !== uid  && locked ? <button  className="btn btn-primary rounded-6 mb-5" onClick={handleUnlock}>Unlock Project</button> : null}
                 <PDFViewer width="60%" height="1200" className="app" >
                                 <Draft text={text} title={currentProject.Title} name={currentProject.Username} />
                 </PDFViewer>

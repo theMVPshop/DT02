@@ -20,7 +20,7 @@ export const Router = () => {
             <Route path="/editor/:idProjects/:textID" component={Editor} />
             <Route path="/settings" component={Settings} />
             <Route path="/form" component={NewDraftForm} />
-            <Route path="/draftviewer/:idProjects/:textID" component={DraftViewer} />
+            <Route path="/draftviewer/:idProjects/:textID/:uid" component={DraftViewer} />
         </Switch>
     )
 }

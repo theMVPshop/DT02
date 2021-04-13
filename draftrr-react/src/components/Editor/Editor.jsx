@@ -16,7 +16,7 @@ export const Editor = () => {
     const [ visible, setVisible ] = useState([])
     const [ showModal, setShowModal ] = useState(false)
 
-    const { document, setDocument, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
+    const { document, currentUser, setDocument, updateTextFile, currentProject, setCurrentProject, updateProject} = useContext(DraftrrContext)
 
     const { idProjects, textID } = useParams()
 
@@ -82,7 +82,7 @@ export const Editor = () => {
             to: currentProject.TrusteeEmail,
             subject: 'Sending Email using Node.js',
             text: 'That was easy!',
-            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/">here</a> to view the Draft!</p>`
+            html: `<p>Click <a href="https://www.draftrr.com/draftviewer/${currentProject.idProjects}/${currentProject.Text_ID}/${currentUser.uid}">here</a> to view the Draft!</p>`
         }
         console.log('sending email to', mailOptions)
         axios.post(`https://q6ik9h220m.execute-api.us-east-2.amazonaws.com/latest/mailer/send`, mailOptions).then( res => {
