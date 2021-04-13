@@ -18,8 +18,6 @@ export default function DraftViewer() {
     const { idProjects, textID, uid } = useParams()
 
     // const name = currentUser.displayName
-    console.log('uid', uid)
-    console.log('currentUser.uid', currentUser.uid)
     
 
     useEffect(()=> {
